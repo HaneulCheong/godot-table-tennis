@@ -19,21 +19,17 @@ public class Player : KinematicBody2D
 				rawVelocity.y += 1;
 			}
 
-			return rawVelocity * Speed;
-		}
-		set
-		{
-			Velocity = value;
+			return rawVelocity * Player.Speed;
 		}
 	}
 
 	public override void _Ready()
 	{
-		this.Position = GetViewportRect().Size / 2;
+		this.Position = this.GetViewport().Size / 2;
 	}
 
 	public override void _PhysicsProcess(float delta)
 	{
-		this.MoveAndSlide(Velocity);
+		this.MoveAndSlide(this.Velocity);
 	}
 }
