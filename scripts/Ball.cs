@@ -25,7 +25,7 @@ public class Ball : KinematicBody2D
             this.Velocity = this.Velocity.Bounce(collisionObject.Normal);
             this.Velocity.x *= 1.01f;
             this.Velocity.y *= 1.02f;
-            GD.Print($"{Math.Abs(this.Velocity.x)}, {Math.Abs(this.Velocity.y)}");
+            // GD.Print($"{Math.Abs(this.Velocity.x)}, {Math.Abs(this.Velocity.y)}");
         }
     }
 }
