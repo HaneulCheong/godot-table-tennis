@@ -23,13 +23,6 @@ public class Player : KinematicBody2D
         }
     }
 
-
-    public override void _Ready()
-    {
-        this.Position = new Vector2(50, this.GetViewport().Size.y / 2);
-    }
-
-
     public override void _PhysicsProcess(float delta)
     {
         this.MoveAndSlide(this.Velocity);
