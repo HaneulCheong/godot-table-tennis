@@ -4,14 +4,14 @@ using Godot;
 
 public class Ball : KinematicBody2D
 {
-    private static Random RandNumGen = new Random();
-    private static float Speed = 200;
+    private Random RandNumGen = new Random();
+    private const float Speed = 200;
     public Vector2 Velocity = new Vector2();
 
     public override void _Ready()
     {
-        this.Velocity.x = Ball.RandNumGen.Next(2) == 1 ? 1.0f : -1.0f;
-        this.Velocity.y = Ball.RandNumGen.Next(2) == 1 ? 0.8f : -0.8f;
+        this.Velocity.x = this.RandNumGen.Next(2) == 1 ? 1.0f : -1.0f;
+        this.Velocity.y = this.RandNumGen.Next(2) == 1 ? 0.8f : -0.8f;
     }
 
     public override void _PhysicsProcess(float delta)
@@ -25,7 +25,7 @@ public class Ball : KinematicBody2D
             this.Velocity = this.Velocity.Bounce(collisionObject.Normal);
             this.Velocity.x *= 1.01f;
             this.Velocity.y *= 1.02f;
-            GD.Print(Math.Abs(this.Velocity.x));
+            GD.Print($"{Math.Abs(this.Velocity.x)}, {Math.Abs(this.Velocity.y)}");
         }
     }
 }

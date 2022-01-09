@@ -3,7 +3,7 @@ using Godot;
 
 public class Player : KinematicBody2D
 {
-    private const int Speed = 400;
+    private const int MaxSpeed = 400;
     public Vector2 Velocity
     {
         get
@@ -25,6 +25,6 @@ public class Player : KinematicBody2D
 
     public override void _PhysicsProcess(float delta)
     {
-        this.MoveAndSlide(this.Velocity * Player.Speed);
+        this.MoveAndSlide(this.Velocity * Player.MaxSpeed);
     }
 }
