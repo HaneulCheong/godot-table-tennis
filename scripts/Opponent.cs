@@ -35,9 +35,28 @@ public class Opponent : Paddle
     }
     /// <summary><c>Ball</c> 노드를 저장해두는 속성</summary>
     private KinematicBody2D Ball;
+    /// <summary>플레이어 점수에 따라 단계적으로 올라갈 기준 속력의 단위 변동량</summary>
+    private static int SpeedStep = 20;
 
     public override void _Ready()
     {
+        this.Speed = 400 - (SpeedStep * 11);
         this.Ball = this.GetNode<KinematicBody2D>("../Ball");  // Ball 노드 저장
+        
+        base._Ready();
+    }
+
+    /// <summary>플레이어 점수에 따라 기준 속력을
+    /// 상향 조정한 뒤 초기 위치로 돌아갑니다.</summary>
+    public override void Reset()
+    {
+        int playerScore = this.GetNode<Label>("../PlayerScore").Text.ToInt();
+        this.Speed = 400 - (SpeedStep * (11 - playerScore));
+        if (this.Speed > base.Speed)
+        {
+            this.Speed = base.Speed;
+        }
+
+        base.Reset();
     }
 }

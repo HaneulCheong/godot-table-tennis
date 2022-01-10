@@ -7,7 +7,13 @@ public class Ball : KinematicBody2D
 {
     private Random RandNumGen = new Random();
     /// <summary>기준 속력</summary>
-    private float Speed = 200;
+    private float Speed
+    {
+        get
+        {
+            return 200;
+        }
+    }
     /// <summary>현재 속도</summary>
     public Vector2 Velocity = new Vector2();
 
@@ -37,7 +43,8 @@ public class Ball : KinematicBody2D
         }
     }
 
-    /// <summary>초기 위치로 돌아갑니다.</summary>
+    /// <summary>초기 위치로 돌아간 뒤 무작위 대각선 방향을
+    /// <c>Velocity</c>로 선택합니다.</summary>
     public void Reset()
     {
         this.Position = this.GetViewport().Size / 2;
