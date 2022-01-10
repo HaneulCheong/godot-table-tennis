@@ -15,12 +15,9 @@ public abstract class Paddle : KinematicBody2D
         this.MoveAndSlide(this.Velocity * this.Speed);
     }
 
-    /// <summary>스페이스 바를 누를 경우 게임을 다시 시작합니다.</summary>
-    public override void _Process(float delta)
+    /// <summary>초기 위치로 돌아갑니다.</summary>
+    public void Reset()
     {
-        if (Input.IsActionPressed("ui_select"))
-        {
-            this.Position = new Vector2(this.Position.x, this.GetViewport().Size.y / 2);
-        }
+        this.Position = new Vector2(this.Position.x, this.GetViewport().Size.y / 2);
     }
 }

@@ -37,14 +37,11 @@ public class Ball : KinematicBody2D
         }
     }
 
-    /// <summary>스페이스 바를 누를 경우 게임을 다시 시작합니다.</summary>
-    public override void _Process(float delta)
+    /// <summary>초기 위치로 돌아갑니다.</summary>
+    public void Reset()
     {
-        if (Input.IsActionPressed("ui_select"))
-        {
-            this.Position = this.GetViewport().Size / 2;
-            this.Velocity.x = this.RandNumGen.Next(2) == 1 ? 1.0f : -1.0f;
-            this.Velocity.y = this.RandNumGen.Next(2) == 1 ? 0.8f : -0.8f;
-        }
+        this.Position = this.GetViewport().Size / 2;
+        this.Velocity.x = this.RandNumGen.Next(2) == 1 ? 1.0f : -1.0f;
+        this.Velocity.y = this.RandNumGen.Next(2) == 1 ? 0.8f : -0.8f;
     }
 }
