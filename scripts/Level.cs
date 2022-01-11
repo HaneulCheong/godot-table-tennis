@@ -17,9 +17,9 @@ public class Level : Node
     ////////////////////
 
     /// <value>플레이어 점수</value>
-    public int PlayerScore { get; private set; } = 10;
+    public int PlayerScore { get; private set; } = 0;
     /// <value>적 점수</value>
-    public int OpponentScore { get; private set; } = 10;
+    public int OpponentScore { get; private set; } = 0;
 
     ////////////////////
     // Godot 메서드
