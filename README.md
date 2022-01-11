@@ -16,4 +16,4 @@
 
 ## 빌드하기
 이 git은 clone할 시 엔진 안에서 새 프로젝트로 들일 수 있습니다.<br>
-그 뒤 [공식 내보내기 안내](https://docs.godotengine.org/ko/stable/tutorials/export/exporting_basics.html)을 따라하시면 됩니다.
+그 뒤 [공식 내보내기 안내](https://docs.godotengine.org/ko/stable/tutorials/export/exporting_basics.html)를 따라하시면 됩니다.

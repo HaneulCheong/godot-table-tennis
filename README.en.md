@@ -15,5 +15,5 @@ A game of [Pong](https://ko.wikipedia.org/wiki/%ED%90%81) powered by [Godot Engi
 \[ESC]: Quit Game
 
 ## Build
-When cloned, the git can be imported as a new project within the Engine.<br>
+When cloned, this git can be imported as a new project within the Engine.<br>
 Follow [the official export guide](https://docs.godotengine.org/en/stable/getting_started/workflow/export/exporting_projects.html) afterwards.
