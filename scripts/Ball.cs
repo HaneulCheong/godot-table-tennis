@@ -12,7 +12,9 @@ public class Ball : KinematicBody2D
     /// <summary>난수 생성기</summary>
     private readonly Random _randNumGen = new Random();
     /// <summary>기준 속력</summary>
-    public readonly float Speed = 200;
+    protected float Speed = 200;
+    /// <summary>초기 기준 속력</summary>
+    protected float InitialSpeed;
 
     ////////////////////
     // 속성
@@ -25,9 +27,10 @@ public class Ball : KinematicBody2D
     // Godot 메서드
     ////////////////////
 
-    /// <summary>Godot 내장 <c>_Ready</c> 메소드입니다.</summary>
+    /// <summary>초기 속도를 설정한 뒤 초기화합니다.</summary>
     public override void _Ready()
     {
+        InitialSpeed = Speed;
         Reset();
     }
 
@@ -52,16 +55,29 @@ public class Ball : KinematicBody2D
     }
 
     ////////////////////
-    // 메서드
+    // Godot 시그널 메서드
     ////////////////////
 
-    /// <summary>초기 위치로 돌아간 뒤 무작위 대각선 방향을
-    /// <c>Velocity</c>로 선택합니다.</summary>
-    public void Reset()
+    /// <summary>ServeTimer 노드에서 Timeout 시그널이 들어오면
+    /// 공의 속력과 속도를 모두 초기화합니다.</summary>
+    private void _OnServeTimerTimeout()
     {
-        Position = GetViewport().Size / 2;
+        Speed = InitialSpeed;
         float x = _randNumGen.Next(2) == 1 ? 1.0f : -1.0f;
         float y = _randNumGen.Next(2) == 1 ? 0.8f : -0.8f;
         Velocity = new Vector2(x, y);
+    }
+
+    ////////////////////
+    // 메서드
+    ////////////////////
+
+    /// <summary>정지 후 화면 가운데로 돌아간 뒤
+    /// ServeTimer 노드의 타이머를 시작합니다.</summary>
+    public void Reset()
+    {
+        Speed = 0;
+        Position = GetViewport().Size / 2;
+        GetNode<Timer>("ServeTimer").Start();
     }
 }

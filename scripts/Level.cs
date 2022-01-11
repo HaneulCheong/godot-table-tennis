@@ -6,13 +6,20 @@ using Godot;
 public class Level : Node
 {
     ////////////////////
+    // 상수
+    ////////////////////
+
+    /// <summary>매치를 이기기 위해 필요한 점수, 즉 매치포인트</summary>
+    public const int MatchPoint = 11;
+
+    ////////////////////
     // 속성
     ////////////////////
 
     /// <value>플레이어 점수</value>
-    public int PlayerScore { get; private set; }
+    public int PlayerScore { get; private set; } = 10;
     /// <value>적 점수</value>
-    public int OpponentScore { get; private set; }
+    public int OpponentScore { get; private set; } = 10;
 
     ////////////////////
     // Godot 메서드
@@ -32,7 +39,11 @@ public class Level : Node
         {
             PlayerScore = 0;
             OpponentScore = 0;
-            Reset();
+
+            // TODO: 메서드 또는 그룹으로 처리
+            GetNode<Label>("MatchResult").Visible = false;
+            GetNode<Sprite>("Background/Net").Visible = true;
+            GetTree().CallGroup("ResetGroup", "Reset");
         }
 
         // 현재 양 쪽의 점수를 각자의 Label 노드로 전달합니다.
@@ -40,35 +51,53 @@ public class Level : Node
         GetNode<Label>("OpponentScore").Text = OpponentScore.ToString();
     }
 
+    ////////////////////
+    // Godot 시그널 메서드
+    ////////////////////
+
     /// <summary>
     /// <c>LeftArea</c> 노드에 다른 오브젝트(여기서는 공)이
-    /// 닿았을 경우 Signal에 의해 호출됩니다.
+    /// 닿았을 경우의 시그널 의해 호출됩니다.
     /// </summary>
     private void _OnLeftAreaBodyEntered(object body)
     {
         OpponentScore++;
-        Reset();
+        if (OpponentScore < MatchPoint)
+        {
+            GetNode<Timer>("NextGameTimer").Start();
+        }
+        else
+        {
+            // TODO: 메서드 또는 그룹으로 처리
+            GetNode<Label>("MatchResult").Text = "You Lose!";
+            GetNode<Label>("MatchResult").Visible = true;
+            GetNode<Sprite>("Background/Net").Visible = false;
+        }
     }
 
     /// <summary>
     /// <c>RightArea</c> 노드에 다른 오브젝트(여기서는 공)이
-    /// 닿았을 경우 Signal에 의해 호출됩니다.
+    /// 닿았을 경우의 시그널 의해 호출됩니다.
     /// </summary>
     private void _OnRightAreaBodyEntered(object body)
     {
         PlayerScore++;
-        Reset();
+        if (PlayerScore < MatchPoint)
+        {
+            GetNode<Timer>("NextGameTimer").Start();
+        }
+        else
+        {
+            // TODO: 메서드 또는 그룹으로 처리
+            GetNode<Label>("MatchResult").Text = "You Win!";
+            GetNode<Label>("MatchResult").Visible = true;
+            GetNode<Sprite>("Background/Net").Visible = false;
+        }
     }
 
-    ////////////////////
-    // 메서드
-    ////////////////////
-
-    /// <summary>게임을 다시 시작합니다.</summary>
-    private void Reset()
+    /// <summary>다음 게임을 준비합니다.</summary>
+    private void _OnNextGameTimerTimeout()
     {
         GetNode<Ball>("Ball").Reset();
-        GetNode<Paddle>("Player").Reset();
-        GetNode<Paddle>("Opponent").Reset();
     }
 }

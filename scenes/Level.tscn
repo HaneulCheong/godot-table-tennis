@@ -1,4 +1,4 @@
-[gd_scene load_steps=11 format=2]
+[gd_scene load_steps=12 format=2]
 
 [ext_resource path="res://scripts/Level.cs" type="Script" id=1]
 [ext_resource path="res://scenes/Player.tscn" type="PackedScene" id=2]
@@ -6,6 +6,7 @@
 [ext_resource path="res://scenes/Ball.tscn" type="PackedScene" id=4]
 [ext_resource path="res://assets/sprites/net.webp" type="Texture" id=5]
 [ext_resource path="res://assets/fonts/neodgm.ttf" type="DynamicFontData" id=6]
+[ext_resource path="res://assets/fonts/NeoDGM.tres" type="DynamicFont" id=7]
 
 [sub_resource type="RectangleShape2D" id=3]
 extents = Vector2( 16, 360 )
@@ -17,7 +18,7 @@ extents = Vector2( 640, 16 )
 extents = Vector2( 640, 16 )
 
 [sub_resource type="DynamicFont" id=4]
-size = 64
+size = 32
 font_data = ExtResource( 6 )
 
 [node name="Level" type="Node"]
@@ -32,7 +33,7 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="Sprite" type="Sprite" parent="Background"]
+[node name="Net" type="Sprite" parent="Background" groups=["VisibilityToggleGroup"]]
 position = Vector2( 640, 360 )
 texture = ExtResource( 5 )
 
@@ -85,14 +86,18 @@ __meta__ = {
 "_edit_lock_": true
 }
 
-[node name="Opponent" parent="." instance=ExtResource( 3 )]
+[node name="Opponent" parent="." groups=["ResetGroup", "VisibilityToggleGroup"] instance=ExtResource( 3 )]
 position = Vector2( 1200, 360 )
 
-[node name="Player" parent="." instance=ExtResource( 2 )]
+[node name="Player" parent="." groups=["ResetGroup", "VisibilityToggleGroup"] instance=ExtResource( 2 )]
 position = Vector2( 80, 360 )
 
 [node name="Ball" parent="." instance=ExtResource( 4 )]
 position = Vector2( 640, 360 )
+
+[node name="ServeTimer" type="Timer" parent="Ball"]
+wait_time = 2.0
+one_shot = true
 
 [node name="PlayerScore" type="Label" parent="."]
 anchor_right = 1.0
@@ -101,11 +106,12 @@ margin_left = 320.0
 margin_right = -640.0
 margin_bottom = -592.0
 custom_colors/font_color = Color( 1, 1, 1, 1 )
-custom_fonts/font = SubResource( 4 )
+custom_fonts/font = ExtResource( 7 )
 text = "0"
 align = 1
 valign = 1
 __meta__ = {
+"_edit_lock_": true,
 "_edit_use_anchors_": false
 }
 
@@ -116,13 +122,57 @@ margin_left = 640.0
 margin_right = -320.0
 margin_bottom = -592.0
 custom_colors/font_color = Color( 1, 1, 1, 1 )
-custom_fonts/font = SubResource( 4 )
+custom_fonts/font = ExtResource( 7 )
 text = "0"
 align = 1
 valign = 1
 __meta__ = {
+"_edit_lock_": true,
 "_edit_use_anchors_": false
 }
 
+[node name="MatchResult" type="Label" parent="." groups=["VisibilityToggleGroup"]]
+visible = false
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -640.0
+margin_top = -360.0
+margin_right = 640.0
+margin_bottom = 340.0
+custom_fonts/font = ExtResource( 7 )
+text = "You Win!"
+align = 1
+valign = 1
+uppercase = true
+__meta__ = {
+"_edit_lock_": true,
+"_edit_use_anchors_": false
+}
+
+[node name="RestartPrompt" type="Label" parent="MatchResult"]
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -640.0
+margin_right = 640.0
+margin_bottom = 100.0
+custom_fonts/font = SubResource( 4 )
+text = "Press Space to restart"
+align = 1
+valign = 1
+uppercase = true
+__meta__ = {
+"_edit_lock_": true,
+"_edit_use_anchors_": false
+}
+
+[node name="NextGameTimer" type="Timer" parent="."]
+one_shot = true
+
 [connection signal="body_entered" from="LeftArea" to="." method="_OnLeftAreaBodyEntered"]
 [connection signal="body_entered" from="RightArea" to="." method="_OnRightAreaBodyEntered"]
+[connection signal="timeout" from="Ball/ServeTimer" to="Ball" method="_OnServeTimerTimeout"]
+[connection signal="timeout" from="NextGameTimer" to="." method="_OnNextGameTimerTimeout"]
