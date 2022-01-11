@@ -13,12 +13,15 @@ config_version=4
 config/name="MyPong"
 run/main_scene="res://scenes/Level.tscn"
 config/icon="res://icon.webp"
+config/windows_native_icon="res://icon.ico"
 
 [display]
 
 window/size/width=1280
 window/size/height=720
-window/size/resizable=false
+window/vsync/vsync_via_compositor=true
+window/stretch/mode="2d"
+window/stretch/aspect="keep"
 
 [input]
 

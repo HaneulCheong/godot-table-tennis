@@ -1,31 +1,50 @@
 using Godot;
 
 
-/// <summary>모든 라켓의 기본이 되는 <c>abstract</c> 클래스</summary>
+/// <summary>모든 라켓의 기본이 되는 추상 클래스</summary>
 public abstract class Paddle : KinematicBody2D
 {
-    /// <summary>초기 X 좌표</summary>
-    protected float InitialX;
-    /// <summary>기준 속력</summary>
-    protected float Speed = 400;
-    /// <summary>현재 속도</summary>
+    ////////////////////
+    // 필드
+    ////////////////////
+
+    /// <summary>초기 위치</summary>
+    protected Vector2 InitialPosition;
+
+    ////////////////////
+    // 속성
+    ////////////////////
+
+    /// <value>기준 속력</value>
+    public float Speed { get; protected set; } = 400;
+    /// <value>현재 상대 속도</value>
     public abstract Vector2 Velocity { get; }
 
-    /// <summary>초기 X 좌표를 저장합니다.</summary>
+    ////////////////////
+    // Godot 메서드
+    ////////////////////
+
+    /// <summary>Godot 내장 <c>_Ready</c> 메소드입니다.</summary>
     public override void _Ready()
     {
-        InitialX = this.Position.x;
+        InitialPosition = Position;  // 초기 위치 저장
+        Reset();
     }
 
-    /// <summary>매 틱마다 <c>Velocity</c>에 <c>Speed</c>를 곱한 값 만큼 움직입니다.</summary>
+    /// <summary>매 틱마다 <c>Velocity</c>에
+    /// <c>Speed</c>를 곱한 값 만큼 움직입니다.</summary>
     public override void _PhysicsProcess(float delta)
     {
-        this.MoveAndSlide(this.Velocity * this.Speed);
+        MoveAndSlide(Velocity * Speed);
     }
+
+    ////////////////////
+    // 메서드
+    ////////////////////
 
     /// <summary>초기 위치로 돌아갑니다.</summary>
     virtual public void Reset()
     {
-        this.Position = new Vector2(this.InitialX, this.GetViewport().Size.y / 2);
+        Position = InitialPosition;
     }
 }

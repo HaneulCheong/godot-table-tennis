@@ -4,59 +4,84 @@ using Godot;
 /// <summary>간단한 인공지능이 조종하는 적 라켓 노드</summary>
 public class Opponent : Paddle
 {
-    /// <summary>인공지능이 공과 자신의 위치를 비교해 <c>Velocity.y</c>를 결정합니다.</summary>
+    ////////////////////
+    // 필드
+    ////////////////////
+
+    /// <summary>플레이어 점수에 따라 단계적으로 올라갈 기준 속력의 단위 변동량</summary>
+    public const int SpeedStep = 25;
+    /// <summary>초기 기준 속력</summary>
+    public readonly float InitialSpeed;
+
+    ////////////////////
+    // 속성
+    ////////////////////
+
+    /// <value>
+    /// 현재 상대 속도.
+    /// 인공지능이 공과 자신의 위치를 비교해
+    /// <c>Velocity.y</c>를 결정합니다.
+    /// </value>
     public override Vector2 Velocity
     {
         get
         {
             Vector2 value = new Vector2();
 
+            KinematicBody2D Player = GetNode<KinematicBody2D>("../Player");
+            KinematicBody2D Ball = GetNode<KinematicBody2D>("../Ball");
+
             if (
-                (Ball.Position.x < this.Position.x) &&  // 게임 진행 중
-                (System.Math.Abs(Ball.Position.y - this.Position.y) > 25)  // 공과 자신의 y 좌표가 기준치 이상으로 벌어짐
+                // 게임 진행 중
+                (Ball.Position.x < Position.x) &&
+                (Ball.Position.x > Player.Position.x) &&
+                // 공과 자신의 y 좌표가 기준치 이상으로 벌어짐
+                (System.Math.Abs(Ball.Position.y - Position.y) > 25)
             )
             {
-                if (Ball.Position.y > this.Position.y)
-                {
-                    value.y = 1;  // 위로
-                }
-                else if (Ball.Position.y < this.Position.y)
-                {
-                    value.y = -1;  // 아래로
-                }
-                else
-                {
-                    value.y = 0;
-                }
+                if (Ball.Position.y > Position.y) { value.y = 1; }  // 위로 
+                else if (Ball.Position.y < Position.y) { value.y = -1; }  // 아래로
+                else { value.y = 0; }  // 현상 유지
             }
 
             return value;
         }
     }
-    /// <summary><c>Ball</c> 노드를 저장해두는 속성</summary>
-    private KinematicBody2D Ball;
-    /// <summary>플레이어 점수에 따라 단계적으로 올라갈 기준 속력의 단위 변동량</summary>
-    private static int SpeedStep = 20;
 
-    public override void _Ready()
+    ////////////////////
+    // 생성자
+    ////////////////////
+
+    /// <summary><c>Opponent</c> 클래스의 생성자입니다.</summary>
+    public Opponent()
     {
-        this.Speed = 400 - (SpeedStep * 11);
-        this.Ball = this.GetNode<KinematicBody2D>("../Ball");  // Ball 노드 저장
-        
-        base._Ready();
+        InitialSpeed = Speed;  // 초기 기준 속력 저장
     }
 
-    /// <summary>플레이어 점수에 따라 기준 속력을
-    /// 상향 조정한 뒤 초기 위치로 돌아갑니다.</summary>
+    ////////////////////
+    // Godot 메서드
+    ////////////////////
+
+    /// <summary>Godot 내장 <c>_Ready</c> 메소드입니다.</summary>
+    public override void _Ready()
+    {
+        base._Ready();
+        Speed = InitialSpeed - SpeedStep * 11;  // 최초 속도 하향 조정
+    }
+
+    ////////////////////
+    // 메서드
+    ////////////////////
+
+    /// <summary>초기 위치로 돌아간 뒤 플레이어 점수에 따라
+    /// 기준 속력을 상향 조정합니다.</summary>
     public override void Reset()
     {
-        int playerScore = this.GetNode<Label>("../PlayerScore").Text.ToInt();
-        this.Speed = 400 - (SpeedStep * (11 - playerScore));
-        if (this.Speed > base.Speed)
-        {
-            this.Speed = base.Speed;
-        }
-
         base.Reset();
+
+        // 플레이어 점수에 따라 기준 속력 상향 조정
+        int playerScore = GetNode<Label>("../PlayerScore").Text.ToInt();
+        Speed = InitialSpeed - SpeedStep * (11 - playerScore);
+        if (Speed > InitialSpeed) { Speed = InitialSpeed; }
     }
 }
