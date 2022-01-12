@@ -66,22 +66,26 @@ public class Opponent : Paddle
     public override void _Ready()
     {
         base._Ready();
-        Speed = InitialSpeed - SpeedStep * 11;  // 최초 속도 하향 조정
+        AdjustSpeed();
     }
 
     ////////////////////
     // 메서드
     ////////////////////
 
+    /// <summary>플레이어 점수에 따라 기준 속력을 상향 조정합니다.</summary>
+    public void AdjustSpeed()
+    {
+        int playerScore = GetNode<Level>("..").PlayerScore;
+        Speed = InitialSpeed - SpeedStep * (11 - playerScore);
+        if (Speed > InitialSpeed) { Speed = InitialSpeed; }
+    }
+
     /// <summary>초기 위치로 돌아간 뒤 플레이어 점수에 따라
     /// 기준 속력을 상향 조정합니다.</summary>
     public override void Reset()
     {
         base.Reset();
-
-        // 플레이어 점수에 따라 기준 속력 상향 조정
-        int playerScore = GetNode<Label>("../PlayerScore").Text.ToInt();
-        Speed = InitialSpeed - SpeedStep * (11 - playerScore);
-        if (Speed > InitialSpeed) { Speed = InitialSpeed; }
+        AdjustSpeed();
     }
 }

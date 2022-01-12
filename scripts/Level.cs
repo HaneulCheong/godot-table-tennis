@@ -62,10 +62,12 @@ public class Level : Node
     private void _OnLeftAreaBodyEntered(object body)
     {
         OpponentScore++;
+        // OpponentScore가 매치 포인트가 아닐 경우
         if (OpponentScore < MatchPoint)
         {
             GetNode<Timer>("NextGameTimer").Start();
         }
+        // OpponentScore가 매치 포인트일 경우
         else
         {
             // TODO: 메서드 또는 그룹으로 처리
@@ -82,10 +84,12 @@ public class Level : Node
     private void _OnRightAreaBodyEntered(object body)
     {
         PlayerScore++;
+        // PlayerScore가 매치 포인트가 아닐 경우
         if (PlayerScore < MatchPoint)
         {
             GetNode<Timer>("NextGameTimer").Start();
         }
+        // PlayerScore가 매치 포인트일 경우
         else
         {
             // TODO: 메서드 또는 그룹으로 처리
@@ -98,6 +102,7 @@ public class Level : Node
     /// <summary>다음 게임을 준비합니다.</summary>
     private void _OnNextGameTimerTimeout()
     {
+        GetNode<Opponent>("Opponent").AdjustSpeed();
         GetNode<Ball>("Ball").Reset();
     }
 }
