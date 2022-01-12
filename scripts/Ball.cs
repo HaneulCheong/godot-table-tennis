@@ -3,7 +3,7 @@ using Godot;
 
 
 /// <summary>공 노드</summary>
-public class Ball : KinematicBody2D
+public class Ball : KinematicBody2D, IMatchPointGroup
 {
     ////////////////////
     // 필드
@@ -72,10 +72,16 @@ public class Ball : KinematicBody2D
     // 메서드
     ////////////////////
 
+    public void MatchPoint()
+    {
+        Visible = false;
+    }
+
     /// <summary>정지 후 화면 가운데로 돌아간 뒤
     /// ServeTimer 노드의 타이머를 시작합니다.</summary>
     public void Reset()
     {
+        Visible = true;
         Speed = 0;
         Position = GetViewport().Size / 2;
         GetNode<Timer>("ServeTimer").Start();

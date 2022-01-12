@@ -17,9 +17,9 @@ public class Level : Node
     ////////////////////
 
     /// <value>플레이어 점수</value>
-    public int PlayerScore { get; private set; } = 0;
+    public int PlayerScore { get; private set; } = 10;
     /// <value>적 점수</value>
-    public int OpponentScore { get; private set; } = 0;
+    public int OpponentScore { get; private set; } = 10;
 
     ////////////////////
     // Godot 메서드
@@ -39,11 +39,7 @@ public class Level : Node
         {
             PlayerScore = 0;
             OpponentScore = 0;
-
-            // TODO: 메서드 또는 그룹으로 처리
-            GetNode<Label>("MatchResult").Visible = false;
-            GetNode<Sprite>("Background/Net").Visible = true;
-            GetTree().CallGroup("ResetGroup", "Reset");
+            GetTree().CallGroup("MatchPointGroup", "Reset");
         }
 
         // 현재 양 쪽의 점수를 각자의 Label 노드로 전달합니다.
@@ -70,10 +66,7 @@ public class Level : Node
         // OpponentScore가 매치 포인트일 경우
         else
         {
-            // TODO: 메서드 또는 그룹으로 처리
-            GetNode<Label>("MatchResult").Text = "You Lose!";
-            GetNode<Label>("MatchResult").Visible = true;
-            GetNode<Sprite>("Background/Net").Visible = false;
+            GetTree().CallGroup("MatchPointGroup", "MatchPoint");
         }
     }
 
@@ -92,10 +85,7 @@ public class Level : Node
         // PlayerScore가 매치 포인트일 경우
         else
         {
-            // TODO: 메서드 또는 그룹으로 처리
-            GetNode<Label>("MatchResult").Text = "You Win!";
-            GetNode<Label>("MatchResult").Visible = true;
-            GetNode<Sprite>("Background/Net").Visible = false;
+            GetTree().CallGroup("MatchPointGroup", "MatchPoint");
         }
     }
 
