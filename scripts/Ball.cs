@@ -1,32 +1,33 @@
 using Godot;
 
 
-/// <summary>공 노드</summary>
+/// <summary>공을 구현하는 <c>KinematicBody2D</c> 노드</summary>
 public class Ball : KinematicBody2D, IMatchPointGroup
 {
     ////////////////////
     // 속성
     ////////////////////
 
-    /// <summary>움직임 여부</summary>
+    /// <value>움직임 여부</value>
     private bool Moving { get; set; } = true;
-    /// <summary>기준 속력</summary>
+
+    /// <value>상대 속도</value>
+    private Vector2 Velocity { get; set; }
+
+    /// <value>기준 속력</value>
     private float Speed { get; } = 200;
-    /// <summary>현재 상대 속도</summary>
-    private Vector2 Velocity { get; set;}
 
     ////////////////////
     // Godot 메서드
     ////////////////////
 
-    /// <summary>초기화합니다.</summary>
+    /// <summary>이 노드의 <c>_Ready</c> 메소드입니다.</summary>
     public override void _Ready()
     {
         Reset();
     }
 
-    /// <summary>매 틱마다 이동하며, 물체와 충돌 시 튕겨져 나옵니다.
-    /// 또한, 시간이 지날 수록 격하게 움직입니다.</summary>
+    /// <summary>이 노드의 <c>_PhysicsProcess</c> 메소드입니다.</summary>
     public override void _PhysicsProcess(float delta)
     {
         if (Moving)
@@ -52,14 +53,9 @@ public class Ball : KinematicBody2D, IMatchPointGroup
     // Godot 시그널 메서드
     ////////////////////
 
-    /// <summary>ServeTimer 노드에서 Timeout 시그널이 들어오면
-    /// 공의 속력과 속도를 모두 초기화합니다.</summary>
+    /// ServeTimer 노드의 Timeout 시그널로 호출됩니다.
     private void _OnServeTimerTimeout()
     {
-        Velocity = new Vector2(
-            RandomTools.Choice<float>(new float[] {1.0f, -1.0f}),
-            RandomTools.Choice<float>(new float[] {0.8f, -0.8f})
-        );
         Moving = true;
     }
 
@@ -67,6 +63,7 @@ public class Ball : KinematicBody2D, IMatchPointGroup
     // 메서드
     ////////////////////
 
+    /// <summary>이 노드를 숨깁니다.</summary>
     public void MatchPoint()
     {
         Visible = false;
@@ -79,6 +76,11 @@ public class Ball : KinematicBody2D, IMatchPointGroup
         Visible = true;
         Moving = false;
         Position = GetViewport().Size / 2;
+        // 속도 초기화
+        Velocity = new Vector2(
+            RandomTools.Choice<float>(new float[] {1.0f, -1.0f}),
+            RandomTools.Choice<float>(new float[] {0.8f, -0.8f})
+        );
         GetNode<Timer>("ServeTimer").Start();
     }
 }

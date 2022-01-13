@@ -1,13 +1,25 @@
 using System;
 
 
-internal class RandomTools
+/// <summary>C# 내장 <c>Random</c> 클래스를 이용하는
+/// 유용한 메서드를 모아놓은 정적 클래스</summary>
+internal static class RandomTools
 {
-    private static readonly Random _random = new Random();
+    ////////////////////
+    // 속성
+    ////////////////////
 
-    public static T Choice<T>(T[] array)
+    private static Random RNG { get; } = new Random();
+
+    ////////////////////
+    // 메서드
+    ////////////////////
+
+    /// <summary>주어진 <c>choices</c> 배열의 멤버 중 하나를 골라 반환합니다.</summary>
+    /// <param name="choices">선택지의 배열</param>
+    public static T Choice<T>(T[] choices)
     {
-        int index = _random.Next(array.Length);
-        return array[index];
+        int index = RNG.Next(choices.Length);
+        return choices[index];
     }
 }
