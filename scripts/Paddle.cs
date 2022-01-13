@@ -5,20 +5,21 @@ using Godot;
 public abstract class Paddle : KinematicBody2D, IMatchPointGroup
 {
     ////////////////////
-    // 필드
+    // 상수
     ////////////////////
 
-    /// <summary>초기 위치</summary>
-    protected Vector2 InitialPosition;
+    protected const float initialSpeed = 400;
 
     ////////////////////
     // 속성
     ////////////////////
 
+    /// <summary>초기 위치</summary>
+    private Vector2 InitialPosition { get; set; }
     /// <value>기준 속력</value>
-    public float Speed { get; protected set; } = 400;
+    protected float Speed { get; set; } = initialSpeed;
     /// <value>현재 상대 속도</value>
-    public abstract Vector2 Velocity { get; }
+    public abstract Vector2 Direction { get; }
 
     ////////////////////
     // Godot 메서드
@@ -35,7 +36,7 @@ public abstract class Paddle : KinematicBody2D, IMatchPointGroup
     /// <c>Speed</c>를 곱한 값 만큼 움직입니다.</summary>
     public override void _PhysicsProcess(float delta)
     {
-        MoveAndSlide(Velocity * Speed);
+        MoveAndCollide(Direction * Speed * delta);
     }
 
     ////////////////////

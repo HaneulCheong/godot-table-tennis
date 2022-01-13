@@ -10,6 +10,10 @@
 [ext_resource path="res://scripts/Net.cs" type="Script" id=8]
 [ext_resource path="res://scripts/MatchResult.cs" type="Script" id=9]
 
+[sub_resource type="DynamicFont" id=4]
+size = 32
+font_data = ExtResource( 6 )
+
 [sub_resource type="RectangleShape2D" id=3]
 extents = Vector2( 16, 360 )
 
@@ -19,18 +23,18 @@ extents = Vector2( 640, 16 )
 [sub_resource type="RectangleShape2D" id=2]
 extents = Vector2( 640, 16 )
 
-[sub_resource type="DynamicFont" id=4]
-size = 32
-font_data = ExtResource( 6 )
-
 [node name="Level" type="Node"]
 script = ExtResource( 1 )
+
+[node name="NextGameTimer" type="Timer" parent="."]
+one_shot = true
 
 [node name="Background" type="ColorRect" parent="."]
 anchor_right = 1.0
 anchor_bottom = 1.0
 color = Color( 0.0627451, 0.0627451, 0.0627451, 1 )
 __meta__ = {
+"_edit_group_": true,
 "_edit_lock_": true,
 "_edit_use_anchors_": false
 }
@@ -39,6 +43,78 @@ __meta__ = {
 position = Vector2( 640, 360 )
 texture = ExtResource( 5 )
 script = ExtResource( 8 )
+
+[node name="PlayerScore" type="Label" parent="."]
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = 320.0
+margin_right = -640.0
+margin_bottom = -592.0
+custom_colors/font_color = Color( 1, 1, 1, 1 )
+custom_fonts/font = ExtResource( 7 )
+text = "0"
+align = 1
+valign = 1
+__meta__ = {
+"_edit_lock_": true,
+"_edit_use_anchors_": false
+}
+
+[node name="OpponentScore" type="Label" parent="."]
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = 640.0
+margin_right = -320.0
+margin_bottom = -592.0
+custom_colors/font_color = Color( 1, 1, 1, 1 )
+custom_fonts/font = ExtResource( 7 )
+text = "0"
+align = 1
+valign = 1
+__meta__ = {
+"_edit_lock_": true,
+"_edit_use_anchors_": false
+}
+
+[node name="MatchResult" type="Label" parent="." groups=["MatchPointGroup"]]
+visible = false
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -640.0
+margin_top = -360.0
+margin_right = 640.0
+margin_bottom = 340.0
+custom_fonts/font = ExtResource( 7 )
+text = "You Win!"
+align = 1
+valign = 1
+uppercase = true
+script = ExtResource( 9 )
+__meta__ = {
+"_edit_group_": true,
+"_edit_lock_": true,
+"_edit_use_anchors_": false
+}
+
+[node name="RestartPrompt" type="Label" parent="MatchResult"]
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -640.0
+margin_right = 640.0
+margin_bottom = 100.0
+custom_fonts/font = SubResource( 4 )
+text = "Press Space to restart"
+align = 1
+valign = 1
+uppercase = true
+__meta__ = {
+"_edit_lock_": true,
+"_edit_use_anchors_": false
+}
 
 [node name="LeftArea" type="Area2D" parent="."]
 position = Vector2( 640, 360 )
@@ -98,85 +174,6 @@ position = Vector2( 80, 360 )
 [node name="Ball" parent="." groups=["MatchPointGroup"] instance=ExtResource( 4 )]
 position = Vector2( 640, 360 )
 
-[node name="ServeTimer" type="Timer" parent="Ball"]
-wait_time = 2.0
-one_shot = true
-
-[node name="PlayerScore" type="Label" parent="."]
-anchor_right = 1.0
-anchor_bottom = 1.0
-margin_left = 320.0
-margin_right = -640.0
-margin_bottom = -592.0
-custom_colors/font_color = Color( 1, 1, 1, 1 )
-custom_fonts/font = ExtResource( 7 )
-text = "0"
-align = 1
-valign = 1
-__meta__ = {
-"_edit_lock_": true,
-"_edit_use_anchors_": false
-}
-
-[node name="OpponentScore" type="Label" parent="."]
-anchor_right = 1.0
-anchor_bottom = 1.0
-margin_left = 640.0
-margin_right = -320.0
-margin_bottom = -592.0
-custom_colors/font_color = Color( 1, 1, 1, 1 )
-custom_fonts/font = ExtResource( 7 )
-text = "0"
-align = 1
-valign = 1
-__meta__ = {
-"_edit_lock_": true,
-"_edit_use_anchors_": false
-}
-
-[node name="MatchResult" type="Label" parent="." groups=["MatchPointGroup"]]
-visible = false
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-margin_left = -640.0
-margin_top = -360.0
-margin_right = 640.0
-margin_bottom = 340.0
-custom_fonts/font = ExtResource( 7 )
-text = "You Win!"
-align = 1
-valign = 1
-uppercase = true
-script = ExtResource( 9 )
-__meta__ = {
-"_edit_lock_": true,
-"_edit_use_anchors_": false
-}
-
-[node name="RestartPrompt" type="Label" parent="MatchResult"]
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-margin_left = -640.0
-margin_right = 640.0
-margin_bottom = 100.0
-custom_fonts/font = SubResource( 4 )
-text = "Press Space to restart"
-align = 1
-valign = 1
-uppercase = true
-__meta__ = {
-"_edit_lock_": true,
-"_edit_use_anchors_": false
-}
-
-[node name="NextGameTimer" type="Timer" parent="."]
-one_shot = true
-
+[connection signal="timeout" from="NextGameTimer" to="." method="_OnNextGameTimerTimeout"]
 [connection signal="body_entered" from="LeftArea" to="." method="_OnLeftAreaBodyEntered"]
 [connection signal="body_entered" from="RightArea" to="." method="_OnRightAreaBodyEntered"]
-[connection signal="timeout" from="Ball/ServeTimer" to="Ball" method="_OnServeTimerTimeout"]
-[connection signal="timeout" from="NextGameTimer" to="." method="_OnNextGameTimerTimeout"]

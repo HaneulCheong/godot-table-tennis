@@ -1,14 +1,20 @@
 using Godot;
-using System;
+
 
 public class Net : Sprite, IMatchPointGroup
 {
     public override void _Ready()
     {
-        Visible = true;
+        Reset();
     }
 
-    public void MatchPoint() { Visible = false; }
+    public void MatchPoint()
+    {
+        Visible = false;
+    }
 
-    public void Reset() { Visible = true; }
+    public void Reset()
+    {
+        Visible = true;
+    }
 }

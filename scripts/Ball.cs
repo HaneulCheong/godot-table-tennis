@@ -1,4 +1,3 @@
-using System;
 using Godot;
 
 
@@ -6,31 +5,23 @@ using Godot;
 public class Ball : KinematicBody2D, IMatchPointGroup
 {
     ////////////////////
-    // 필드
-    ////////////////////
-
-    /// <summary>난수 생성기</summary>
-    private readonly Random _randNumGen = new Random();
-    /// <summary>기준 속력</summary>
-    protected float Speed = 200;
-    /// <summary>초기 기준 속력</summary>
-    protected float InitialSpeed;
-
-    ////////////////////
     // 속성
     ////////////////////
 
-    /// <value>현재 상대 속도</value>
-    public Vector2 Velocity { get; private set; } = new Vector2();
+    /// <summary>움직임 여부</summary>
+    private bool Moving { get; set; } = true;
+    /// <summary>기준 속력</summary>
+    private float Speed { get; } = 200;
+    /// <summary>현재 상대 속도</summary>
+    private Vector2 Velocity { get; set;}
 
     ////////////////////
     // Godot 메서드
     ////////////////////
 
-    /// <summary>초기 속도를 설정한 뒤 초기화합니다.</summary>
+    /// <summary>초기화합니다.</summary>
     public override void _Ready()
     {
-        InitialSpeed = Speed;
         Reset();
     }
 
@@ -38,19 +29,22 @@ public class Ball : KinematicBody2D, IMatchPointGroup
     /// 또한, 시간이 지날 수록 격하게 움직입니다.</summary>
     public override void _PhysicsProcess(float delta)
     {
-        KinematicCollision2D collisionObject = MoveAndCollide(
-            Velocity * Speed * delta
-        );
-
-        // 충돌 시 튕겨져 나오며 Velocity를 조정합니다.
-        if (collisionObject != null)
+        if (Moving)
         {
-            Velocity = Velocity.Bounce(collisionObject.Normal);
-
-            // 시간이 지날 수록 위아래로 격하게 움직입니다.
-            Velocity = new Vector2(
-                Velocity.x * 1.01f, Velocity.y * 1.02f
+            KinematicCollision2D collisionObject = MoveAndCollide(
+                Velocity * Speed * delta
             );
+
+            // 충돌 시 튕겨져 나오며 Velocity를 조정합니다.
+            if (collisionObject != null)
+            {
+                Velocity = Velocity.Bounce(collisionObject.Normal);
+
+                // 시간이 지날 수록 위아래로 격하게 움직입니다.
+                Velocity = new Vector2(
+                    Velocity.x * 1.01f, Velocity.y * 1.02f
+                );
+            }
         }
     }
 
@@ -62,10 +56,11 @@ public class Ball : KinematicBody2D, IMatchPointGroup
     /// 공의 속력과 속도를 모두 초기화합니다.</summary>
     private void _OnServeTimerTimeout()
     {
-        Speed = InitialSpeed;
-        float x = _randNumGen.Next(2) == 1 ? 1.0f : -1.0f;
-        float y = _randNumGen.Next(2) == 1 ? 0.8f : -0.8f;
-        Velocity = new Vector2(x, y);
+        Velocity = new Vector2(
+            RandomTools.Choice<float>(new float[] {1.0f, -1.0f}),
+            RandomTools.Choice<float>(new float[] {0.8f, -0.8f})
+        );
+        Moving = true;
     }
 
     ////////////////////
@@ -82,7 +77,7 @@ public class Ball : KinematicBody2D, IMatchPointGroup
     public void Reset()
     {
         Visible = true;
-        Speed = 0;
+        Moving = false;
         Position = GetViewport().Size / 2;
         GetNode<Timer>("ServeTimer").Start();
     }

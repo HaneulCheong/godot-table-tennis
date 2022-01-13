@@ -1,7 +1,5 @@
-using Godot;
-
-
-interface IMatchPointGroup
+internal interface IMatchPointGroup
 {
+    void MatchPoint();
     void Reset();
 }

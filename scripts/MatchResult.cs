@@ -1,11 +1,11 @@
 using Godot;
-using System;
+
 
 public class MatchResult : Label, IMatchPointGroup
 {
     public override void _Ready()
     {
-        Visible = false;
+        Reset();
     }
 
     public void MatchPoint()
