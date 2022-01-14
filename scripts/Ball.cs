@@ -32,19 +32,30 @@ public class Ball : KinematicBody2D, IMatchPointGroup
     {
         if (Moving)
         {
-            KinematicCollision2D collisionObject = MoveAndCollide(
+            KinematicCollision2D collision = MoveAndCollide(
                 Velocity * Speed * delta
             );
 
-            // 충돌 시 튕겨져 나오며 Velocity를 조정합니다.
-            if (collisionObject != null)
+            // 충돌 시
+            if (collision != null)
             {
-                Velocity = Velocity.Bounce(collisionObject.Normal);
+                // 튕겨져 나오며 Velocity 조정
+                Velocity = Velocity.Bounce(collision.Normal);
 
-                // 시간이 지날 수록 위아래로 격하게 움직입니다.
+                // 시간이 지날 수록 위아래로 더 빠르게 움직임
                 Velocity = new Vector2(
                     Velocity.x * 1.01f, Velocity.y * 1.02f
                 );
+                
+                // 충돌 물체에 따라 효과음 재생
+                if (collision.Collider.IsClass("KinematicBody2D"))
+                {
+                    GetNode<AudioStreamPlayer2D>("PaddleBounce").Play();
+                }
+                else if (collision.Collider.IsClass("StaticBody2D"))
+                {
+                    GetNode<AudioStreamPlayer2D>("WallBounce").Play();
+                }
             }
         }
     }
@@ -69,8 +80,11 @@ public class Ball : KinematicBody2D, IMatchPointGroup
         Visible = false;
     }
 
-    /// <summary>정지 후 화면 가운데로 돌아간 뒤
-    /// ServeTimer 노드의 타이머를 시작합니다.</summary>
+    /// <summary>
+    /// * 이 노드를 드러냅니다.
+    /// * 정지 후 화면 가운데로 돌아갑니다.
+    /// * ServeTimer 노드의 타이머를 시작합니다.
+    /// </summary>
     public void Reset()
     {
         Visible = true;

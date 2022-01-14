@@ -1,0 +1,21 @@
+[remap]
+
+importer="wav"
+type="AudioStreamSample"
+path="res://.import/wall_bounce.wav-b05d9c95cb41b0d07779c3ac75e9cf33.sample"
+
+[deps]
+
+source_file="res://assets/audio/wall_bounce.wav"
+dest_files=[ "res://.import/wall_bounce.wav-b05d9c95cb41b0d07779c3ac75e9cf33.sample" ]
+
+[params]
+
+force/8_bit=true
+force/mono=true
+force/max_rate=false
+force/max_rate_hz=44100
+edit/trim=false
+edit/normalize=false
+edit/loop=false
+compress/mode=0

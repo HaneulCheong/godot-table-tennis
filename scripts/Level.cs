@@ -57,6 +57,8 @@ public class Level : Node
     {
         // 적이 득점합니다.
         OpponentScore++;
+        GetNode<AudioStreamPlayer>("Scored").Play();
+
         // OpponentScore가 매치 포인트가 아닐 경우:
         if (OpponentScore < MatchPoint)
         {
@@ -75,6 +77,8 @@ public class Level : Node
     {
         // 플레이어가 득점합니다.
         PlayerScore++;
+        GetNode<AudioStreamPlayer>("Scored").Play();
+
         // PlayerScore가 매치 포인트가 아닐 경우:
         if (PlayerScore < MatchPoint)
         {
