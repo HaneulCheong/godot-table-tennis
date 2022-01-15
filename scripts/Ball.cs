@@ -46,11 +46,11 @@ public class Ball : KinematicBody2D, IMatchPointGroup
                 Velocity = new Vector2(Velocity.x * 1.01f, Velocity.y * 1.02f);
 
                 // 충돌 물체에 따라 효과음 재생
-                if (collision.Collider.IsClass("KinematicBody2D"))
+                if (collision.Collider is Paddle)
                 {
                     GetNode<AudioStreamPlayer2D>("PaddleBounce").Play();
                 }
-                else if (collision.Collider.IsClass("StaticBody2D"))
+                else
                 {
                     GetNode<AudioStreamPlayer2D>("WallBounce").Play();
                 }
