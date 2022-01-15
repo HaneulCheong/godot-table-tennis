@@ -177,6 +177,8 @@ anchor_bottom = 1.0
 popup_exclusive = true
 script = ExtResource( 11 )
 __meta__ = {
+"_edit_group_": true,
+"_edit_lock_": true,
 "_edit_use_anchors_": false
 }
 
@@ -185,6 +187,7 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 color = Color( 0, 0, 0, 0.501961 )
 __meta__ = {
+"_edit_lock_": true,
 "_edit_use_anchors_": false
 }
 
@@ -203,6 +206,7 @@ align = 1
 valign = 1
 uppercase = true
 __meta__ = {
+"_edit_lock_": true,
 "_edit_use_anchors_": false
 }
 
@@ -220,6 +224,9 @@ text = "Press P to continue"
 align = 1
 valign = 1
 uppercase = true
+__meta__ = {
+"_edit_lock_": true
+}
 
 [connection signal="timeout" from="NextGameTimer" to="." method="_OnNextGameTimerTimeout"]
 [connection signal="body_entered" from="LeftArea" to="." method="_OnLeftAreaBodyEntered"]

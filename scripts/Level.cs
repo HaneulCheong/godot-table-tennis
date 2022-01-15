@@ -1,3 +1,4 @@
+using System;
 using Godot;
 
 
@@ -12,14 +13,51 @@ public class Level : Node
     public const int MatchPoint = 11;
 
     ////////////////////
+    // 필드
+    ////////////////////
+
+    private int _playerScore = 0;
+    private int _opponentScore = 0;
+
+    ////////////////////
     // 속성
     ////////////////////
 
-    /// <value>플레이어 점수</value>
-    public int PlayerScore { get; private set; } = 0;
+    /// <value>플레이어 점수.</value>
+    public int PlayerScore
+    {
+        get { return _playerScore; }
+        private set
+        {
+            /// 음수가 전달되면 변경하지 않음
+            if (value < 0)
+            {
+                GD.Print(new ArgumentOutOfRangeException(value.ToString()));
+                return;
+            }
+            /// 변경할 때 PlayerScore 노드의 Text도 같이 변경
+            _playerScore = value;
+            GetNode<Label>("PlayerScore").Text = PlayerScore.ToString();
+        }
+    }
 
     /// <value>적 점수</value>
-    public int OpponentScore { get; private set; } = 0;
+    public int OpponentScore
+    {
+        get { return _opponentScore; }
+        private set
+        {
+            /// 음수가 전달되면 변경하지 않음
+            if (value < 0)
+            {
+                GD.Print(new ArgumentOutOfRangeException(value.ToString()));
+                return;
+            }
+            /// 변경할 때 OpponentScore 노드의 Text도 같이 변경
+            _opponentScore = value;
+            GetNode<Label>("OpponentScore").Text = OpponentScore.ToString();
+        }
+    }
 
     ////////////////////
     // Godot 메서드
@@ -28,9 +66,9 @@ public class Level : Node
     /// <summary>이 노드의 <c>_Ready</c> 메서드입니다.</summary>
     public override void _Ready()
     {
-        // 현재 양 쪽의 점수를 각자의 Label로 전달
-        GetNode<Label>("PlayerScore").Text = PlayerScore.ToString();
-        GetNode<Label>("OpponentScore").Text = OpponentScore.ToString();
+        // 점수 초기화
+        PlayerScore = 0;
+        OpponentScore = 0;
     }
 
     /// <summary>이 노드의 <c>_Process</c> 메서드입니다.</summary>
@@ -67,7 +105,6 @@ public class Level : Node
     {
         // 적 득점
         OpponentScore++;
-        GetNode<Label>("OpponentScore").Text = OpponentScore.ToString();
         GetNode<AudioStreamPlayer>("Scored").Play();
 
         // OpponentScore가 매치 포인트가 아닐 경우:
@@ -88,7 +125,6 @@ public class Level : Node
     {
         // 플레이어 득점
         PlayerScore++;
-        GetNode<Label>("PlayerScore").Text = PlayerScore.ToString();
         GetNode<AudioStreamPlayer>("Scored").Play();
 
         // PlayerScore가 매치 포인트가 아닐 경우:
