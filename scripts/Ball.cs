@@ -9,7 +9,7 @@ public class Ball : KinematicBody2D, IMatchPointGroup
     // 상수
     ////////////////////
 
-    /// <value>초기 속력</value>
+    /// 초기 속력
     private const float speed = 400;
 
     ////////////////////
@@ -110,7 +110,6 @@ public class Ball : KinematicBody2D, IMatchPointGroup
                 // 일반적인 반사 처리
                 Velocity = Velocity.Bounce(collision.Normal);
             }
-
             // 최종적으로 속도 급격히 증가
             Velocity *= 1.05f;
         }
