@@ -65,6 +65,7 @@ public class Ball : KinematicBody2D, IMatchPointGroup
     /// ServeTimer 노드의 Timeout 시그널로 호출됩니다.
     private void _OnServeTimerTimeout()
     {
+        // 서브로 경기 재개
         Moving = true;
     }
 
@@ -80,14 +81,18 @@ public class Ball : KinematicBody2D, IMatchPointGroup
 
     /// <summary>
     /// * 이 노드를 드러냅니다.
-    /// * 정지 후 화면 가운데로 돌아갑니다.
+    /// * 정지 후 무작위 서브 위치로 이동합니다.
     /// * ServeTimer 노드의 타이머를 시작합니다.
     /// </summary>
     public void Reset()
     {
         Visible = true;
         Moving = false;
-        Position = GetViewport().Size / 2;
+        // 무작위 서브 위치로 이동
+        Position = new Vector2(
+            GetViewport().Size.x / 2,
+            RandomTools.RandInt(80, (int) GetViewport().Size.y - 80)
+        );
         // 속도 초기화
         Velocity = new Vector2(
             RandomTools.Choice<float>(new float[] {1.0f, -1.0f}),

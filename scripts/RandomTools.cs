@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 
 
 /// <summary>C# 내장 <c>Random</c> 클래스를 이용하는
@@ -14,6 +15,27 @@ internal static class RandomTools
     ////////////////////
     // 메서드
     ////////////////////
+
+    /// <summary>
+    /// 0부터 <c>maxValue</c>까지의 정수 중
+    /// 무작위 정수를 반환합니다.
+    /// </summary>
+    /// <param name="maxValue">무작위 정수 최대값</param>
+    public static int RandInt(int maxValue)
+    {
+        return RNG.Next(maxValue);
+    }
+
+    /// <summary>
+    /// <c>minValue</c>부터 <c>maxValue</c>까지의 정수 중
+    /// 무작위 정수를 반환합니다.
+    /// </summary>
+    /// <param name="minValue">무작위 정수 최소값</param>
+    /// <param name="maxValue">무작위 정수 최대값</param>
+    public static int RandInt(int minValue, int maxValue)
+    {
+        return RNG.Next(minValue, maxValue);
+    }
 
     /// <summary>
     /// 주어진 <c>choices</c> 배열의 멤버 중
