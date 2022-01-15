@@ -20,11 +20,16 @@ config/windows_native_icon="res://icon.ico"
 window/size/width=1280
 window/size/height=720
 window/vsync/vsync_via_compositor=true
+mouse_cursor/custom_image="res://assets/sprites/cursor.webp"
 window/stretch/mode="viewport"
 window/stretch/aspect="keep"
 
 [input]
 
+ui_accept={
+"deadzone": 0.5,
+"events": [  ]
+}
 ui_select={
 "deadzone": 0.5,
 "events": [  ]
