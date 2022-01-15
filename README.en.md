@@ -10,9 +10,11 @@ A game of [Pong](https://ko.wikipedia.org/wiki/%ED%90%81) powered by [Godot Engi
 
 <img width="320" src="docs/sample.webp" alt="Gameplay Screenshot">
 
-\[&#8593;]\[&#8595;]: Move your Paddle<br>
-\[Space]: Reset Score + Restart<br>
-\[ESC]: Quit Game
+- \[&#8593;]\[&#8595;]: Move your Paddle
+- \[P]: Toggle Pause
+- \[Space]: Reset Score + Restart
+- \[F11]: Toggle Fullscreen Mode
+- \[ESC]: Quit Game
 
 ## Build
 When cloned, this git can be imported as a new project within the Engine.<br>
