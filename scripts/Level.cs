@@ -25,26 +25,36 @@ public class Level : Node
     // Godot 메서드
     ////////////////////
 
-    /// <summary>이 노드의 <c>_Process</c> 메소드입니다.</summary>
+    /// <summary>이 노드의 <c>_Ready</c> 메서드입니다.</summary>
+    public override void _Ready()
+    {
+        // 현재 양 쪽의 점수를 각자의 Label로 전달
+        GetNode<Label>("PlayerScore").Text = PlayerScore.ToString();
+        GetNode<Label>("OpponentScore").Text = OpponentScore.ToString();
+    }
+
+    /// <summary>이 노드의 <c>_Process</c> 메서드입니다.</summary>
     public override void _Process(float delta)
     {
-        // ESC 키를 누를 경우 게임 종료
-        if (Input.IsActionPressed("ui_cancel"))
+        // "ui_exit"로 게임 종료
+        if (Input.IsActionJustPressed("ui_exit"))
         {
             GetTree().Quit();
         }
 
-        // 스페이스 바를 누를 경우 점수 초기화 뒤 게임 다시 시작
-        if (Input.IsActionPressed("ui_select"))
+        // "ui_restart"로 점수 초기화 뒤 게임 다시 시작
+        if (Input.IsActionJustPressed("ui_restart"))
         {
             PlayerScore = 0;
             OpponentScore = 0;
             GetTree().CallGroup("MatchPointGroup", "Reset");
         }
 
-        // 현재 양 쪽의 점수를 각자의 Label로 전달
-        GetNode<Label>("PlayerScore").Text = PlayerScore.ToString();
-        GetNode<Label>("OpponentScore").Text = OpponentScore.ToString();
+        // "ui_fullscreen"으로 전체화면 모드 켜기/끄기
+        if (Input.IsActionJustPressed("ui_fullscreen"))
+        {
+            OS.WindowFullscreen = !OS.WindowFullscreen;
+        }
     }
 
     ////////////////////
@@ -55,8 +65,9 @@ public class Level : Node
     /// 닿았을 경우의 시그널 의해 호출됩니다.
     private void _OnLeftAreaBodyEntered(object body)
     {
-        // 적이 득점합니다.
+        // 적 득점
         OpponentScore++;
+        GetNode<Label>("OpponentScore").Text = OpponentScore.ToString();
         GetNode<AudioStreamPlayer>("Scored").Play();
 
         // OpponentScore가 매치 포인트가 아닐 경우:
@@ -75,8 +86,9 @@ public class Level : Node
     /// 닿았을 경우의 시그널에 의해 호출됩니다.
     private void _OnRightAreaBodyEntered(object body)
     {
-        // 플레이어가 득점합니다.
+        // 플레이어 득점
         PlayerScore++;
+        GetNode<Label>("PlayerScore").Text = PlayerScore.ToString();
         GetNode<AudioStreamPlayer>("Scored").Play();
 
         // PlayerScore가 매치 포인트가 아닐 경우:

@@ -29,7 +29,7 @@ public abstract class Paddle : KinematicBody2D, IMatchPointGroup
     // Godot 메서드
     ////////////////////
 
-    /// <summary>이 노드의 <c>_Ready</c> 메소드입니다.</summary>
+    /// <summary>이 노드의 <c>_Ready</c> 메서드입니다.</summary>
     public override void _Ready()
     {
         // 초기 위치 저장
@@ -37,7 +37,7 @@ public abstract class Paddle : KinematicBody2D, IMatchPointGroup
         Reset();
     }
 
-    /// <summary>이 노드의 <c>_PhysicsProcess</c> 메소드입니다.</summary>
+    /// <summary>이 노드의 <c>_PhysicsProcess</c> 메서드입니다.</summary>
     public override void _PhysicsProcess(float delta)
     {
         MoveAndCollide(Direction * Speed * delta);
