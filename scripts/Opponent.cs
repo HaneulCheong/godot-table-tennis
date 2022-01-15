@@ -14,7 +14,7 @@ public class Opponent : Paddle
     /// 0부터 10(<c>Level.Matchpoint - 1</c>)까지를 상정합니다.
     /// </summary>
     public readonly float SpeedStep = (
-        initialSpeed * 0.5f / (float) (Level.MatchPoint - 1)
+        initialSpeed * 0.5f / (float)(Level.MatchPoint - 1)
     );
 
     ////////////////////
@@ -65,7 +65,7 @@ public class Opponent : Paddle
     /// <summary>플레이어 점수에 따라 기준 속력을 조정합니다.</summary>
     public void AdjustSpeed()
     {
-        float speedModifier = (float) (
+        float speedModifier = (float)(
             (Level.MatchPoint - 1) - GetNode<Level>("..").PlayerScore
         );
         Speed = initialSpeed - SpeedStep * speedModifier;

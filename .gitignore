@@ -3,5 +3,6 @@
 *.translation
 export_presets.cfg
 
+.editorconfig
 **/*.xcf
 **/*.mptm

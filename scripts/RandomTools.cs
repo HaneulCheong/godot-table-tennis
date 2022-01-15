@@ -3,14 +3,14 @@ using System.Collections.Generic;
 
 
 /// <summary>C# 내장 <c>Random</c> 클래스를 이용하는
-/// 유용한 메서드를 모아놓은 정적 클래스</summary>
+/// 유용한 메서드를 모아놓은 정적 싱글턴 클래스</summary>
 internal static class RandomTools
 {
     ////////////////////
     // 속성
     ////////////////////
 
-    private static Random RNG { get; } = new Random();
+    private static Random Instance { get; } = new Random();
 
     ////////////////////
     // 메서드
@@ -23,7 +23,7 @@ internal static class RandomTools
     /// <param name="maxValue">무작위 정수 최대값</param>
     public static int RandInt(int maxValue)
     {
-        return RNG.Next(maxValue);
+        return Instance.Next(maxValue);
     }
 
     /// <summary>
@@ -34,7 +34,7 @@ internal static class RandomTools
     /// <param name="maxValue">무작위 정수 최대값</param>
     public static int RandInt(int minValue, int maxValue)
     {
-        return RNG.Next(minValue, maxValue);
+        return Instance.Next(minValue, maxValue);
     }
 
     /// <summary>
@@ -44,7 +44,7 @@ internal static class RandomTools
     /// <param name="choices">선택지의 배열</param>
     public static T Choice<T>(T[] choices)
     {
-        int index = RNG.Next(choices.Length);
+        int index = Instance.Next(choices.Length);
         return choices[index];
     }
 }

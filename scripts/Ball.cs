@@ -12,7 +12,7 @@ public class Ball : KinematicBody2D, IMatchPointGroup
     private bool Moving { get; set; } = true;
 
     /// <value>상대 속도</value>
-    private Vector2 Velocity { get; set; }
+    private Vector2 Velocity { get; set; } = Vector2.Zero;
 
     /// <value>기준 속력</value>
     private float Speed { get; } = 300;
@@ -91,12 +91,12 @@ public class Ball : KinematicBody2D, IMatchPointGroup
         // 무작위 서브 위치로 이동
         Position = new Vector2(
             GetViewport().Size.x / 2,
-            RandomTools.RandInt(80, (int) GetViewport().Size.y - 80)
+            RandomTools.RandInt(80, (int)GetViewport().Size.y - 80)
         );
         // 속도 초기화
         Velocity = new Vector2(
-            RandomTools.Choice<float>(new float[] {1.0f, -1.0f}),
-            RandomTools.Choice<float>(new float[] {0.8f, -0.8f})
+            RandomTools.Choice<float>(new float[] { 1.0f, -1.0f }),
+            RandomTools.Choice<float>(new float[] { 0.8f, -0.8f })
         );
         GetNode<Timer>("ServeTimer").Start();
     }
