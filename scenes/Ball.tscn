@@ -3,7 +3,7 @@
 [ext_resource path="res://assets/sprites/ball.webp" type="Texture" id=1]
 [ext_resource path="res://scripts/Ball.cs" type="Script" id=2]
 [ext_resource path="res://assets/audio/paddle_bounce.wav" type="AudioStream" id=3]
-[ext_resource path="res://assets/audio/wall_bounce.wav" type="AudioStream" id=4]
+[ext_resource path="res://assets/audio/bounce.wav" type="AudioStream" id=4]
 
 [sub_resource type="RectangleShape2D" id=1]
 extents = Vector2( 8, 8 )
@@ -18,7 +18,7 @@ __meta__ = {
 wait_time = 2.0
 one_shot = true
 
-[node name="WallBounce" type="AudioStreamPlayer2D" parent="."]
+[node name="Bounce" type="AudioStreamPlayer2D" parent="."]
 stream = ExtResource( 4 )
 attenuation = 0.0
 

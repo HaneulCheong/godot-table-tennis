@@ -10,11 +10,21 @@ public abstract class Paddle : KinematicBody2D, IMatchPointGroup
     ////////////////////
 
     /// <summary>초기 속력</summary>
-    protected const float initialSpeed = 500;
+    protected const float initialSpeed = 600;
 
     ////////////////////
     // 속성
     ////////////////////
+
+    /// <value>게임 내 스프라이트의 높이</value>
+    public float Height
+    {
+        get
+        {
+            Sprite sprite = GetNode<Sprite>("Sprite");
+            return ((float)(sprite.Texture.GetHeight()) * sprite.Scale.y);
+        }
+    }
 
     /// <value>이동 방향</value>
     public abstract Vector2 Direction { get; }
@@ -35,6 +45,16 @@ public abstract class Paddle : KinematicBody2D, IMatchPointGroup
         // 초기 위치 저장
         InitialPosition = Position;
         Reset();
+    }
+
+    /// <summary>이 노드의 <c>_Process</c> 메서드입니다.</summary>
+    public override void _Process(float delta)
+    {
+        // 밀렸을 경우 원위치 복귀
+        if (Position.x != InitialPosition.x)
+        {
+            Position = new Vector2(InitialPosition.x, Position.y);
+        }
     }
 
     /// <summary>이 노드의 <c>_PhysicsProcess</c> 메서드입니다.</summary>

@@ -1,4 +1,4 @@
-[gd_scene load_steps=15 format=2]
+[gd_scene load_steps=14 format=2]
 
 [ext_resource path="res://scripts/Level.cs" type="Script" id=1]
 [ext_resource path="res://scenes/Player.tscn" type="PackedScene" id=2]
@@ -10,16 +10,9 @@
 [ext_resource path="res://scripts/Net.cs" type="Script" id=8]
 [ext_resource path="res://scripts/MatchResult.cs" type="Script" id=9]
 [ext_resource path="res://assets/audio/scored.wav" type="AudioStream" id=10]
-[ext_resource path="res://scripts/PauseButton.cs" type="Script" id=11]
-
-[sub_resource type="RectangleShape2D" id=3]
-extents = Vector2( 16, 360 )
-
-[sub_resource type="RectangleShape2D" id=1]
-extents = Vector2( 640, 16 )
-
-[sub_resource type="RectangleShape2D" id=2]
-extents = Vector2( 640, 16 )
+[ext_resource path="res://scripts/PausePopup.cs" type="Script" id=11]
+[ext_resource path="res://assets/resources/GoalAreaShape.tres" type="Shape2D" id=12]
+[ext_resource path="res://assets/resources/WallShape.tres" type="Shape2D" id=13]
 
 [node name="Level" type="Node"]
 pause_mode = 1
@@ -121,7 +114,7 @@ __meta__ = {
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="LeftArea"]
 position = Vector2( -688, 0 )
-shape = SubResource( 3 )
+shape = ExtResource( 12 )
 __meta__ = {
 "_edit_lock_": true
 }
@@ -135,7 +128,7 @@ __meta__ = {
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="RightArea"]
 position = Vector2( 688, 0 )
-shape = SubResource( 3 )
+shape = ExtResource( 12 )
 __meta__ = {
 "_edit_lock_": true
 }
@@ -149,14 +142,14 @@ __meta__ = {
 
 [node name="WallTop" type="CollisionShape2D" parent="Wall"]
 position = Vector2( 0, -376 )
-shape = SubResource( 1 )
+shape = ExtResource( 13 )
 __meta__ = {
 "_edit_lock_": true
 }
 
 [node name="WallBot" type="CollisionShape2D" parent="Wall"]
 position = Vector2( 0, 376 )
-shape = SubResource( 2 )
+shape = ExtResource( 13 )
 __meta__ = {
 "_edit_lock_": true
 }
@@ -170,7 +163,7 @@ position = Vector2( 80, 360 )
 [node name="Ball" parent="." groups=["MatchPointGroup"] instance=ExtResource( 4 )]
 position = Vector2( 640, 360 )
 
-[node name="PauseButton" type="Popup" parent="." groups=["MatchPointGroup"]]
+[node name="PausePopup" type="Popup" parent="." groups=["MatchPointGroup"]]
 pause_mode = 2
 anchor_right = 1.0
 anchor_bottom = 1.0
@@ -182,7 +175,7 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="Curtain" type="ColorRect" parent="PauseButton"]
+[node name="Curtain" type="ColorRect" parent="PausePopup"]
 anchor_right = 1.0
 anchor_bottom = 1.0
 color = Color( 0, 0, 0, 0.501961 )
@@ -191,7 +184,7 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="Text" type="Label" parent="PauseButton"]
+[node name="Text" type="Label" parent="PausePopup"]
 anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
@@ -210,7 +203,7 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="Subtext" type="Label" parent="PauseButton"]
+[node name="Subtext" type="Label" parent="PausePopup"]
 anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5

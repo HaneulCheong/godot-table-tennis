@@ -1,8 +1,8 @@
 using Godot;
 
 
-/// <summary>일시정지 <c>Popup</c> 노드</summary>
-public class PauseButton : Popup, IMatchPointGroup
+/// <summary>일시정지를 위한 <c>PausePopup</c> 노드</summary>
+public class PausePopup : Popup, IMatchPointGroup
 {
     ////////////////////
     // 속성

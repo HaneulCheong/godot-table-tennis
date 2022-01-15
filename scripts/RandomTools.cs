@@ -9,11 +9,51 @@ internal static class RandomTools
     // 속성
     ////////////////////
 
+    /// 싱글턴 인스턴스
     private static Random Instance { get; } = new Random();
+
+    /// <value>true 또는 false 중 무작위 값</value>
+    public static bool RandBool
+    {
+        get
+        {
+            if (Instance.Next() % 2 == 0) { return true; }
+            else { return false; }
+        }
+    }
 
     ////////////////////
     // 메서드
     ////////////////////
+
+    /// <summary>
+    /// 0.0부터 <c>maxValue</c>까지의 실수 중
+    /// 무작위 실수를 반환합니다.
+    /// </summary>
+    /// <param name="maxValue">무작위 실수 최대값</param>
+    public static float Uniform(float maxValue)
+    {
+        return (float)(Instance.NextDouble() * maxValue);
+    }
+
+    /// <summary>
+    /// <c>minValue</c>부터 <c>maxValue</c>까지의 실수 중
+    /// 무작위 실수를 반환합니다.
+    /// </summary>
+    /// <param name="minValue">무작위 실수 최소값</param>
+    /// <param name="maxValue">무작위 실수 최대값</param>
+    /// <exception cref="ArgumentException">
+    /// <c>maxValue</c>보다 <c>minValue</c>가 큼</exception>
+    public static float Uniform(float minValue, float maxValue)
+    {
+        if (maxValue < minValue)
+        {
+            throw new ArgumentException($"{maxValue} < {minValue}");
+        }
+
+        float range = maxValue - minValue;
+        return (float)(Instance.NextDouble() * range + minValue);
+    }
 
     /// <summary>
     /// 0부터 <c>maxValue</c>까지의 정수 중
@@ -31,8 +71,15 @@ internal static class RandomTools
     /// </summary>
     /// <param name="minValue">무작위 정수 최소값</param>
     /// <param name="maxValue">무작위 정수 최대값</param>
+    /// <exception cref="ArgumentException">
+    /// <c>maxValue</c>보다 <c>minValue</c>가 큼</exception>
     public static int RandInt(int minValue, int maxValue)
     {
+        if (maxValue < minValue)
+        {
+            throw new ArgumentException($"{maxValue} < {minValue}");
+        }
+
         return Instance.Next(minValue, maxValue);
     }
 

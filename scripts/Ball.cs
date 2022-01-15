@@ -1,9 +1,17 @@
+using System;
 using Godot;
 
 
 /// <summary>공을 구현하는 <c>KinematicBody2D</c> 노드</summary>
 public class Ball : KinematicBody2D, IMatchPointGroup
 {
+    ////////////////////
+    // 상수
+    ////////////////////
+
+    /// <value>초기 속력</value>
+    private const float speed = 400;
+
     ////////////////////
     // 속성
     ////////////////////
@@ -13,9 +21,6 @@ public class Ball : KinematicBody2D, IMatchPointGroup
 
     /// <value>상대 속도</value>
     public Vector2 Velocity { get; private set; } = Vector2.Zero;
-
-    /// <value>기준 속력</value>
-    private float Speed { get; } = 300;
 
     ////////////////////
     // Godot 메서드
@@ -33,28 +38,11 @@ public class Ball : KinematicBody2D, IMatchPointGroup
         if (Moving)
         {
             KinematicCollision2D collision = MoveAndCollide(
-                Velocity * Speed * delta
+                Velocity * speed * delta
             );
 
-            // 충돌 시
-            if (collision != null)
-            {
-                // 튕겨져 나오며 Velocity 조정
-                Velocity = Velocity.Bounce(collision.Normal);
-
-                // 시간이 지날 수록 위아래로 더 빠르게 움직임
-                Velocity = new Vector2(Velocity.x * 1.01f, Velocity.y * 1.02f);
-
-                // 충돌 물체에 따라 효과음 재생
-                if (collision.Collider is Paddle)
-                {
-                    GetNode<AudioStreamPlayer2D>("PaddleBounce").Play();
-                }
-                else
-                {
-                    GetNode<AudioStreamPlayer2D>("WallBounce").Play();
-                }
-            }
+            // 충돌 시 반사각 계산 실행
+            if (collision != null) { Bounce(collision); }
         }
     }
 
@@ -65,13 +53,78 @@ public class Ball : KinematicBody2D, IMatchPointGroup
     /// ServeTimer 노드의 Timeout 시그널로 호출됩니다.
     private void _OnServeTimerTimeout()
     {
-        // 서브로 경기 재개
+        // 서브 방향 설정
+        Velocity = Vector2.Right.Rotated(RandomTools.Uniform(-1, 1));
+        if (RandomTools.RandBool) { Velocity *= -1; }
+        Velocity = Velocity.Normalized();
+        // 서브, 경기 재개
         Moving = true;
     }
 
     ////////////////////
     // 메서드
     ////////////////////
+
+    /// <summary>충돌한 물체에 대하여 반사각을 계산합니다.</summary>
+    /// <param name="collision">충돌 정보</param>
+    private void Bounce(KinematicCollision2D collision)
+    {
+        // 충돌 물체가 Paddle일 경우:
+        if (collision.Collider is Paddle)
+        {
+            // Paddle 반사 소리 재생
+            GetNode<AudioStreamPlayer2D>("PaddleBounce").Play();
+            // 수평으로 충돌했으면 반사각 조정 알고리즘 실행
+            if (Math.Abs(collision.Normal.x) == 1)
+            {
+                Paddle collider = (Paddle)(collision.Collider);
+                float direction = collision.Normal.x;
+
+                // 1. 우선 반사각 수평으로 고정
+                Velocity = (
+                    Velocity.Rotated(Velocity.AngleTo(new Vector2(1, 0)))
+                    * direction
+                );
+                // 2. 상하 치우침 계산
+                float offset = (
+                    (Position.y - collider.Position.y) / (collider.Height / 2)
+                );
+                if (offset >= 0)
+                {
+                    offset *= offset;
+                    offset = Math.Min(offset, 0.9f);
+                }
+                else
+                {
+                    offset *= -offset;
+                    offset = Math.Max(offset, -0.9f);
+                }
+                // 3. 오차에 따라 반사각 회전
+                Velocity = Velocity.Rotated(
+                    (float)(Math.PI / 2) * offset * direction
+                );
+            }
+            // 아닐 경우:
+            else
+            {
+                // 일반적인 반사 처리
+                Velocity = Velocity.Bounce(collision.Normal);
+            }
+
+            // 최종적으로 속도 급격히 증가
+            Velocity *= 1.05f;
+        }
+        // 충돌 물체가 Paddle이 아닐 경우:
+        else
+        {
+            // 일반 반사 소리 재생
+            GetNode<AudioStreamPlayer2D>("Bounce").Play();
+            // 일반적인 반사 처리
+            Velocity = Velocity.Bounce(collision.Normal);
+            // 속도 조금씩 증가
+            Velocity *= 1.01f;
+        }
+    }
 
     /// <summary>이 노드를 숨깁니다.</summary>
     public void MatchPoint()
@@ -92,11 +145,6 @@ public class Ball : KinematicBody2D, IMatchPointGroup
         Position = new Vector2(
             GetViewport().Size.x / 2,
             RandomTools.RandInt(80, (int)GetViewport().Size.y - 80)
-        );
-        // 속도 초기화
-        Velocity = new Vector2(
-            RandomTools.Choice<float>(new float[] { 1.0f, -1.0f }),
-            RandomTools.Choice<float>(new float[] { 0.8f, -0.8f })
         );
         GetNode<Timer>("ServeTimer").Start();
     }
