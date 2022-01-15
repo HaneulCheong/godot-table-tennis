@@ -1,7 +1,8 @@
 using Godot;
 
 
-/// <summary>모든 라켓의 기본이 되는 추상 <c>KinematicBody2D</c> 클래스</summary>
+/// <summary>모든 라켓의 기본이 되는
+/// 추상 <c>KinematicBody2D</c> 클래스</summary>
 public abstract class Paddle : KinematicBody2D, IMatchPointGroup
 {
     ////////////////////
@@ -9,7 +10,7 @@ public abstract class Paddle : KinematicBody2D, IMatchPointGroup
     ////////////////////
 
     /// <summary>초기 속력</summary>
-    protected const float initialSpeed = 400;
+    protected const float initialSpeed = 500;
 
     ////////////////////
     // 속성

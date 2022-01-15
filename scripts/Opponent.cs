@@ -1,16 +1,21 @@
 using Godot;
 
 
-/// <summary>간단한 인공지능이 조종하는 적 라켓 <c>KinematicBody2D</c> 노드</summary>
+/// <summary>간단한 인공지능이 조종하는
+/// 적 라켓 <c>KinematicBody2D</c> 노드</summary>
 public class Opponent : Paddle
 {
     ////////////////////
     // 상수
     ////////////////////
 
-    /// <summary>플레이어 점수에 따라 단계적으로
-    /// 올라갈 기준 속력의 단위 변동량</summary>
-    public const int SpeedStep = 25;
+    /// <summary>
+    /// 플레이어 점수에 따라 단계적으로  올라갈 기준 속력의 단위 변동량.
+    /// 0부터 10(<c>Level.Matchpoint - 1</c>)까지를 상정합니다.
+    /// </summary>
+    public readonly float SpeedStep = (
+        initialSpeed * 0.5f / (float) (Level.MatchPoint - 1)
+    );
 
     ////////////////////
     // 속성
@@ -27,17 +32,27 @@ public class Opponent : Paddle
 
             if (
                 // 게임 진행 중
-                (ballnode.Position.x < Position.x) &&
-                (ballnode.Position.x > playernode.Position.x) &&
+                (ballnode.Position.x < Position.x)
+                && (ballnode.Position.x > playernode.Position.x)
                 // 공과 자신의 y 좌표가 기준치 이상으로 벌어짐
-                (System.Math.Abs(ballnode.Position.y - Position.y) > 25)
+                && (System.Math.Abs(ballnode.Position.y - Position.y) > 25)
             )
             {
-                if (ballnode.Position.y > Position.y) { return Vector2.Down; }
-                else if (ballnode.Position.y < Position.y) { return Vector2.Up; }
-                else { return Vector2.Zero; }
+                if (ballnode.Position.y > Position.y)
+                {
+                    return Vector2.Down;
+                }
+                else if (ballnode.Position.y < Position.y)
+                {
+                    return Vector2.Up;
+                }
+                else
+                {
+                    return Vector2.Zero;
+                }
             }
-            else {
+            else
+            {
                 return Vector2.Zero;
             }
         }
@@ -50,8 +65,10 @@ public class Opponent : Paddle
     /// <summary>플레이어 점수에 따라 기준 속력을 조정합니다.</summary>
     public void AdjustSpeed()
     {
-        int playerScore = GetNode<Level>("..").PlayerScore;
-        Speed = initialSpeed - SpeedStep * (11 - playerScore);
+        float speedModifier = (float) (
+            (Level.MatchPoint - 1) - GetNode<Level>("..").PlayerScore
+        );
+        Speed = initialSpeed - SpeedStep * speedModifier;
         if (Speed > initialSpeed) { Speed = initialSpeed; }
     }
 

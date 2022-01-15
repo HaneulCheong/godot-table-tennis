@@ -8,8 +8,7 @@ public class Player : Paddle
     // 속성
     ////////////////////
 
-    /// <value>이동 방향. 플레이어의 위아래
-    /// 키 입력에 따라 결정됩니다.</value>
+    /// <value>이동 방향. 플레이어의 위아래 키 입력에 따라 결정됩니다.</value>
     public override Vector2 Direction
     {
         get

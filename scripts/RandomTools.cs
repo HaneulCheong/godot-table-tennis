@@ -15,7 +15,10 @@ internal static class RandomTools
     // 메서드
     ////////////////////
 
-    /// <summary>주어진 <c>choices</c> 배열의 멤버 중 하나를 골라 반환합니다.</summary>
+    /// <summary>
+    /// 주어진 <c>choices</c> 배열의 멤버 중
+    /// 하나를 골라 반환합니다.
+    /// </summary>
     /// <param name="choices">선택지의 배열</param>
     public static T Choice<T>(T[] choices)
     {

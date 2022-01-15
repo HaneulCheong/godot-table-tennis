@@ -28,13 +28,13 @@ public class Level : Node
     /// <summary>이 노드의 <c>_Process</c> 메소드입니다.</summary>
     public override void _Process(float delta)
     {
-        // ESC 키를 누를 경우 게임을 종료합니다.
+        // ESC 키를 누를 경우 게임 종료
         if (Input.IsActionPressed("ui_cancel"))
         {
             GetTree().Quit();
         }
 
-        // 스페이스 바를 누를 경우 점수를 초기화하고 게임을 다시 시작합니다.
+        // 스페이스 바를 누를 경우 점수 초기화 뒤 게임 다시 시작
         if (Input.IsActionPressed("ui_select"))
         {
             PlayerScore = 0;
@@ -42,7 +42,7 @@ public class Level : Node
             GetTree().CallGroup("MatchPointGroup", "Reset");
         }
 
-        // 현재 양 쪽의 점수를 각자의 Label로 전달합니다.
+        // 현재 양 쪽의 점수를 각자의 Label로 전달
         GetNode<Label>("PlayerScore").Text = PlayerScore.ToString();
         GetNode<Label>("OpponentScore").Text = OpponentScore.ToString();
     }

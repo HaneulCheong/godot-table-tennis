@@ -15,7 +15,7 @@ public class Ball : KinematicBody2D, IMatchPointGroup
     private Vector2 Velocity { get; set; }
 
     /// <value>기준 속력</value>
-    private float Speed { get; } = 200;
+    private float Speed { get; } = 300;
 
     ////////////////////
     // Godot 메서드
@@ -43,10 +43,8 @@ public class Ball : KinematicBody2D, IMatchPointGroup
                 Velocity = Velocity.Bounce(collision.Normal);
 
                 // 시간이 지날 수록 위아래로 더 빠르게 움직임
-                Velocity = new Vector2(
-                    Velocity.x * 1.01f, Velocity.y * 1.02f
-                );
-                
+                Velocity = new Vector2(Velocity.x * 1.01f, Velocity.y * 1.02f);
+
                 // 충돌 물체에 따라 효과음 재생
                 if (collision.Collider.IsClass("KinematicBody2D"))
                 {
