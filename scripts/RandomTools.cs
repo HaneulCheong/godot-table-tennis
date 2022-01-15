@@ -1,5 +1,4 @@
 using System;
-using System.Collections.Generic;
 
 
 /// <summary>C# 내장 <c>Random</c> 클래스를 이용하는

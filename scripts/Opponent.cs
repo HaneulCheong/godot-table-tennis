@@ -1,3 +1,4 @@
+using System;
 using Godot;
 
 
@@ -27,15 +28,18 @@ public class Opponent : Paddle
     {
         get
         {
-            KinematicBody2D playernode = GetNode<KinematicBody2D>("../Player");
-            KinematicBody2D ballnode = GetNode<KinematicBody2D>("../Ball");
+            Player playernode = GetNode<Player>("../Player");
+            Ball ballnode = GetNode<Ball>("../Ball");
 
             if (
                 // 게임 진행 중
-                (ballnode.Position.x < Position.x)
+                (ballnode.Moving)
+                && (ballnode.Position.x < Position.x)
                 && (ballnode.Position.x > playernode.Position.x)
                 // 공과 자신의 y 좌표가 기준치 이상으로 벌어짐
-                && (System.Math.Abs(ballnode.Position.y - Position.y) > 25)
+                && (Math.Abs(ballnode.Position.y - Position.y) > 25)
+                // 공이 자신을 향해 움직이는 중
+                && (ballnode.Velocity.x > 0)
             )
             {
                 if (ballnode.Position.y > Position.y)

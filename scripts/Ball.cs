@@ -9,10 +9,10 @@ public class Ball : KinematicBody2D, IMatchPointGroup
     ////////////////////
 
     /// <value>움직임 여부</value>
-    private bool Moving { get; set; } = true;
+    public bool Moving { get; private set; } = true;
 
     /// <value>상대 속도</value>
-    private Vector2 Velocity { get; set; } = Vector2.Zero;
+    public Vector2 Velocity { get; private set; } = Vector2.Zero;
 
     /// <value>기준 속력</value>
     private float Speed { get; } = 300;
