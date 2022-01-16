@@ -69,6 +69,17 @@ public class Main : Node
         // 점수 초기화
         PlayerScore = 0;
         OpponentScore = 0;
+
+        // 신호 연결
+        GetNode<Timer>("NextGameTimer").Connect(
+            "timeout", this, "_OnNextGameTimerTimeout"
+        );
+        GetNode<Area2D>("LeftArea").Connect(
+            "body_entered", this, "_OnLeftAreaBodyEntered"
+        );
+        GetNode<Area2D>("RightArea").Connect(
+            "body_entered", this, "_OnRightAreaBodyEntered"
+        );
     }
 
     /// <summary>이 노드의 <c>_Process</c> 메서드입니다.</summary>
@@ -96,11 +107,11 @@ public class Main : Node
     }
 
     ////////////////////
-    // Godot 시그널 메서드
+    // Godot 신호 메서드
     ////////////////////
 
     /// LeftArea 노드에 다른 오브젝트(여기서는 공)이
-    /// 닿았을 경우의 시그널 의해 호출됩니다.
+    /// 닿았을 경우의 신호 의해 호출됩니다.
     private void _OnLeftAreaBodyEntered(object body)
     {
         // 적 득점
@@ -120,7 +131,7 @@ public class Main : Node
     }
 
     /// RightArea 노드에 다른 오브젝트(여기서는 공)이
-    /// 닿았을 경우의 시그널에 의해 호출됩니다.
+    /// 닿았을 경우의 신호에 의해 호출됩니다.
     private void _OnRightAreaBodyEntered(object body)
     {
         // 플레이어 득점
@@ -139,7 +150,7 @@ public class Main : Node
         }
     }
 
-    /// NextGameTimer 노드의 Timeout 시그널에 의해 호출됩니다.
+    /// NextGameTimer 노드의 Timeout 신호에 의해 호출됩니다.
     private void _OnNextGameTimerTimeout()
     {
         GetNode<Opponent>("Opponent").AdjustSpeed();

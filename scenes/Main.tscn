@@ -220,7 +220,3 @@ uppercase = true
 __meta__ = {
 "_edit_lock_": true
 }
-
-[connection signal="timeout" from="NextGameTimer" to="." method="_OnNextGameTimerTimeout"]
-[connection signal="body_entered" from="LeftArea" to="." method="_OnLeftAreaBodyEntered"]
-[connection signal="body_entered" from="RightArea" to="." method="_OnRightAreaBodyEntered"]

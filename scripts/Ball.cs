@@ -30,6 +30,9 @@ public class Ball : KinematicBody2D, IMatchPointGroup
     public override void _Ready()
     {
         AddToGroup("MatchPointGroup");
+        GetNode<Timer>("ServeTimer").Connect(
+            "timeout", this, "_OnServeTimerTimeout"
+        );
         Reset();
     }
 
@@ -48,10 +51,10 @@ public class Ball : KinematicBody2D, IMatchPointGroup
     }
 
     ////////////////////
-    // Godot 시그널 메서드
+    // Godot 신호 메서드
     ////////////////////
 
-    /// ServeTimer 노드의 Timeout 시그널로 호출됩니다.
+    /// ServeTimer 노드의 Timeout 신호로 호출됩니다.
     private void _OnServeTimerTimeout()
     {
         // 서브 방향 설정
