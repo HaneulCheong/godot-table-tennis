@@ -31,7 +31,7 @@ public class Ball : KinematicBody2D, IMatchPointGroup
     {
         AddToGroup("MatchPointGroup");
         GetNode<Timer>("ServeTimer").Connect(
-            "timeout", this, "_OnServeTimerTimeout"
+            "timeout", this, nameof(_OnServeTimerTimeout)
         );
         Reset();
     }

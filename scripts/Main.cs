@@ -72,13 +72,13 @@ public class Main : Node
 
         // 신호 연결
         GetNode<Timer>("NextGameTimer").Connect(
-            "timeout", this, "_OnNextGameTimerTimeout"
+            "timeout", this, nameof(_OnNextGameTimerTimeout)
         );
         GetNode<Area2D>("LeftArea").Connect(
-            "body_entered", this, "_OnLeftAreaBodyEntered"
+            "body_entered", this, nameof(_OnLeftAreaBodyEntered)
         );
         GetNode<Area2D>("RightArea").Connect(
-            "body_entered", this, "_OnRightAreaBodyEntered"
+            "body_entered", this, nameof(_OnRightAreaBodyEntered)
         );
     }
 
