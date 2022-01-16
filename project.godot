@@ -11,7 +11,7 @@ config_version=4
 [application]
 
 config/name="MyPong"
-run/main_scene="res://scenes/Level.tscn"
+run/main_scene="res://scenes/Main.tscn"
 config/icon="res://docs/icon.webp"
 config/windows_native_icon="res://icon.ico"
 
@@ -19,6 +19,7 @@ config/windows_native_icon="res://icon.ico"
 
 window/size/width=1280
 window/size/height=720
+window/dpi/allow_hidpi=true
 window/vsync/vsync_via_compositor=true
 mouse_cursor/custom_image="res://assets/sprites/cursor.webp"
 window/stretch/mode="viewport"
