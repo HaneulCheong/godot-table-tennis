@@ -29,6 +29,7 @@ public class Ball : KinematicBody2D, IMatchPointGroup
     /// <summary>이 노드의 <c>_Ready</c> 메서드입니다.</summary>
     public override void _Ready()
     {
+        AddToGroup("MatchPointGroup");
         Reset();
     }
 

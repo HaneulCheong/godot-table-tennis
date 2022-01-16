@@ -5,14 +5,18 @@ using Godot;
 public class Net : Sprite, IMatchPointGroup
 {
     ////////////////////
-    // 메서드
+    // Godot 메서드
     ////////////////////
 
     /// <summary>이 노드의 <c>_Ready</c> 메서드입니다.</summary>
     public override void _Ready()
     {
-        Reset();
+        AddToGroup("MatchPointGroup");
     }
+
+    ////////////////////
+    // 메서드
+    ////////////////////
 
     /// <summary>이 노드를 숨깁니다.</summary>
     public void MatchPoint()

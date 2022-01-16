@@ -15,6 +15,13 @@ public class PausePopup : Popup, IMatchPointGroup
     // Godot 메서드
     ////////////////////
 
+    /// <summary>이 노드의 <c>_Ready</c> 메서드입니다.</summary>
+    public override void _Ready()
+    {
+        AddToGroup("MatchPointGroup");
+        Reset();
+    }
+
     /// <summary>이 노드의 <c>_Process</c> 메서드입니다.</summary>
     public override void _Process(float delta)
     {

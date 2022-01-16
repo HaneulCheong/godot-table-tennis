@@ -2,6 +2,14 @@
 internal interface IMatchPointGroup
 {
     ////////////////////
+    // Godot 메서드
+    ////////////////////
+
+    /// <summary>이 노드의 <c>_Ready</c> 메서드입니다.
+    /// AddToGroup()을 포함해야 합니다.</summary>
+    void _Ready();
+
+    ////////////////////
     // 메서드
     ////////////////////
 
