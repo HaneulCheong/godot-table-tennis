@@ -24,9 +24,9 @@ public class MatchResult : Label, IMatchPointGroup
     public void MatchPoint()
     {
         Visible = true;
-        if (GetNode<Level>("..").PlayerScore == Level.MatchPoint)
+        if (GetNode<Main>("..").PlayerScore == Main.MatchPoint)
         {
-            if (GetNode<Level>("..").OpponentScore == 0)
+            if (GetNode<Main>("..").OpponentScore == 0)
             {
                 Text = "Perfect!";
             }
@@ -35,7 +35,7 @@ public class MatchResult : Label, IMatchPointGroup
                 Text = "You Win!";
             }
         }
-        else if (GetNode<Level>("..").OpponentScore == Level.MatchPoint)
+        else if (GetNode<Main>("..").OpponentScore == Main.MatchPoint)
         {
             Text = "You Lose!";
         }

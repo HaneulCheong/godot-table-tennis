@@ -3,7 +3,7 @@ using Godot;
 
 
 /// <summary>게임 전체를 관리하는 노드</summary>
-public class Level : Node
+public class Main : Node
 {
     ////////////////////
     // 상수
