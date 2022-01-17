@@ -74,10 +74,10 @@ public class Main : Node
         GetNode<Timer>("NextGameTimer").Connect(
             "timeout", this, nameof(_OnNextGameTimerTimeout)
         );
-        GetNode<Area2D>("LeftArea").Connect(
+        GetNode<Area2D>("GoalAreaLeft").Connect(
             "body_entered", this, nameof(_OnLeftAreaBodyEntered)
         );
-        GetNode<Area2D>("RightArea").Connect(
+        GetNode<Area2D>("GoalAreaRight").Connect(
             "body_entered", this, nameof(_OnRightAreaBodyEntered)
         );
     }
@@ -110,7 +110,7 @@ public class Main : Node
     // Godot 신호 메서드
     ////////////////////
 
-    /// LeftArea 노드에 다른 오브젝트(여기서는 공)이
+    /// GoalAreaLeft 노드에 다른 오브젝트(여기서는 공)이
     /// 닿았을 경우의 신호 의해 호출됩니다.
     private void _OnLeftAreaBodyEntered(object body)
     {
@@ -130,7 +130,7 @@ public class Main : Node
         }
     }
 
-    /// RightArea 노드에 다른 오브젝트(여기서는 공)이
+    /// GoalAreaRight 노드에 다른 오브젝트(여기서는 공)이
     /// 닿았을 경우의 신호에 의해 호출됩니다.
     private void _OnRightAreaBodyEntered(object body)
     {

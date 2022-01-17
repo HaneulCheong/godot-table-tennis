@@ -102,6 +102,14 @@ ui_exit={
  ]
 }
 
+[layer_names]
+
+2d_physics/layer_1="default"
+2d_physics/layer_2="wall"
+2d_physics/layer_3="paddle"
+2d_physics/layer_4="ball"
+2d_physics/layer_5="goalarea"
+
 [physics]
 
 common/physics_fps=120

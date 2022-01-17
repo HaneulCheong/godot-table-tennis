@@ -48,20 +48,15 @@ public abstract class Paddle : KinematicBody2D, IMatchPointGroup
         Reset();
     }
 
-    /// <summary>이 노드의 <c>_Process</c> 메서드입니다.</summary>
-    public override void _Process(float delta)
+    /// <summary>이 노드의 <c>_PhysicsProcess</c> 메서드입니다.</summary>
+    public override void _PhysicsProcess(float delta)
     {
+        MoveAndCollide(Direction * Speed * delta);
         // 밀렸을 경우 원위치 복귀
         if (Position.x != InitialPosition.x)
         {
             Position = new Vector2(InitialPosition.x, Position.y);
         }
-    }
-
-    /// <summary>이 노드의 <c>_PhysicsProcess</c> 메서드입니다.</summary>
-    public override void _PhysicsProcess(float delta)
-    {
-        MoveAndCollide(Direction * Speed * delta);
     }
 
     ////////////////////
