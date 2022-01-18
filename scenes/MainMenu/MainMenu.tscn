@@ -1,10 +1,10 @@
 [gd_scene load_steps=8 format=2]
 
-[ext_resource path="res://assets/fonts/text.tres" type="DynamicFont" id=1]
-[ext_resource path="res://assets/fonts/subtext.tres" type="DynamicFont" id=2]
-[ext_resource path="res://scripts/MenuButton.cs" type="Script" id=3]
-[ext_resource path="res://scripts/Options.cs" type="Script" id=4]
-[ext_resource path="res://scripts/MainMenu.cs" type="Script" id=5]
+[ext_resource path="res://assets/fonts/subtext.tres" type="DynamicFont" id=1]
+[ext_resource path="res://assets/fonts/text.tres" type="DynamicFont" id=2]
+[ext_resource path="res://scripts/MainMenu/MainMenu.cs" type="Script" id=3]
+[ext_resource path="res://scripts/MainMenu/MenuButton.cs" type="Script" id=4]
+[ext_resource path="res://scripts/MainMenu/Options.cs" type="Script" id=5]
 
 [sub_resource type="Animation" id=1]
 resource_name = "FadeIn"
@@ -39,7 +39,7 @@ tracks/0/keys = {
 [node name="MainMenu" type="Control"]
 anchor_right = 1.0
 anchor_bottom = 1.0
-script = ExtResource( 5 )
+script = ExtResource( 3 )
 __meta__ = {
 "_edit_use_anchors_": false
 }
@@ -66,7 +66,7 @@ margin_bottom = 64.0
 margin_left = 136.0
 margin_right = 264.0
 margin_bottom = 64.0
-custom_fonts/font = ExtResource( 1 )
+custom_fonts/font = ExtResource( 2 )
 text = "Pong"
 align = 1
 valign = 1
@@ -79,17 +79,17 @@ margin_bottom = 294.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
 alignment = 1
-script = ExtResource( 4 )
+script = ExtResource( 5 )
 
 [node name="OnePlayer" type="Button" parent="Menu/Options"]
 margin_top = 31.0
 margin_right = 400.0
 margin_bottom = 69.0
 mouse_filter = 2
-custom_fonts/font = ExtResource( 2 )
+custom_fonts/font = ExtResource( 1 )
 text = "> 1-Player <"
 flat = true
-script = ExtResource( 3 )
+script = ExtResource( 4 )
 RawText = "1-Player"
 Selected = true
 
@@ -98,10 +98,10 @@ margin_top = 73.0
 margin_right = 400.0
 margin_bottom = 111.0
 mouse_filter = 2
-custom_fonts/font = ExtResource( 2 )
+custom_fonts/font = ExtResource( 1 )
 text = "2-Player"
 flat = true
-script = ExtResource( 3 )
+script = ExtResource( 4 )
 RawText = "2-Player"
 
 [node name="Settings" type="Button" parent="Menu/Options"]
@@ -109,10 +109,10 @@ margin_top = 115.0
 margin_right = 400.0
 margin_bottom = 153.0
 mouse_filter = 2
-custom_fonts/font = ExtResource( 2 )
+custom_fonts/font = ExtResource( 1 )
 text = "Settings"
 flat = true
-script = ExtResource( 3 )
+script = ExtResource( 4 )
 RawText = "Settings"
 
 [node name="Exit" type="Button" parent="Menu/Options"]
@@ -120,10 +120,10 @@ margin_top = 157.0
 margin_right = 400.0
 margin_bottom = 195.0
 mouse_filter = 2
-custom_fonts/font = ExtResource( 2 )
+custom_fonts/font = ExtResource( 1 )
 text = "Exit"
 flat = true
-script = ExtResource( 3 )
+script = ExtResource( 4 )
 RawText = "Exit"
 
 [node name="Info" type="CenterContainer" parent="Menu"]
@@ -138,7 +138,7 @@ __meta__ = {
 margin_left = 8.0
 margin_right = 392.0
 margin_bottom = 102.0
-custom_fonts/font = ExtResource( 2 )
+custom_fonts/font = ExtResource( 1 )
 text = "Version 1.4.0
 Powered by Godot 3.4.2
 Created by Haneul Cheong"
@@ -146,7 +146,6 @@ align = 1
 valign = 1
 
 [node name="FadeIn" type="ColorRect" parent="."]
-visible = false
 anchor_right = 1.0
 anchor_bottom = 1.0
 color = Color( 0, 0, 0, 0 )
