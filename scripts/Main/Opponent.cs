@@ -11,7 +11,7 @@ public class Opponent : Paddle
     ////////////////////
 
     /// <summary>
-    /// 플레이어 점수에 따라 단계적으로  올라갈 기준 속력의 단위 변동량.
+    /// 플레이어 점수에 따라 단계적으로 올라갈 기준 속력의 단위 변동량.
     /// 0부터 10(<c>Level.Matchpoint - 1</c>)까지를 상정합니다.
     /// </summary>
     public readonly float SpeedStep = (

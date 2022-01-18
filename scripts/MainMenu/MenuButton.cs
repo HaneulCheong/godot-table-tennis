@@ -8,7 +8,7 @@ public class MenuButton : Button
     private bool _selected = false;
 
     [Export]
-    private string RawText { get; set; } = "Button";
+    private string RawText { get; set; }
     [Export]
     private bool Selected
     {

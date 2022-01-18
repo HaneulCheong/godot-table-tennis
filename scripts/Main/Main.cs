@@ -85,10 +85,10 @@ public class Main : Node
     /// <summary>이 노드의 <c>_Process</c> 메서드입니다.</summary>
     public override void _Process(float delta)
     {
-        // "ui_exit"로 게임 종료
+        // "ui_exit"으로 메인 메뉴로 돌아가기
         if (Input.IsActionJustPressed("ui_exit"))
         {
-            GetTree().Quit();
+            GetTree().ChangeScene("res://scenes/MainMenu/MainMenu.tscn");
         }
 
         // "ui_restart"로 점수 초기화 뒤 게임 다시 시작
