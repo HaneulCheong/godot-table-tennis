@@ -1,4 +1,4 @@
-[gd_scene load_steps=10 format=2]
+[gd_scene load_steps=11 format=2]
 
 [ext_resource path="res://assets/fonts/subtext.tres" type="DynamicFont" id=1]
 [ext_resource path="res://assets/fonts/text.tres" type="DynamicFont" id=2]
@@ -7,6 +7,8 @@
 [ext_resource path="res://scripts/MainMenu/Options.cs" type="Script" id=5]
 [ext_resource path="res://scripts/MainMenu/ExitButton.cs" type="Script" id=6]
 [ext_resource path="res://scripts/MainMenu/OnePlayerButton.cs" type="Script" id=7]
+
+[sub_resource type="StyleBoxEmpty" id=3]
 
 [sub_resource type="Animation" id=1]
 resource_name = "FadeIn"
@@ -97,6 +99,7 @@ margin_right = 400.0
 margin_bottom = 69.0
 mouse_filter = 2
 custom_fonts/font = ExtResource( 1 )
+custom_styles/focus = SubResource( 3 )
 text = "1-Player"
 flat = true
 script = ExtResource( 7 )
@@ -111,6 +114,7 @@ margin_right = 400.0
 margin_bottom = 111.0
 mouse_filter = 2
 custom_fonts/font = ExtResource( 1 )
+custom_styles/focus = SubResource( 3 )
 text = "2-Player (X)"
 flat = true
 script = ExtResource( 4 )
@@ -125,6 +129,7 @@ margin_right = 400.0
 margin_bottom = 153.0
 mouse_filter = 2
 custom_fonts/font = ExtResource( 1 )
+custom_styles/focus = SubResource( 3 )
 text = "Settings (X)"
 flat = true
 script = ExtResource( 4 )
@@ -139,6 +144,7 @@ margin_right = 400.0
 margin_bottom = 195.0
 mouse_filter = 2
 custom_fonts/font = ExtResource( 1 )
+custom_styles/focus = SubResource( 3 )
 text = "Exit"
 flat = true
 script = ExtResource( 6 )
@@ -161,7 +167,7 @@ margin_left = 8.0
 margin_right = 392.0
 margin_bottom = 102.0
 custom_fonts/font = ExtResource( 1 )
-text = "Version 1.4.0
+text = "Version 1.5.0-beta
 Powered by Godot 3.4.2
 Created by Haneul Cheong"
 align = 1
