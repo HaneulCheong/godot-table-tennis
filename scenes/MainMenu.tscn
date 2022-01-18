@@ -1,0 +1,160 @@
+[gd_scene load_steps=8 format=2]
+
+[ext_resource path="res://assets/fonts/text.tres" type="DynamicFont" id=1]
+[ext_resource path="res://assets/fonts/subtext.tres" type="DynamicFont" id=2]
+[ext_resource path="res://scripts/MenuButton.cs" type="Script" id=3]
+[ext_resource path="res://scripts/Options.cs" type="Script" id=4]
+[ext_resource path="res://scripts/MainMenu.cs" type="Script" id=5]
+
+[sub_resource type="Animation" id=1]
+resource_name = "FadeIn"
+tracks/0/type = "value"
+tracks/0/path = NodePath(".:color")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.5 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 0,
+"values": [ Color( 0, 0, 0, 0 ), Color( 0, 0, 0, 1 ) ]
+}
+
+[sub_resource type="Animation" id=2]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/path = NodePath(".:color")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ Color( 0, 0, 0, 0 ) ]
+}
+
+[node name="MainMenu" type="Control"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+script = ExtResource( 5 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Menu" type="VBoxContainer" parent="."]
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -200.0
+margin_top = -200.0
+margin_right = 200.0
+margin_bottom = 200.0
+__meta__ = {
+"_edit_group_": true,
+"_edit_use_anchors_": false
+}
+
+[node name="Title" type="CenterContainer" parent="Menu"]
+margin_right = 400.0
+margin_bottom = 64.0
+
+[node name="Label" type="Label" parent="Menu/Title"]
+margin_left = 136.0
+margin_right = 264.0
+margin_bottom = 64.0
+custom_fonts/font = ExtResource( 1 )
+text = "Pong"
+align = 1
+valign = 1
+uppercase = true
+
+[node name="Options" type="VBoxContainer" parent="Menu"]
+margin_top = 68.0
+margin_right = 400.0
+margin_bottom = 294.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+alignment = 1
+script = ExtResource( 4 )
+
+[node name="OnePlayer" type="Button" parent="Menu/Options"]
+margin_top = 31.0
+margin_right = 400.0
+margin_bottom = 69.0
+mouse_filter = 2
+custom_fonts/font = ExtResource( 2 )
+text = "> 1-Player <"
+flat = true
+script = ExtResource( 3 )
+RawText = "1-Player"
+Selected = true
+
+[node name="TwoPlayer" type="Button" parent="Menu/Options"]
+margin_top = 73.0
+margin_right = 400.0
+margin_bottom = 111.0
+mouse_filter = 2
+custom_fonts/font = ExtResource( 2 )
+text = "2-Player"
+flat = true
+script = ExtResource( 3 )
+RawText = "2-Player"
+
+[node name="Settings" type="Button" parent="Menu/Options"]
+margin_top = 115.0
+margin_right = 400.0
+margin_bottom = 153.0
+mouse_filter = 2
+custom_fonts/font = ExtResource( 2 )
+text = "Settings"
+flat = true
+script = ExtResource( 3 )
+RawText = "Settings"
+
+[node name="Exit" type="Button" parent="Menu/Options"]
+margin_top = 157.0
+margin_right = 400.0
+margin_bottom = 195.0
+mouse_filter = 2
+custom_fonts/font = ExtResource( 2 )
+text = "Exit"
+flat = true
+script = ExtResource( 3 )
+RawText = "Exit"
+
+[node name="Info" type="CenterContainer" parent="Menu"]
+margin_top = 298.0
+margin_right = 400.0
+margin_bottom = 400.0
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Label" type="Label" parent="Menu/Info"]
+margin_left = 8.0
+margin_right = 392.0
+margin_bottom = 102.0
+custom_fonts/font = ExtResource( 2 )
+text = "Version 1.4.0
+Powered by Godot 3.4.2
+Created by Haneul Cheong"
+align = 1
+valign = 1
+
+[node name="FadeIn" type="ColorRect" parent="."]
+visible = false
+anchor_right = 1.0
+anchor_bottom = 1.0
+color = Color( 0, 0, 0, 0 )
+__meta__ = {
+"_edit_group_": true,
+"_edit_use_anchors_": false
+}
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="FadeIn"]
+anims/FadeIn = SubResource( 1 )
+anims/RESET = SubResource( 2 )
