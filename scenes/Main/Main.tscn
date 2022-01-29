@@ -9,10 +9,10 @@
 [ext_resource path="res://scenes/Main/Opponent.tscn" type="PackedScene" id=7]
 [ext_resource path="res://scenes/Main/Player.tscn" type="PackedScene" id=8]
 [ext_resource path="res://assets/audio/scored.wav" type="AudioStream" id=9]
-[ext_resource path="res://scripts/Main/Net.cs" type="Script" id=10]
-[ext_resource path="res://scripts/Main/Main.cs" type="Script" id=11]
-[ext_resource path="res://scripts/Main/MatchResult.cs" type="Script" id=12]
-[ext_resource path="res://scripts/Main/PausePopup.cs" type="Script" id=13]
+[ext_resource path="res://scenes/Main/Net.cs" type="Script" id=10]
+[ext_resource path="res://scenes/Main/Main.cs" type="Script" id=11]
+[ext_resource path="res://scenes/Main/MatchResult.cs" type="Script" id=12]
+[ext_resource path="res://scenes/Main/PausePopup.cs" type="Script" id=13]
 
 [node name="Main" type="Node"]
 pause_mode = 1
