@@ -36,7 +36,7 @@ namespace Game.MainMenuScene
             switch (Name)
             {
                 case "OnePlayerButton":
-                    GetTree().ChangeScene("res://entities/Main/Main.tscn");
+                    GetTree().ChangeScene("res://entities/MainScene/Main.tscn");
                     break;
                 case "TwoPlayerButton":
                     break;

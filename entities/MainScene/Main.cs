@@ -96,7 +96,9 @@ namespace Game.MainScene
             // "ui_exit"으로 메인 메뉴로 돌아가기
             if (Input.IsActionJustPressed("ui_exit"))
             {
-                GetTree().ChangeScene("res://entities/MainMenu/MainMenu.tscn");
+                GetTree().ChangeScene(
+                    "res://entities/MainMenuScene/MainMenu.tscn"
+                );
             }
 
             // "ui_restart"로 점수 초기화 뒤 게임 다시 시작
