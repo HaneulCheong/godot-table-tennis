@@ -1,8 +1,7 @@
-[gd_scene load_steps=8 format=2]
+[gd_scene load_steps=7 format=2]
 
 [ext_resource path="res://assets/fonts/text.tres" type="DynamicFont" id=1]
 [ext_resource path="res://assets/fonts/subtext.tres" type="DynamicFont" id=2]
-[ext_resource path="res://entities/MainMenuScene/MainMenu.cs" type="Script" id=3]
 [ext_resource path="res://entities/MainMenuScene/Options.cs" type="Script" id=4]
 [ext_resource path="res://entities/MainMenuScene/MenuButton.cs" type="Script" id=5]
 [ext_resource path="res://entities/MainScene/Main.tscn" type="PackedScene" id=6]
@@ -12,9 +11,7 @@
 [node name="MainMenu" type="Control"]
 anchor_right = 1.0
 anchor_bottom = 1.0
-script = ExtResource( 3 )
 __meta__ = {
-"_edit_lock_": true,
 "_edit_use_anchors_": false
 }
 
@@ -29,16 +26,12 @@ margin_right = 200.0
 margin_bottom = 200.0
 __meta__ = {
 "_edit_group_": true,
-"_edit_lock_": true,
 "_edit_use_anchors_": false
 }
 
 [node name="Title" type="CenterContainer" parent="Menu"]
 margin_right = 400.0
 margin_bottom = 64.0
-__meta__ = {
-"_edit_lock_": true
-}
 
 [node name="Label" type="Label" parent="Menu/Title"]
 margin_left = 136.0
@@ -58,26 +51,19 @@ size_flags_horizontal = 3
 size_flags_vertical = 3
 alignment = 1
 script = ExtResource( 4 )
-__meta__ = {
-"_edit_lock_": true
-}
 
 [node name="OnePlayerButton" type="Button" parent="Menu/Options"]
 visible = false
-margin_top = 52.0
+margin_top = 31.0
 margin_right = 400.0
-margin_bottom = 90.0
+margin_bottom = 69.0
 mouse_filter = 2
 custom_fonts/font = ExtResource( 2 )
 custom_styles/focus = SubResource( 3 )
 text = "1-Player"
 flat = true
 script = ExtResource( 5 )
-__meta__ = {
-"_edit_lock_": true
-}
 RawText = "1-Player"
-Scene = ExtResource( 6 )
 
 [node name="TwoPlayerButton" type="Button" parent="Menu/Options"]
 margin_top = 73.0
@@ -89,9 +75,6 @@ custom_styles/focus = SubResource( 3 )
 text = "2-Player"
 flat = true
 script = ExtResource( 5 )
-__meta__ = {
-"_edit_lock_": true
-}
 RawText = "2-Player"
 Scene = ExtResource( 6 )
 
@@ -106,9 +89,6 @@ custom_styles/focus = SubResource( 3 )
 text = "Settings (X)"
 flat = true
 script = ExtResource( 5 )
-__meta__ = {
-"_edit_lock_": true
-}
 RawText = "Settings (X)"
 
 [node name="ExitButton" type="Button" parent="Menu/Options"]
@@ -121,9 +101,6 @@ custom_styles/focus = SubResource( 3 )
 text = "Exit"
 flat = true
 script = ExtResource( 5 )
-__meta__ = {
-"_edit_lock_": true
-}
 RawText = "Exit"
 
 [node name="Info" type="CenterContainer" parent="Menu"]
@@ -131,7 +108,6 @@ margin_top = 298.0
 margin_right = 400.0
 margin_bottom = 400.0
 __meta__ = {
-"_edit_lock_": true,
 "_edit_use_anchors_": false
 }
 
@@ -145,6 +121,3 @@ Powered by Godot 3.4.2
 Created by Haneul Cheong"
 align = 1
 valign = 1
-__meta__ = {
-"_edit_lock_": true
-}

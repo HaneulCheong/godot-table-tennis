@@ -14,30 +14,29 @@ namespace Game.MainScene.BallScene
         // 속성
         ////////////////////
 
+        /// <value>속력</value>
         [Export]
         private float Speed { get; set; } = 400;
 
         /// <value>움직임 여부</value>
-        public bool Moving { get; private set; } = true;
+        private bool Moving { get; set; } = true;
 
         /// <value>상대 속도</value>
-        public Vector2 Velocity { get; private set; } = Vector2.Zero;
+        private Vector2 Velocity { get; set; } = Vector2.Zero;
 
         ////////////////////
         // Godot 메서드
         ////////////////////
 
-        /// <summary>이 노드의 <c>_Ready</c> 메서드입니다.</summary>
         public override void _Ready()
         {
             AddToGroup("MatchPointGroup");
             GetNode<Timer>("ServeTimer").Connect(
-                "timeout", this, nameof(_OnServeTimerTimeout)
+                "timeout", this, nameof(OnServeTimerTimeout)
             );
             Reset();
         }
 
-        /// <summary>이 노드의 <c>_PhysicsProcess</c> 메서드입니다.</summary>
         public override void _PhysicsProcess(float delta)
         {
             if (Moving)
@@ -56,10 +55,10 @@ namespace Game.MainScene.BallScene
         ////////////////////
 
         /// ServeTimer 노드의 Timeout 신호로 호출됩니다.
-        private void _OnServeTimerTimeout()
+        private void OnServeTimerTimeout()
         {
             // 서브 방향 설정
-            Velocity = Vector2.Right.Rotated(RandomTools.Uniform(-1, 1));
+            Velocity = Vector2.Right.Rotated(RandomTools.Float(-1, 1));
             if (RandomTools.RandBool) { Velocity *= -1; }
             Velocity = Velocity.Normalized();
             // 서브, 경기 재개
@@ -130,27 +129,19 @@ namespace Game.MainScene.BallScene
             }
         }
 
-        /// <summary>이 노드를 숨깁니다.</summary>
-        public void MatchPoint()
-        {
-            Visible = false;
-        }
+        public void MatchPoint() => Hide();
 
-        /// <summary>
-        /// * 이 노드를 드러냅니다.
-        /// * 정지 후 무작위 서브 위치로 이동합니다.
-        /// * ServeTimer 노드의 타이머를 시작합니다.
-        /// </summary>
         public void Reset()
         {
-            Visible = true;
+            Show();
+            // 멈춘 뒤 무작위 서브 위치로 이동
             Moving = false;
-            // 무작위 서브 위치로 이동
             Vector2 screenSize = GetViewport().GetVisibleRect().Size;
             Position = new Vector2(
                 screenSize.x / 2,
-                RandomTools.RandInt(80, (int)screenSize.y - 80)
+                RandomTools.Int(80, (int)screenSize.y - 80)
             );
+            // ServeTimer 노드의 타이머를 시작
             GetNode<Timer>("ServeTimer").Start();
         }
     }

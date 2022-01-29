@@ -2,10 +2,10 @@
 
 [ext_resource path="res://assets/fonts/subtext.tres" type="DynamicFont" id=1]
 [ext_resource path="res://assets/fonts/text.tres" type="DynamicFont" id=2]
-[ext_resource path="res://entities/MainScene/ScoreBoardScene/ResultPopup.cs" type="Script" id=3]
-[ext_resource path="res://entities/MainScene/ScoreBoardScene/ScoreBoard.cs" type="Script" id=4]
+[ext_resource path="res://entities/MainScene/UserInterfaceScene/ResultPopup.cs" type="Script" id=3]
+[ext_resource path="res://entities/MainScene/UserInterfaceScene/UserInterface.cs" type="Script" id=4]
 
-[node name="ScoreBoard" type="CanvasLayer"]
+[node name="UserInterface" type="CanvasLayer"]
 script = ExtResource( 4 )
 
 [node name="PlayerOneScore" type="Label" parent="."]

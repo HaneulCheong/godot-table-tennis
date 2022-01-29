@@ -1,17 +1,18 @@
 using System;
+using Godot;
 
 
 namespace Game.Internal
 {
-    /// <summary>C# 내장 <c>Random</c> 클래스를 이용하는
+    /// <summary>C# <c>Random</c> 클래스를 이용하는
     /// 유용한 메서드를 모아놓은 정적 싱글턴 클래스</summary>
-    internal static class RandomTools
+    public static class RandomTools
     {
         ////////////////////
         // 속성
         ////////////////////
 
-        /// 싱글턴 인스턴스
+        /// <value>싱글턴 인스턴스</value>
         private static Random Instance { get; } = new Random();
 
         /// <value>true 또는 false 중 무작위 값</value>
@@ -33,7 +34,7 @@ namespace Game.Internal
         /// 무작위 실수를 반환합니다.
         /// </summary>
         /// <param name="maxValue">무작위 실수 최대값</param>
-        public static float Uniform(float maxValue)
+        public static float Float(float maxValue)
         {
             return (float)(Instance.NextDouble() * maxValue);
         }
@@ -46,11 +47,13 @@ namespace Game.Internal
         /// <param name="maxValue">무작위 실수 최대값</param>
         /// <exception cref="ArgumentException">
         /// <c>maxValue</c>보다 <c>minValue</c>가 큼</exception>
-        public static float Uniform(float minValue, float maxValue)
+        public static float Float(float minValue, float maxValue)
         {
             if (maxValue < minValue)
             {
-                throw new ArgumentException($"{maxValue} < {minValue}");
+                var e = new ArgumentException($"{maxValue} < {minValue}");
+                GD.PushError(e.ToString());
+                (minValue, maxValue) = (maxValue, minValue);
             }
 
             float range = maxValue - minValue;
@@ -62,7 +65,7 @@ namespace Game.Internal
         /// 무작위 정수를 반환합니다.
         /// </summary>
         /// <param name="maxValue">무작위 정수 최대값</param>
-        public static int RandInt(int maxValue)
+        public static int Int(int maxValue)
         {
             return Instance.Next(maxValue);
         }
@@ -75,11 +78,13 @@ namespace Game.Internal
         /// <param name="maxValue">무작위 정수 최대값</param>
         /// <exception cref="ArgumentException">
         /// <c>maxValue</c>보다 <c>minValue</c>가 큼</exception>
-        public static int RandInt(int minValue, int maxValue)
+        public static int Int(int minValue, int maxValue)
         {
             if (maxValue < minValue)
             {
-                throw new ArgumentException($"{maxValue} < {minValue}");
+                var e = new ArgumentException($"{maxValue} < {minValue}");
+                GD.PushError(e.ToString());
+                (minValue, maxValue) = (maxValue, minValue);
             }
 
             return Instance.Next(minValue, maxValue);

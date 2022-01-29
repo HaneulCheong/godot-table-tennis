@@ -10,26 +10,14 @@ namespace Game.MainScene
         // Godot 메서드
         ////////////////////
 
-        /// <summary>이 노드의 <c>_Ready</c> 메서드입니다.</summary>
-        public override void _Ready()
-        {
-            AddToGroup("MatchPointGroup");
-        }
+        public override void _Ready() => AddToGroup("MatchPointGroup");
 
         ////////////////////
         // 메서드
         ////////////////////
 
-        /// <summary>이 노드를 숨깁니다.</summary>
-        public void MatchPoint()
-        {
-            Visible = false;
-        }
+        public void MatchPoint() => Hide();
 
-        /// <summary>이 노드를 드러냅니다.</summary>
-        public void Reset()
-        {
-            Visible = true;
-        }
+        public void Reset() => Show();
     }
 }

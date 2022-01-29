@@ -2,7 +2,7 @@ using System;
 using Godot;
 
 
-namespace Game.MainScene.ScoreBoardScene
+namespace Game.MainScene.UserInterfaceScene
 {
     /// <summary>경기 결과를 표시하는 <c>Label</c> 노드</summary>
     public class ResultPopup : Popup, IMatchPointGroup
@@ -11,7 +11,6 @@ namespace Game.MainScene.ScoreBoardScene
         // Godot 메서드
         ////////////////////
 
-        /// <summary>이 노드의 <c>_Ready</c> 메서드입니다.</summary>
         public override void _Ready()
         {
             AddToGroup("MatchPointGroup");
@@ -23,14 +22,20 @@ namespace Game.MainScene.ScoreBoardScene
         ////////////////////
 
         /// <summary>이 노드를 드러낸 뒤, 게임 결과에 따라
-        /// 승리 또는 패배 메시지를 출력합니다.</summary>
+        /// 승리 메시지를 출력합니다.</summary>
+        /// <exception cref="InvalidOperationException">매치 포인트에 도달한
+        /// 플레이어가 없음에도 이 메소드가 호출됨</exception>
         public void MatchPoint()
         {
-            ScoreBoard scoreBoard = GetParent<ScoreBoard>();
+            UserInterface scoreBoard = GetParent<UserInterface>();
             string result;
 
-            Visible = true;
-            if (scoreBoard.PlayerOneScore == GetNode<Global>("Global").MatchPoint)
+            Show();
+            // 플레이어 1이 승리했을 경우:
+            if (
+                scoreBoard.PlayerOneScore
+                == GetNode<Global>("/root/Global").MatchPoint
+            )
             {
                 if (scoreBoard.PlayerTwoScore == 0)
                 {
@@ -41,7 +46,11 @@ namespace Game.MainScene.ScoreBoardScene
                     result = "Player 1 Wins!";
                 }
             }
-            else if (scoreBoard.PlayerTwoScore == GetNode<Global>("Global").MatchPoint)
+            // 플레이어 2가 승리했을 경우:
+            else if (
+                scoreBoard.PlayerTwoScore
+                == GetNode<Global>("/root/Global").MatchPoint
+            )
             {
                 if (scoreBoard.PlayerOneScore == 0)
                 {
@@ -61,10 +70,6 @@ namespace Game.MainScene.ScoreBoardScene
             GetNode<Label>("Result").Text = result;
         }
 
-        /// <summary>이 노드를 숨깁니다.</summary>
-        public void Reset()
-        {
-            Visible = false;
-        }
+        public void Reset() => Hide();
     }
 }

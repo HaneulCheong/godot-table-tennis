@@ -10,13 +10,15 @@ namespace Game.MainScene.PaddleScene
         // 속성
         ////////////////////
 
+        /// <value>속력</value>
         [Export]
-        /// <summary>속력</summary>
         protected float Speed { get; set; } = 600;
 
+        /// <value>눌렀을 때 위로 올라갈 Input키</value>
         [Export]
         protected string UpAction { get; set; } = "ui_up";
 
+        /// <value>눌렀을 때 아래로 내려갈 Input키</value>
         [Export]
         protected string DownAction { get; set; } = "ui_down";
 
@@ -26,7 +28,7 @@ namespace Game.MainScene.PaddleScene
             get
             {
                 Sprite sprite = GetNode<Sprite>("Sprite");
-                return ((float)(sprite.Texture.GetHeight()) * sprite.Scale.y);
+                return (sprite.Texture.GetHeight() * sprite.Scale.y);
             }
         }
 
@@ -43,7 +45,6 @@ namespace Game.MainScene.PaddleScene
         // Godot 메서드
         ////////////////////
 
-        /// <summary>이 노드의 <c>_Ready</c> 메서드입니다.</summary>
         public override void _Ready()
         {
             AddToGroup("MatchPointGroup");
@@ -52,9 +53,9 @@ namespace Game.MainScene.PaddleScene
             Reset();
         }
 
-        /// <summary>이 노드의 <c>_PhysicsProcess</c> 메서드입니다.</summary>
         public override void _PhysicsProcess(float delta)
         {
+            // 현재 속도에 맞춰 이동
             MoveAndCollide(Velocity * Speed * delta);
             // 밀렸을 경우 원위치 복귀
             if (Position.x != InitialPosition.x)
@@ -67,16 +68,12 @@ namespace Game.MainScene.PaddleScene
         // 메서드
         ////////////////////
 
-        /// <summary>이 노드를 숨깁니다.</summary>
-        public void MatchPoint()
-        {
-            Visible = false;
-        }
+        public void MatchPoint() => Hide();
 
-        /// <summary>이 노드를 드러낸 뒤 초기 위치로 돌아갑니다.</summary>
         virtual public void Reset()
         {
-            Visible = true;
+            Show();
+            // 초기 위치로 돌아감
             Position = InitialPosition;
         }
     }

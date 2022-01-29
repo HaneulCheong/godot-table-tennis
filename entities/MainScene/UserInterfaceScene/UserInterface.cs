@@ -2,13 +2,25 @@ using System;
 using Godot;
 
 
-namespace Game.MainScene.ScoreBoardScene
+namespace Game.MainScene.UserInterfaceScene
 {
-    public class ScoreBoard : CanvasLayer, IMatchPointGroup
+    /// <summary>유저 인터페이스 레이어</summary>
+    public class UserInterface : CanvasLayer, IMatchPointGroup
     {
+        ////////////////////
+        // 필드
+        ////////////////////
+
+        /// <summary><c>PlayerOneScore</c>의 내부 필드</summary>
         private int _playerOneScore = 0;
+        /// <summary><c>PlayerTwoScore</c>의 내부 필드</summary>
         private int _playerTwoScore = 0;
 
+        ////////////////////
+        // 속성
+        ////////////////////
+
+        /// <value>플레이어 1의 점수</value>
         public int PlayerOneScore
         {
             get { return _playerOneScore; }
@@ -27,6 +39,7 @@ namespace Game.MainScene.ScoreBoardScene
             }
         }
 
+        /// <value>플레이어 2의 점수</value>
         public int PlayerTwoScore
         {
             get { return _playerTwoScore; }
@@ -45,15 +58,31 @@ namespace Game.MainScene.ScoreBoardScene
             }
         }
 
+        ////////////////////
+        // Godot 메서드
+        ////////////////////
+
         public override void _Ready()
         {
             AddToGroup("MatchPointGroup");
             Reset();
         }
 
-        [Signal]
-        private delegate void ScoreChanged(int playerOneScore, int playerTwoScore);
+        ////////////////////
+        // Godot 신호 메서드
+        ////////////////////
 
+        /// <summary>점수가 바뀌었을 때 발신하는 신호입니다.</summary>
+        /// <param name="playerOneScore">플레이어 1의 점수</param>
+        /// <param name="playerTwoScore">플레이어 2의 점수</param>
+        [Signal]
+        private delegate void ScoreChanged(
+            int playerOneScore, int playerTwoScore
+        );
+
+        /// <summary>양쪽의 점수를 모두 변경합니다.</summary>
+        /// <param name="playerOneScore">플레이어 1의 점수</param>
+        /// <param name="playerTwoScore">플레이어 2의 점수</param>
         public void Update(int playerOneScore, int playerTwoScore)
         {
             PlayerOneScore = playerOneScore;
@@ -61,6 +90,14 @@ namespace Game.MainScene.ScoreBoardScene
             EmitSignal(nameof(ScoreChanged), PlayerOneScore, PlayerTwoScore);
         }
 
+        ////////////////////
+        // 메서드
+        ////////////////////
+
+        /// <summary>전달한 번호의 플레이어가 득점합니다.</summary>
+        /// <param name="playerNumber">득점한 플레이어의 번호. 1 또는 2.</param>
+        /// <exception cref="ArgumentOutOfRangeException">
+        /// 플레이어 번호가 1 또는 2가 아님</exception>
         public void Scored(int playerNumber)
         {
             switch (playerNumber)
@@ -88,11 +125,6 @@ namespace Game.MainScene.ScoreBoardScene
 
         public void MatchPoint() {}
 
-        public void Reset()
-        {
-            PlayerOneScore = 0;
-            PlayerTwoScore = 0;
-            EmitSignal(nameof(ScoreChanged), PlayerOneScore, PlayerTwoScore);
-        }
+        public void Reset() => Update(0, 0);
     }
 }

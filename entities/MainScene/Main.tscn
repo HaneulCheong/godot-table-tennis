@@ -6,17 +6,17 @@
 [ext_resource path="res://assets/resources/WallShape.tres" type="Shape2D" id=4]
 [ext_resource path="res://assets/resources/GoalAreaShape.tres" type="Shape2D" id=5]
 [ext_resource path="res://entities/MainScene/BallScene/Ball.tscn" type="PackedScene" id=6]
-[ext_resource path="res://entities/MainScene/Paddle/Paddle.tscn" type="PackedScene" id=7]
+[ext_resource path="res://entities/MainScene/PaddleScene/Paddle.tscn" type="PackedScene" id=7]
 [ext_resource path="res://assets/audio/scored.wav" type="AudioStream" id=9]
 [ext_resource path="res://entities/MainScene/Net.cs" type="Script" id=10]
 [ext_resource path="res://entities/MainScene/Main.cs" type="Script" id=11]
-[ext_resource path="res://entities/MainScene/ScoreBoardScene/ScoreBoard.tscn" type="PackedScene" id=12]
+[ext_resource path="res://entities/MainScene/UserInterfaceScene/UserInterface.tscn" type="PackedScene" id=12]
 [ext_resource path="res://entities/MainScene/PausePopup.cs" type="Script" id=13]
 
 [node name="Main" type="Node"]
 script = ExtResource( 11 )
 
-[node name="ScoreBoard" parent="." instance=ExtResource( 12 )]
+[node name="UserInterface" parent="." instance=ExtResource( 12 )]
 
 [node name="Scored" type="AudioStreamPlayer" parent="."]
 pause_mode = 2

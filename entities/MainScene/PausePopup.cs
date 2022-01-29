@@ -17,12 +17,7 @@ namespace Game.MainScene
         // Godot 메서드
         ////////////////////
 
-        /// <summary>이 노드의 <c>_Ready</c> 메서드입니다.</summary>
-        public override void _Ready()
-        {
-            AddToGroup("MatchPointGroup");
-            Reset();
-        }
+        public override void _Ready() => AddToGroup("MatchPointGroup");
 
         /// <summary>이 노드의 <c>_Process</c> 메서드입니다.</summary>
         public override void _Process(float delta)
@@ -49,15 +44,9 @@ namespace Game.MainScene
         ////////////////////
 
         /// <summary>이 노드를 비활성화합니다.</summary>
-        public void MatchPoint()
-        {
-            Pauseable = false;
-        }
+        public void MatchPoint() => Pauseable = false;
 
         /// <summary>이 노드를 활성화합니다.</summary>
-        public void Reset()
-        {
-            Pauseable = true;
-        }
+        public void Reset() => Pauseable = true;
     }
 }
