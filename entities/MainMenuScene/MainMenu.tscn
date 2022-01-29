@@ -1,10 +1,11 @@
-[gd_scene load_steps=7 format=2]
+[gd_scene load_steps=8 format=2]
 
 [ext_resource path="res://assets/fonts/text.tres" type="DynamicFont" id=1]
 [ext_resource path="res://assets/fonts/subtext.tres" type="DynamicFont" id=2]
 [ext_resource path="res://entities/MainMenuScene/MainMenu.cs" type="Script" id=3]
 [ext_resource path="res://entities/MainMenuScene/Options.cs" type="Script" id=4]
 [ext_resource path="res://entities/MainMenuScene/MenuButton.cs" type="Script" id=5]
+[ext_resource path="res://entities/MainScene/Main.tscn" type="PackedScene" id=6]
 
 [sub_resource type="StyleBoxEmpty" id=3]
 
@@ -62,20 +63,21 @@ __meta__ = {
 }
 
 [node name="OnePlayerButton" type="Button" parent="Menu/Options"]
-margin_top = 31.0
+visible = false
+margin_top = 52.0
 margin_right = 400.0
-margin_bottom = 69.0
+margin_bottom = 90.0
 mouse_filter = 2
 custom_fonts/font = ExtResource( 2 )
 custom_styles/focus = SubResource( 3 )
-text = "> 1-Player <"
+text = "1-Player"
 flat = true
 script = ExtResource( 5 )
 __meta__ = {
 "_edit_lock_": true
 }
 RawText = "1-Player"
-FocusTest = true
+Scene = ExtResource( 6 )
 
 [node name="TwoPlayerButton" type="Button" parent="Menu/Options"]
 margin_top = 73.0
@@ -84,18 +86,20 @@ margin_bottom = 111.0
 mouse_filter = 2
 custom_fonts/font = ExtResource( 2 )
 custom_styles/focus = SubResource( 3 )
-text = "2-Player (X)"
+text = "2-Player"
 flat = true
 script = ExtResource( 5 )
 __meta__ = {
 "_edit_lock_": true
 }
-RawText = "2-Player (X)"
+RawText = "2-Player"
+Scene = ExtResource( 6 )
 
 [node name="SettingsButton" type="Button" parent="Menu/Options"]
-margin_top = 115.0
+visible = false
+margin_top = 94.0
 margin_right = 400.0
-margin_bottom = 153.0
+margin_bottom = 132.0
 mouse_filter = 2
 custom_fonts/font = ExtResource( 2 )
 custom_styles/focus = SubResource( 3 )
@@ -108,9 +112,9 @@ __meta__ = {
 RawText = "Settings (X)"
 
 [node name="ExitButton" type="Button" parent="Menu/Options"]
-margin_top = 157.0
+margin_top = 115.0
 margin_right = 400.0
-margin_bottom = 195.0
+margin_bottom = 153.0
 mouse_filter = 2
 custom_fonts/font = ExtResource( 2 )
 custom_styles/focus = SubResource( 3 )

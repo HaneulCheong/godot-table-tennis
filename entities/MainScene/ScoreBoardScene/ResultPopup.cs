@@ -1,10 +1,11 @@
+using System;
 using Godot;
 
 
-namespace Game.MainScene
+namespace Game.MainScene.ScoreBoardScene
 {
     /// <summary>경기 결과를 표시하는 <c>Label</c> 노드</summary>
-    public class MatchResult : Label, IMatchPointGroup
+    public class ResultPopup : Popup, IMatchPointGroup
     {
         ////////////////////
         // Godot 메서드
@@ -25,26 +26,39 @@ namespace Game.MainScene
         /// 승리 또는 패배 메시지를 출력합니다.</summary>
         public void MatchPoint()
         {
+            ScoreBoard scoreBoard = GetParent<ScoreBoard>();
+            string result;
+
             Visible = true;
-            if (GetNode<Main>("..").PlayerScore == Main.MatchPoint)
+            if (scoreBoard.PlayerOneScore == GetNode<Global>("Global").MatchPoint)
             {
-                if (GetNode<Main>("..").OpponentScore == 0)
+                if (scoreBoard.PlayerTwoScore == 0)
                 {
-                    Text = "Perfect!";
+                    result = "Player 1 Perfect!";
                 }
                 else
                 {
-                    Text = "You Win!";
+                    result = "Player 1 Wins!";
                 }
             }
-            else if (GetNode<Main>("..").OpponentScore == Main.MatchPoint)
+            else if (scoreBoard.PlayerTwoScore == GetNode<Global>("Global").MatchPoint)
             {
-                Text = "You Lose!";
+                if (scoreBoard.PlayerOneScore == 0)
+                {
+                    result = "Player 2 Perfect!";
+                }
+                else
+                {
+                    result = "Player 2 Wins!";
+                }
             }
             else
             {
-                Text = "Error!";
+                GD.PushError(new InvalidOperationException().ToString());
+                result = "Error!";
             }
+
+            GetNode<Label>("Result").Text = result;
         }
 
         /// <summary>이 노드를 숨깁니다.</summary>

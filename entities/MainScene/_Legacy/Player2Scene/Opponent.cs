@@ -2,6 +2,7 @@ using System;
 using Godot;
 
 
+/*
 namespace Game.MainScene.Player2Scene
 {
     using BallScene;
@@ -33,7 +34,7 @@ namespace Game.MainScene.Player2Scene
         {
             get
             {
-                Player playernode = GetNode<Player>("../Player");
+                Paddle playernode = GetNode<Paddle>("../Player");
                 Ball ballnode = GetNode<Ball>("../Ball");
 
                 if (
@@ -72,10 +73,10 @@ namespace Game.MainScene.Player2Scene
         ////////////////////
 
         /// <summary>플레이어 점수에 따라 기준 속력을 조정합니다.</summary>
-        public void AdjustSpeed()
+        public void AdjustSpeed(int enemyScore)
         {
             float speedModifier = (float)(
-                (Main.MatchPoint - 1) - GetNode<Main>("..").PlayerScore
+                (Main.MatchPoint - 1) - enemyScore
             );
             Speed = initialSpeed - SpeedStep * speedModifier;
             if (Speed > initialSpeed) { Speed = initialSpeed; }
@@ -86,7 +87,8 @@ namespace Game.MainScene.Player2Scene
         public override void Reset()
         {
             base.Reset();
-            AdjustSpeed();
+            // AdjustSpeed(0);
         }
     }
 }
+*/

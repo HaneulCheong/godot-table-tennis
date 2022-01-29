@@ -12,9 +12,12 @@ namespace Game.MainMenuScene
         private string RawText { get; set; }
 
         [Export]
+        private PackedScene Scene { get; set; } = null;
+
+        [Export]
         private bool FocusTest
         {
-            get { return _focusTest; }
+            get => _focusTest;
             set
             {
                 _focusTest = value;
@@ -27,30 +30,17 @@ namespace Game.MainMenuScene
 
         public override void _Ready()
         {
-            Connect("focus_entered", this, nameof(_OnFocusChanged));
-            Connect("focus_exited", this, nameof(_OnFocusChanged));
+            Connect("focus_entered", this, nameof(OnFocusChange));
+            Connect("focus_exited", this, nameof(OnFocusChange));
         }
 
         public override void _Pressed()
         {
-            switch (Name)
-            {
-                case "OnePlayerButton":
-                    GetTree().ChangeScene("res://entities/MainScene/Main.tscn");
-                    break;
-                case "TwoPlayerButton":
-                    break;
-                case "SettingsButton":
-                    break;
-                case "ExitButton":
-                    GetTree().Quit();
-                    break;
-                default:
-                    throw new System.Exception();
-            }
+            if (Scene == null) { GetTree().Quit(); }
+            GetTree().ChangeSceneTo(Scene);
         }
 
-        public void _OnFocusChanged()
+        private void OnFocusChange()
         {
             Text = HasFocus() ? $"> {RawText} <" : RawText;
         }

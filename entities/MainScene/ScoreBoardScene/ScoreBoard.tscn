@@ -1,0 +1,82 @@
+[gd_scene load_steps=5 format=2]
+
+[ext_resource path="res://assets/fonts/subtext.tres" type="DynamicFont" id=1]
+[ext_resource path="res://assets/fonts/text.tres" type="DynamicFont" id=2]
+[ext_resource path="res://entities/MainScene/ScoreBoardScene/ResultPopup.cs" type="Script" id=3]
+[ext_resource path="res://entities/MainScene/ScoreBoardScene/ScoreBoard.cs" type="Script" id=4]
+
+[node name="ScoreBoard" type="CanvasLayer"]
+script = ExtResource( 4 )
+
+[node name="PlayerOneScore" type="Label" parent="."]
+anchor_left = 0.5
+anchor_right = 0.5
+margin_left = -320.0
+margin_bottom = 128.0
+custom_colors/font_color = Color( 1, 1, 1, 1 )
+custom_fonts/font = ExtResource( 2 )
+text = "0"
+align = 1
+valign = 1
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="PlayerTwoScore" type="Label" parent="."]
+anchor_left = 0.5
+anchor_right = 0.5
+margin_right = 320.0
+margin_bottom = 128.0
+custom_colors/font_color = Color( 1, 1, 1, 1 )
+custom_fonts/font = ExtResource( 2 )
+text = "0"
+align = 1
+valign = 1
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="ResultPopup" type="Popup" parent="."]
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -20.0
+margin_top = -20.0
+margin_right = 20.0
+margin_bottom = 20.0
+script = ExtResource( 3 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Result" type="Label" parent="ResultPopup"]
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+grow_horizontal = 2
+grow_vertical = 0
+custom_fonts/font = ExtResource( 2 )
+text = "Player _ Wins!"
+align = 1
+valign = 1
+uppercase = true
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="RestartPrompt" type="Label" parent="ResultPopup"]
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+grow_horizontal = 2
+custom_fonts/font = ExtResource( 1 )
+text = "Press Space to restart"
+align = 1
+valign = 1
+uppercase = true
+__meta__ = {
+"_edit_use_anchors_": false
+}

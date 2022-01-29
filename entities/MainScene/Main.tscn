@@ -1,4 +1,4 @@
-[gd_scene load_steps=14 format=2]
+[gd_scene load_steps=13 format=2]
 
 [ext_resource path="res://assets/sprites/net.webp" type="Texture" id=1]
 [ext_resource path="res://assets/fonts/subtext.tres" type="DynamicFont" id=2]
@@ -6,19 +6,20 @@
 [ext_resource path="res://assets/resources/WallShape.tres" type="Shape2D" id=4]
 [ext_resource path="res://assets/resources/GoalAreaShape.tres" type="Shape2D" id=5]
 [ext_resource path="res://entities/MainScene/BallScene/Ball.tscn" type="PackedScene" id=6]
-[ext_resource path="res://entities/MainScene/Player2Scene/Opponent.tscn" type="PackedScene" id=7]
-[ext_resource path="res://entities/MainScene/Player1Scene/Player.tscn" type="PackedScene" id=8]
+[ext_resource path="res://entities/MainScene/Paddle/Paddle.tscn" type="PackedScene" id=7]
 [ext_resource path="res://assets/audio/scored.wav" type="AudioStream" id=9]
 [ext_resource path="res://entities/MainScene/Net.cs" type="Script" id=10]
 [ext_resource path="res://entities/MainScene/Main.cs" type="Script" id=11]
-[ext_resource path="res://entities/MainScene/MatchResult.cs" type="Script" id=12]
+[ext_resource path="res://entities/MainScene/ScoreBoardScene/ScoreBoard.tscn" type="PackedScene" id=12]
 [ext_resource path="res://entities/MainScene/PausePopup.cs" type="Script" id=13]
 
 [node name="Main" type="Node"]
-pause_mode = 1
 script = ExtResource( 11 )
 
+[node name="ScoreBoard" parent="." instance=ExtResource( 12 )]
+
 [node name="Scored" type="AudioStreamPlayer" parent="."]
+pause_mode = 2
 stream = ExtResource( 9 )
 volume_db = -12.0
 
@@ -29,146 +30,45 @@ one_shot = true
 position = Vector2( 640, 360 )
 texture = ExtResource( 1 )
 script = ExtResource( 10 )
-__meta__ = {
-"_edit_lock_": true
-}
-
-[node name="PlayerScore" type="Label" parent="."]
-anchor_right = 1.0
-anchor_bottom = 1.0
-margin_left = 320.0
-margin_right = -640.0
-margin_bottom = -592.0
-custom_colors/font_color = Color( 1, 1, 1, 1 )
-custom_fonts/font = ExtResource( 3 )
-text = "0"
-align = 1
-valign = 1
-__meta__ = {
-"_edit_lock_": true,
-"_edit_use_anchors_": false
-}
-
-[node name="OpponentScore" type="Label" parent="."]
-anchor_right = 1.0
-anchor_bottom = 1.0
-margin_left = 640.0
-margin_right = -320.0
-margin_bottom = -592.0
-custom_colors/font_color = Color( 1, 1, 1, 1 )
-custom_fonts/font = ExtResource( 3 )
-text = "0"
-align = 1
-valign = 1
-__meta__ = {
-"_edit_lock_": true,
-"_edit_use_anchors_": false
-}
-
-[node name="MatchResult" type="Label" parent="."]
-visible = false
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-margin_left = -640.0
-margin_top = -360.0
-margin_right = 640.0
-margin_bottom = 340.0
-custom_fonts/font = ExtResource( 3 )
-text = "You Win!"
-align = 1
-valign = 1
-uppercase = true
-script = ExtResource( 12 )
-__meta__ = {
-"_edit_group_": true,
-"_edit_lock_": true,
-"_edit_use_anchors_": false
-}
-
-[node name="RestartPrompt" type="Label" parent="MatchResult"]
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-margin_left = -640.0
-margin_right = 640.0
-margin_bottom = 100.0
-custom_fonts/font = ExtResource( 2 )
-text = "Press Space to restart"
-align = 1
-valign = 1
-uppercase = true
-__meta__ = {
-"_edit_lock_": true,
-"_edit_use_anchors_": false
-}
 
 [node name="GoalAreaLeft" type="Area2D" parent="."]
 position = Vector2( 640, 360 )
 collision_layer = 17
 collision_mask = 8
-__meta__ = {
-"_edit_group_": true,
-"_edit_lock_": true
-}
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="GoalAreaLeft"]
 position = Vector2( -688, 0 )
 shape = ExtResource( 5 )
-__meta__ = {
-"_edit_lock_": true
-}
 
 [node name="GoalAreaRight" type="Area2D" parent="."]
 position = Vector2( 640, 360 )
 collision_layer = 17
 collision_mask = 8
-__meta__ = {
-"_edit_group_": true,
-"_edit_lock_": true
-}
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="GoalAreaRight"]
 position = Vector2( 688, 0 )
 shape = ExtResource( 5 )
-__meta__ = {
-"_edit_lock_": true
-}
 
 [node name="Wall" type="StaticBody2D" parent="."]
 position = Vector2( 640, 360 )
 collision_layer = 3
 collision_mask = 0
-__meta__ = {
-"_edit_group_": true,
-"_edit_lock_": true
-}
 
 [node name="WallTop" type="CollisionShape2D" parent="Wall"]
 position = Vector2( 0, -376 )
 shape = ExtResource( 4 )
-__meta__ = {
-"_edit_lock_": true
-}
 
 [node name="WallBot" type="CollisionShape2D" parent="Wall"]
 position = Vector2( 0, 376 )
 shape = ExtResource( 4 )
-__meta__ = {
-"_edit_lock_": true
-}
 
-[node name="Opponent" parent="." instance=ExtResource( 7 )]
-position = Vector2( 1200, 360 )
-collision_layer = 5
-collision_mask = 2
-
-[node name="Player" parent="." instance=ExtResource( 8 )]
+[node name="PlayerOne" parent="." instance=ExtResource( 7 )]
 position = Vector2( 80, 360 )
-collision_layer = 5
-collision_mask = 2
+
+[node name="PlayerTwo" parent="." instance=ExtResource( 7 )]
+position = Vector2( 1200, 360 )
+UpAction = "player_two_up"
+DownAction = "player_two_down"
 
 [node name="Ball" parent="." instance=ExtResource( 6 )]
 position = Vector2( 640, 360 )
@@ -182,8 +82,6 @@ anchor_bottom = 1.0
 popup_exclusive = true
 script = ExtResource( 13 )
 __meta__ = {
-"_edit_group_": true,
-"_edit_lock_": true,
 "_edit_use_anchors_": false
 }
 
@@ -192,7 +90,6 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 color = Color( 0, 0, 0, 0.501961 )
 __meta__ = {
-"_edit_lock_": true,
 "_edit_use_anchors_": false
 }
 
@@ -211,7 +108,6 @@ align = 1
 valign = 1
 uppercase = true
 __meta__ = {
-"_edit_lock_": true,
 "_edit_use_anchors_": false
 }
 
@@ -229,6 +125,3 @@ text = "Press P to continue"
 align = 1
 valign = 1
 uppercase = true
-__meta__ = {
-"_edit_lock_": true
-}

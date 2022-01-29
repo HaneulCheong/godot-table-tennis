@@ -5,20 +5,17 @@ using Godot;
 namespace Game.MainScene.BallScene
 {
     using Internal;
+    using PaddleScene;
 
     /// <summary>공을 구현하는 <c>KinematicBody2D</c> 노드</summary>
     public class Ball : KinematicBody2D, IMatchPointGroup
     {
         ////////////////////
-        // 상수
-        ////////////////////
-
-        /// 초기 속력
-        private const float speed = 400;
-
-        ////////////////////
         // 속성
         ////////////////////
+
+        [Export]
+        private float Speed { get; set; } = 400;
 
         /// <value>움직임 여부</value>
         public bool Moving { get; private set; } = true;
@@ -46,7 +43,7 @@ namespace Game.MainScene.BallScene
             if (Moving)
             {
                 KinematicCollision2D collision = MoveAndCollide(
-                    Velocity * speed * delta
+                    Velocity * Speed * delta
                 );
 
                 // 충돌 시 반사각 계산 실행
@@ -85,7 +82,7 @@ namespace Game.MainScene.BallScene
                 // 수평으로 충돌했으면 반사각 조정 알고리즘 실행
                 if (Math.Abs(collision.Normal.x) == 1)
                 {
-                    Paddle collider = (Paddle)(collision.Collider);
+                    Paddle collider = collision.Collider as Paddle;
                     float direction = collision.Normal.x;
 
                     // 1. 우선 반사각 수평으로 고정
@@ -149,9 +146,10 @@ namespace Game.MainScene.BallScene
             Visible = true;
             Moving = false;
             // 무작위 서브 위치로 이동
+            Vector2 screenSize = GetViewport().GetVisibleRect().Size;
             Position = new Vector2(
-                GetViewport().Size.x / 2,
-                RandomTools.RandInt(80, (int)GetViewport().Size.y - 80)
+                screenSize.x / 2,
+                RandomTools.RandInt(80, (int)screenSize.y - 80)
             );
             GetNode<Timer>("ServeTimer").Start();
         }

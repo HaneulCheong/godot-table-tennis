@@ -1,22 +1,24 @@
 using Godot;
 
 
-namespace Game.MainScene
+namespace Game.MainScene.PaddleScene
 {
-    /// <summary>모든 라켓의 기본이 되는
-    /// 추상 <c>KinematicBody2D</c> 클래스</summary>
-    public abstract class Paddle : KinematicBody2D, IMatchPointGroup
+    /// <summary>라켓 노드</summary>
+    public class Paddle : KinematicBody2D, IMatchPointGroup
     {
-        ////////////////////
-        // 상수
-        ////////////////////
-
-        /// <summary>초기 속력</summary>
-        protected const float initialSpeed = 600;
-
         ////////////////////
         // 속성
         ////////////////////
+
+        [Export]
+        /// <summary>속력</summary>
+        protected float Speed { get; set; } = 600;
+
+        [Export]
+        protected string UpAction { get; set; } = "ui_up";
+
+        [Export]
+        protected string DownAction { get; set; } = "ui_down";
 
         /// <value>게임 내 스프라이트의 높이</value>
         public float Height
@@ -29,10 +31,10 @@ namespace Game.MainScene
         }
 
         /// <value>이동 방향</value>
-        public abstract Vector2 Direction { get; }
-
-        /// <value>기준 속력</value>
-        protected float Speed { get; set; } = initialSpeed;
+        public virtual Vector2 Velocity
+        {
+            get => new Vector2(0, Input.GetAxis(UpAction, DownAction));
+        }
 
         /// <value>초기 위치</value>
         private Vector2 InitialPosition { get; set; }
@@ -53,7 +55,7 @@ namespace Game.MainScene
         /// <summary>이 노드의 <c>_PhysicsProcess</c> 메서드입니다.</summary>
         public override void _PhysicsProcess(float delta)
         {
-            MoveAndCollide(Direction * Speed * delta);
+            MoveAndCollide(Velocity * Speed * delta);
             // 밀렸을 경우 원위치 복귀
             if (Position.x != InitialPosition.x)
             {

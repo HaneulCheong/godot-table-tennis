@@ -1,16 +1,18 @@
 [gd_scene load_steps=4 format=2]
 
-[ext_resource path="res://entities/MainScene/Player1Scene/Player.cs" type="Script" id=1]
+[ext_resource path="res://entities/MainScene/Paddle/Paddle.cs" type="Script" id=1]
 [ext_resource path="res://assets/sprites/paddle.webp" type="Texture" id=2]
 
 [sub_resource type="RectangleShape2D" id=1]
 extents = Vector2( 8, 40 )
 
-[node name="Player" type="KinematicBody2D"]
+[node name="Paddle" type="KinematicBody2D"]
 script = ExtResource( 1 )
 __meta__ = {
 "_edit_group_": true
 }
+UpAction = "player_one_up"
+DownAction = "player_one_down"
 
 [node name="Sprite" type="Sprite" parent="."]
 scale = Vector2( 0.25, 0.25 )
