@@ -6,7 +6,7 @@ using Godot;
 namespace Game.MainMenuScene
 {
     /// <summary>메인 메뉴 버튼을 나열할 컨테이너 노드</summary>
-    public class Options : VBoxContainer
+    public class OptionContainer : VBoxContainer
     {
         ////////////////////
         // Godot 메서드
@@ -21,7 +21,7 @@ namespace Game.MainMenuScene
                 if (button.Visible) { buttonList.Add(button); }
             }
 
-            SetButtonFocusChain(buttonList);
+            // SetButtonFocusChain(buttonList);
             // 목록의 첫 번째 버튼에 Focus
             buttonList[0].GrabFocus();
         }

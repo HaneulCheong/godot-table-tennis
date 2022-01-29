@@ -1,18 +1,39 @@
-[gd_scene load_steps=5 format=2]
+[gd_scene load_steps=6 format=2]
 
 [ext_resource path="res://assets/fonts/subtext.tres" type="DynamicFont" id=1]
 [ext_resource path="res://assets/fonts/text.tres" type="DynamicFont" id=2]
 [ext_resource path="res://entities/MainScene/UserInterfaceScene/ResultPopup.cs" type="Script" id=3]
 [ext_resource path="res://entities/MainScene/UserInterfaceScene/UserInterface.cs" type="Script" id=4]
+[ext_resource path="res://entities/MainScene/UserInterfaceScene/PausePopup.cs" type="Script" id=5]
 
 [node name="UserInterface" type="CanvasLayer"]
+pause_mode = 2
 script = ExtResource( 4 )
 
-[node name="PlayerOneScore" type="Label" parent="."]
+[node name="ScoreBoard" type="HBoxContainer" parent="."]
 anchor_left = 0.5
 anchor_right = 0.5
 margin_left = -320.0
-margin_bottom = 128.0
+margin_right = 320.0
+margin_bottom = 160.0
+grow_horizontal = 2
+__meta__ = {
+"_edit_group_": true,
+"_edit_lock_": true,
+"_edit_use_anchors_": false
+}
+
+[node name="PlayerOneScore" type="CenterContainer" parent="ScoreBoard"]
+margin_right = 318.0
+margin_bottom = 160.0
+size_flags_horizontal = 3
+
+[node name="Label" type="Label" parent="ScoreBoard/PlayerOneScore"]
+margin_left = 143.0
+margin_top = 48.0
+margin_right = 175.0
+margin_bottom = 112.0
+grow_horizontal = 0
 custom_colors/font_color = Color( 1, 1, 1, 1 )
 custom_fonts/font = ExtResource( 2 )
 text = "0"
@@ -22,11 +43,17 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="PlayerTwoScore" type="Label" parent="."]
-anchor_left = 0.5
-anchor_right = 0.5
-margin_right = 320.0
-margin_bottom = 128.0
+[node name="PlayerTwoScore" type="CenterContainer" parent="ScoreBoard"]
+margin_left = 322.0
+margin_right = 640.0
+margin_bottom = 160.0
+size_flags_horizontal = 3
+
+[node name="Label" type="Label" parent="ScoreBoard/PlayerTwoScore"]
+margin_left = 143.0
+margin_top = 48.0
+margin_right = 175.0
+margin_bottom = 112.0
 custom_colors/font_color = Color( 1, 1, 1, 1 )
 custom_fonts/font = ExtResource( 2 )
 text = "0"
@@ -47,18 +74,36 @@ margin_right = 20.0
 margin_bottom = 20.0
 script = ExtResource( 3 )
 __meta__ = {
+"_edit_group_": true,
+"_edit_lock_": true,
 "_edit_use_anchors_": false
 }
 
-[node name="Result" type="Label" parent="ResultPopup"]
+[node name="VBoxContainer" type="VBoxContainer" parent="ResultPopup"]
 anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
+margin_left = -224.0
+margin_top = -50.0
+margin_right = 224.0
+margin_bottom = 50.0
 grow_horizontal = 2
-grow_vertical = 0
+grow_vertical = 2
+alignment = 1
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Result" type="CenterContainer" parent="ResultPopup/VBoxContainer"]
+margin_right = 448.0
+margin_bottom = 64.0
+
+[node name="Label" type="Label" parent="ResultPopup/VBoxContainer/Result"]
+margin_right = 448.0
+margin_bottom = 64.0
 custom_fonts/font = ExtResource( 2 )
-text = "Player _ Wins!"
+text = "Player ? Wins!"
 align = 1
 valign = 1
 uppercase = true
@@ -66,14 +111,93 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="RestartPrompt" type="Label" parent="ResultPopup"]
+[node name="RestartPrompt" type="CenterContainer" parent="ResultPopup/VBoxContainer"]
+margin_top = 68.0
+margin_right = 448.0
+margin_bottom = 100.0
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Label" type="Label" parent="ResultPopup/VBoxContainer/RestartPrompt"]
+margin_left = 48.0
+margin_right = 400.0
+margin_bottom = 32.0
+custom_fonts/font = ExtResource( 1 )
+text = "Press Space to restart"
+align = 1
+valign = 1
+uppercase = true
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="PausePopup" type="Popup" parent="."]
+pause_mode = 2
+anchor_right = 1.0
+anchor_bottom = 1.0
+popup_exclusive = true
+script = ExtResource( 5 )
+__meta__ = {
+"_edit_group_": true,
+"_edit_lock_": true,
+"_edit_use_anchors_": false
+}
+
+[node name="Curtain" type="ColorRect" parent="PausePopup"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+color = Color( 0, 0, 0, 0.501961 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="VBoxContainer" type="VBoxContainer" parent="PausePopup"]
 anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
+margin_left = -152.0
+margin_top = -50.0
+margin_right = 152.0
+margin_bottom = 50.0
+grow_horizontal = 2
+grow_vertical = 2
+alignment = 1
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Text" type="CenterContainer" parent="PausePopup/VBoxContainer"]
+margin_right = 304.0
+margin_bottom = 64.0
+
+[node name="Label" type="Label" parent="PausePopup/VBoxContainer/Text"]
+margin_left = 56.0
+margin_right = 248.0
+margin_bottom = 64.0
+grow_horizontal = 2
+grow_vertical = 0
+custom_fonts/font = ExtResource( 2 )
+text = "Paused"
+align = 1
+valign = 1
+uppercase = true
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="ContinuePrompt" type="CenterContainer" parent="PausePopup/VBoxContainer"]
+margin_top = 68.0
+margin_right = 304.0
+margin_bottom = 100.0
+
+[node name="Label" type="Label" parent="PausePopup/VBoxContainer/ContinuePrompt"]
+margin_right = 304.0
+margin_bottom = 32.0
 grow_horizontal = 2
 custom_fonts/font = ExtResource( 1 )
-text = "Press Space to restart"
+text = "Press P to continue"
 align = 1
 valign = 1
 uppercase = true

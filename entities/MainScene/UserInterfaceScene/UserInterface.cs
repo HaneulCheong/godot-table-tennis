@@ -35,7 +35,9 @@ namespace Game.MainScene.UserInterfaceScene
                 }
                 /// 변경할 때 해당 Label도 같이 변경
                 _playerOneScore = value;
-                GetNode<Label>("PlayerOneScore").Text = value.ToString();
+                GetNode<Label>(
+                    "ScoreBoard/PlayerOneScore/Label"
+                ).Text = value.ToString();
             }
         }
 
@@ -54,7 +56,9 @@ namespace Game.MainScene.UserInterfaceScene
                 }
                 /// 변경할 때 해당 Label도 같이 변경
                 _playerTwoScore = value;
-                GetNode<Label>("PlayerTwoScore").Text = value.ToString();
+                GetNode<Label>(
+                    "ScoreBoard/PlayerTwoScore/Label"
+                ).Text = value.ToString();
             }
         }
 

@@ -67,7 +67,7 @@ namespace Game.MainScene.UserInterfaceScene
                 result = "Error!";
             }
 
-            GetNode<Label>("Result").Text = result;
+            GetNode<Label>("VBoxContainer/Result/Label").Text = result;
         }
 
         public void Reset() => Hide();

@@ -4,19 +4,19 @@ using Godot;
 namespace Game.MainMenuScene
 {
     /// <summary>메인 메뉴 버튼 노드</summary>
-    public class MenuButton : Button
+    [Tool]
+    public class SceneChangeButton : Button
     {
         ////////////////////
         // 속성
         ////////////////////
 
-        /// <value>버튼의 문자열</value>
-        [Export]
-        private string RawText { get; set; }
-
         /// <value>눌렸을 때 진입할 씬</value>
         [Export]
         private PackedScene Scene { get; set; } = null;
+
+        /// <value>버튼의 문자열</value>
+        private string RawText { get; set; }
 
         ////////////////////
         // Godot 메서드
@@ -24,6 +24,7 @@ namespace Game.MainMenuScene
 
         public override void _Ready()
         {
+            RawText = Text;
             Connect("focus_entered", this, nameof(OnFocusChange));
             Connect("focus_exited", this, nameof(OnFocusChange));
         }
