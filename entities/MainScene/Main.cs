@@ -48,20 +48,20 @@ namespace Game.MainScene
             ScoreBoardLayer.Scored(playerNumber);
             GetNode<AudioStreamPlayer>("Scored").Play();
 
-            // 매치 포인트가 아닐 경우:
-            if (
-                ScoreBoardLayer.PlayerOneScore < MatchPoint
-                || ScoreBoardLayer.PlayerTwoScore < MatchPoint
-            )
-            {
-                GetNode<Timer>("NextGameTimer").Start();
-            }
             // 매치 포인트일 경우:
-            else
+            if (
+                ScoreBoardLayer.PlayerOneScore >= MatchPoint
+                || ScoreBoardLayer.PlayerTwoScore >= MatchPoint
+            )
             {
                 GetTree().CallGroup(
                     "MatchPointGroup", nameof(IMatchPointGroup.MatchPoint)
                 );
+                return;
+            }
+            else
+            {
+                GetNode<Timer>("NextGameTimer").Start();
             }
         }
 
