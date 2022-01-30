@@ -10,7 +10,11 @@ namespace Game.MainScene
         // Godot 메서드
         ////////////////////
 
-        public override void _Ready() => AddToGroup("MatchPointGroup");
+        public override void _Ready()
+        {
+            AddToGroup("MatchPointGroup");
+            Reset();
+        }
 
         ////////////////////
         // 메서드

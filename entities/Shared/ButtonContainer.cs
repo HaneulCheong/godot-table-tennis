@@ -3,10 +3,10 @@ using System.Collections.Generic;
 using Godot;
 
 
-namespace Game.MainMenuScene
+namespace Game.Shared
 {
-    /// <summary>메인 메뉴 버튼을 나열할 컨테이너 노드</summary>
-    public class OptionContainer : VBoxContainer
+    /// <summary>선택지 버튼을 나열할 컨테이너 노드</summary>
+    public class ButtonContainer : VBoxContainer
     {
         ////////////////////
         // Godot 메서드
@@ -21,7 +21,7 @@ namespace Game.MainMenuScene
                 if (button.Visible) { buttonList.Add(button); }
             }
 
-            // SetButtonFocusChain(buttonList);
+            SetButtonFocusChain(buttonList);
             // 목록의 첫 번째 버튼에 Focus
             buttonList[0].GrabFocus();
         }
@@ -30,11 +30,17 @@ namespace Game.MainMenuScene
         // 메서드
         ////////////////////
 
-        /// <summary>버튼 사이를 'ui_up'과 'ui_down' 등으로
-        /// 이동할 수 있도록 Focus 사슬을 설정합니다.</summary>
+        /// <summary>첫 버튼과 마지막 버튼을 이어줍니다.</summary>
         /// <param name="buttonList">사슬을 설정할 버튼의 목록</param>
         private void SetButtonFocusChain(List<Button> buttonList)
         {
+            Button firstButton = buttonList[0];
+            Button lastButton = buttonList[buttonList.Count - 1];
+
+            firstButton.FocusNeighbourTop = firstButton.GetPathTo(lastButton);
+            lastButton.FocusNeighbourBottom = lastButton.GetPathTo(firstButton);
+
+            /*
             // 각 버튼마다:
             foreach (Button button in buttonList)
             {
@@ -75,6 +81,7 @@ namespace Game.MainMenuScene
                 button.FocusNeighbourBottom = button.GetPathTo(buttonBelow);
                 button.FocusNeighbourRight = button.GetPathTo(buttonBelow);
             }
+            */
         }
     }
 }

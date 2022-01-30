@@ -3,50 +3,73 @@ using Godot;
 
 namespace Game.MainScene
 {
-    /// <summary>일시정지를 위한 <c>PausePopup</c> 노드</summary>
+    using Shared;
+
+    /// <summary>일시정지 팝업</summary>
     public class PausePopup : Popup, IMatchPointGroup
     {
         ////////////////////
         // 속성
         ////////////////////
 
-        /// <value>활성화 여부</value>
-        private bool Pauseable { get; set; } = true;
+        /// <value>활성화 여부. 참일 경우 팝업시킬 수 있는 상황.</value>
+        private bool Pausable { get; set; } = true;
 
         ////////////////////
         // Godot 메서드
         ////////////////////
 
-        public override void _Ready() => AddToGroup("MatchPointGroup");
+        public override void _Ready()
+        {
+            AddToGroup("MatchPointGroup");
 
-        /// <summary>이 노드의 <c>_Process</c> 메서드입니다.</summary>
+            // 드러낼 때와 숨길 때의 행동 정의
+            Connect("popup_hide", this, nameof(OnHide));
+            Connect("about_to_show", this, nameof(OnAboutToShow));
+
+            // 재개 버튼 연결
+            var buttonContainer = GetNode<ButtonContainer>(
+                "VBoxContainer/ButtonContainer"
+            );
+            buttonContainer.GetNode<TextButton>("ResumeButton").Connect(
+                "pressed", this, nameof(OnResumeButtonPressed)
+            );
+
+            Reset();
+        }
+
+        /// <summary><c>Pauseable</c>이 참인 상태에서
+        /// "ui_pause"를 누르면 팝업합니다.</summary>
         public override void _Process(float delta)
         {
-            // "ui_pause"로 게임을 일시정지합니다.
-            if (Pauseable && Input.IsActionJustPressed("ui_pause"))
+            if (Pausable && Input.IsActionJustPressed("ui_pause"))
             {
-                if (GetTree().Paused)
-                {
-                    Hide();
-                    GetTree().Paused = false;
-                }
-                else
-                {
-                    PopupCentered();
-                    GetTree().Paused = true;
-                }
-
+                if (!GetTree().Paused) { PopupCentered(); }
+                else { Hide(); }
             }
         }
+
+        ////////////////////
+        // Godot 신호 메서드
+        ////////////////////
+
+        /// <summary>팝업 시 게임을 일시정지합니다.</summary>
+        private void OnAboutToShow() => GetTree().Paused = true;
+
+        /// <summary>숨길 시 게임을 재개합니다.</summary>
+        private void OnHide() => GetTree().Paused = false;
+
+        /// <summary>재개 버튼을 누를 시 이 팝업을 숨깁니다.</summary>
+        private void OnResumeButtonPressed() => Hide();
 
         ////////////////////
         // 메서드
         ////////////////////
 
         /// <summary>이 노드를 비활성화합니다.</summary>
-        public void MatchPoint() => Pauseable = false;
+        public void MatchPoint() => Pausable = false;
 
         /// <summary>이 노드를 활성화합니다.</summary>
-        public void Reset() => Pauseable = true;
+        public void Reset() => Pausable = true;
     }
 }

@@ -84,16 +84,6 @@ namespace Game.MainScene.UserInterfaceScene
             int playerOneScore, int playerTwoScore
         );
 
-        /// <summary>양쪽의 점수를 모두 변경합니다.</summary>
-        /// <param name="playerOneScore">플레이어 1의 점수</param>
-        /// <param name="playerTwoScore">플레이어 2의 점수</param>
-        public void Update(int playerOneScore, int playerTwoScore)
-        {
-            PlayerOneScore = playerOneScore;
-            PlayerTwoScore = playerTwoScore;
-            EmitSignal(nameof(ScoreChanged), PlayerOneScore, PlayerTwoScore);
-        }
-
         ////////////////////
         // 메서드
         ////////////////////
@@ -107,16 +97,10 @@ namespace Game.MainScene.UserInterfaceScene
             switch (playerNumber)
             {
                 case 1:
-                    PlayerOneScore++;
-                    EmitSignal(
-                        nameof(ScoreChanged), PlayerOneScore, PlayerTwoScore
-                    );
+                    Update(PlayerOneScore + 1, PlayerTwoScore);
                     break;
                 case 2:
-                    PlayerTwoScore++;
-                    EmitSignal(
-                        nameof(ScoreChanged), PlayerOneScore, PlayerTwoScore
-                    );
+                    Update(PlayerOneScore, PlayerTwoScore + 1);
                     break;
                 default:
                     var e = new ArgumentOutOfRangeException(
@@ -129,6 +113,17 @@ namespace Game.MainScene.UserInterfaceScene
 
         public void MatchPoint() {}
 
+        /// <summary>점수를 초기화합니다.</summary>
         public void Reset() => Update(0, 0);
+
+        /// <summary>양쪽의 점수를 모두 변경합니다.</summary>
+        /// <param name="playerOneScore">변경할 플레이어 1의 점수</param>
+        /// <param name="playerTwoScore">변경할 플레이어 2의 점수</param>
+        private void Update(int playerOneScore, int playerTwoScore)
+        {
+            PlayerOneScore = playerOneScore;
+            PlayerTwoScore = playerTwoScore;
+            EmitSignal(nameof(ScoreChanged), PlayerOneScore, PlayerTwoScore);
+        }
     }
 }

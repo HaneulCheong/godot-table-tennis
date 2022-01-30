@@ -4,7 +4,7 @@ using Godot;
 
 namespace Game.MainScene.UserInterfaceScene
 {
-    /// <summary>경기 결과를 표시하는 <c>Label</c> 노드</summary>
+    /// <summary>경기 결과를 표시하는 팝업</summary>
     public class ResultPopup : Popup, IMatchPointGroup
     {
         ////////////////////
@@ -21,55 +21,52 @@ namespace Game.MainScene.UserInterfaceScene
         // 메서드
         ////////////////////
 
-        /// <summary>이 노드를 드러낸 뒤, 게임 결과에 따라
-        /// 승리 메시지를 출력합니다.</summary>
-        /// <exception cref="InvalidOperationException">매치 포인트에 도달한
-        /// 플레이어가 없음에도 이 메소드가 호출됨</exception>
-        public void MatchPoint()
+        /// <summary>주어진 점수에 따라 승리 메시지를 반환합니다.</summary>
+        /// <param name="playerOneScore">플레이어 1의 점수</param>
+        /// <param name="playerTwoScore">플레이어 2의 점수</param>
+        /// <exception cref="InvalidOperationException">매치 포인트에
+        /// 도달한 플레이어가 없음에도 이 메소드가 호출됨</exception>
+        private string ResultMessage(int playerOneScore, int playerTwoScore)
         {
-            UserInterface scoreBoard = GetParent<UserInterface>();
-            string result;
+            string result = null;
+            int matchPoint = GetNode<Global>("/root/Global").MatchPoint;
 
-            Show();
-            // 플레이어 1이 승리했을 경우:
-            if (
-                scoreBoard.PlayerOneScore
-                == GetNode<Global>("/root/Global").MatchPoint
-            )
+            // 플레이어 1이 승리했으면:
+            if (playerOneScore >= matchPoint)
             {
-                if (scoreBoard.PlayerTwoScore == 0)
-                {
-                    result = "Player 1 Perfect!";
-                }
-                else
-                {
-                    result = "Player 1 Wins!";
-                }
+                result = (
+                    playerTwoScore > 0 ? "Player 1 Wins!" : "Player 1 Perfect!"
+                );
             }
-            // 플레이어 2가 승리했을 경우:
-            else if (
-                scoreBoard.PlayerTwoScore
-                == GetNode<Global>("/root/Global").MatchPoint
-            )
+            // 플레이어 2가 승리했으면:
+            else if (playerTwoScore >= matchPoint)
             {
-                if (scoreBoard.PlayerOneScore == 0)
-                {
-                    result = "Player 2 Perfect!";
-                }
-                else
-                {
-                    result = "Player 2 Wins!";
-                }
+                result = (
+                    playerOneScore > 0 ? "Player 2 Wins!" : "Player 2 Perfect!"
+                );
             }
+            // 둘 다 매치 포인트에 도달하지 않았으면 InvalidOperationException
             else
             {
                 GD.PushError(new InvalidOperationException().ToString());
                 result = "Error!";
             }
 
-            GetNode<Label>("VBoxContainer/Result/Label").Text = result;
+            return result;
         }
 
+        /// <summary>승리 메시지를 출력하며 팝업합니다.</summary>
+        public void MatchPoint()
+        {
+            UserInterface scoreBoard = GetParent<UserInterface>();
+
+            GetNode<Label>("VBoxContainer/Result/Label").Text = ResultMessage(
+                scoreBoard.PlayerOneScore, scoreBoard.PlayerTwoScore
+            );
+            PopupCentered();
+        }
+
+        /// <summary>이 노드를 숨깁니다.</summary>
         public void Reset() => Hide();
     }
 }

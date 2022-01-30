@@ -1,10 +1,15 @@
-[gd_scene load_steps=6 format=2]
+[gd_scene load_steps=10 format=2]
 
 [ext_resource path="res://assets/fonts/subtext.tres" type="DynamicFont" id=1]
 [ext_resource path="res://assets/fonts/text.tres" type="DynamicFont" id=2]
 [ext_resource path="res://entities/MainScene/UserInterfaceScene/ResultPopup.cs" type="Script" id=3]
 [ext_resource path="res://entities/MainScene/UserInterfaceScene/UserInterface.cs" type="Script" id=4]
 [ext_resource path="res://entities/MainScene/UserInterfaceScene/PausePopup.cs" type="Script" id=5]
+[ext_resource path="res://entities/Shared/ButtonContainer.cs" type="Script" id=6]
+[ext_resource path="res://entities/Shared/SceneChangeButton.cs" type="Script" id=7]
+[ext_resource path="res://entities/Shared/TextButton.cs" type="Script" id=8]
+
+[sub_resource type="StyleBoxEmpty" id=1]
 
 [node name="UserInterface" type="CanvasLayer"]
 pause_mode = 2
@@ -111,26 +116,36 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="RestartPrompt" type="CenterContainer" parent="ResultPopup/VBoxContainer"]
+[node name="ButtonContainer" type="VBoxContainer" parent="ResultPopup/VBoxContainer"]
 margin_top = 68.0
 margin_right = 448.0
-margin_bottom = 100.0
-__meta__ = {
-"_edit_use_anchors_": false
-}
+margin_bottom = 148.0
+script = ExtResource( 6 )
 
-[node name="Label" type="Label" parent="ResultPopup/VBoxContainer/RestartPrompt"]
-margin_left = 48.0
-margin_right = 400.0
-margin_bottom = 32.0
+[node name="RestartButton" type="Button" parent="ResultPopup/VBoxContainer/ButtonContainer"]
+margin_right = 448.0
+margin_bottom = 38.0
+mouse_filter = 2
 custom_fonts/font = ExtResource( 1 )
-text = "Press Space to restart"
-align = 1
-valign = 1
-uppercase = true
-__meta__ = {
-"_edit_use_anchors_": false
-}
+custom_styles/focus = SubResource( 1 )
+button_mask = 0
+text = "Restart"
+flat = true
+script = ExtResource( 7 )
+Scene = "res://entities/MainScene/Main.tscn"
+
+[node name="ExitButton" type="Button" parent="ResultPopup/VBoxContainer/ButtonContainer"]
+margin_top = 42.0
+margin_right = 448.0
+margin_bottom = 80.0
+mouse_filter = 2
+custom_fonts/font = ExtResource( 1 )
+custom_styles/focus = SubResource( 1 )
+button_mask = 0
+text = "Exit"
+flat = true
+script = ExtResource( 7 )
+Scene = "res://entities/MainMenuScene/MainMenu.tscn"
 
 [node name="PausePopup" type="Popup" parent="."]
 pause_mode = 2
@@ -168,11 +183,11 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="Text" type="CenterContainer" parent="PausePopup/VBoxContainer"]
+[node name="Title" type="CenterContainer" parent="PausePopup/VBoxContainer"]
 margin_right = 304.0
 margin_bottom = 64.0
 
-[node name="Label" type="Label" parent="PausePopup/VBoxContainer/Text"]
+[node name="Label" type="Label" parent="PausePopup/VBoxContainer/Title"]
 margin_left = 56.0
 margin_right = 248.0
 margin_bottom = 64.0
@@ -187,20 +202,48 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="ContinuePrompt" type="CenterContainer" parent="PausePopup/VBoxContainer"]
+[node name="ButtonContainer" type="VBoxContainer" parent="PausePopup/VBoxContainer"]
 margin_top = 68.0
 margin_right = 304.0
-margin_bottom = 100.0
-
-[node name="Label" type="Label" parent="PausePopup/VBoxContainer/ContinuePrompt"]
-margin_right = 304.0
-margin_bottom = 32.0
-grow_horizontal = 2
-custom_fonts/font = ExtResource( 1 )
-text = "Press P to continue"
-align = 1
-valign = 1
-uppercase = true
+margin_bottom = 190.0
+script = ExtResource( 6 )
 __meta__ = {
 "_edit_use_anchors_": false
 }
+
+[node name="ResumeButton" type="Button" parent="PausePopup/VBoxContainer/ButtonContainer"]
+margin_right = 304.0
+margin_bottom = 38.0
+mouse_filter = 2
+custom_fonts/font = ExtResource( 1 )
+custom_styles/focus = SubResource( 1 )
+button_mask = 0
+text = "Resume"
+flat = true
+script = ExtResource( 8 )
+
+[node name="RestartButton" type="Button" parent="PausePopup/VBoxContainer/ButtonContainer"]
+margin_top = 42.0
+margin_right = 304.0
+margin_bottom = 80.0
+mouse_filter = 2
+custom_fonts/font = ExtResource( 1 )
+custom_styles/focus = SubResource( 1 )
+button_mask = 0
+text = "Restart"
+flat = true
+script = ExtResource( 7 )
+Scene = "res://entities/MainScene/Main.tscn"
+
+[node name="ExitButton" type="Button" parent="PausePopup/VBoxContainer/ButtonContainer"]
+margin_top = 84.0
+margin_right = 304.0
+margin_bottom = 122.0
+mouse_filter = 2
+custom_fonts/font = ExtResource( 1 )
+custom_styles/focus = SubResource( 1 )
+button_mask = 0
+text = "Exit"
+flat = true
+script = ExtResource( 7 )
+Scene = "res://entities/MainMenuScene/MainMenu.tscn"

@@ -129,11 +129,16 @@ namespace Game.MainScene.BallScene
             }
         }
 
+        /// <summary>이 노드를 숨깁니다.</summary>
         public void MatchPoint() => Hide();
 
+        /// <summary>
+        /// * 멈춘 뒤 무작위 서브 위치로 이동합니다.
+        /// * 이 노드를 드러냅니다.
+        /// * ServeTimer 노드의 타이머를 시작합니다.
+        /// </summary>
         public void Reset()
         {
-            Show();
             // 멈춘 뒤 무작위 서브 위치로 이동
             Moving = false;
             Vector2 screenSize = GetViewport().GetVisibleRect().Size;
@@ -141,6 +146,7 @@ namespace Game.MainScene.BallScene
                 screenSize.x / 2,
                 RandomTools.Int(80, (int)screenSize.y - 80)
             );
+            Show();
             // ServeTimer 노드의 타이머를 시작
             GetNode<Timer>("ServeTimer").Start();
         }

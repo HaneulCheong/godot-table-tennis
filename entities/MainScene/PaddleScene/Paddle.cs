@@ -32,7 +32,7 @@ namespace Game.MainScene.PaddleScene
             }
         }
 
-        /// <value>이동 방향</value>
+        /// <value>상대 속도</value>
         public virtual Vector2 Velocity
         {
             get => new Vector2(0, Input.GetAxis(UpAction, DownAction));
@@ -57,7 +57,7 @@ namespace Game.MainScene.PaddleScene
         {
             // 현재 속도에 맞춰 이동
             MoveAndCollide(Velocity * Speed * delta);
-            // 밀렸을 경우 원위치 복귀
+            // 가로로 밀렸을 경우 원위치 복귀
             if (Position.x != InitialPosition.x)
             {
                 Position = new Vector2(InitialPosition.x, Position.y);
@@ -68,13 +68,14 @@ namespace Game.MainScene.PaddleScene
         // 메서드
         ////////////////////
 
+        /// <summary>이 노드를 숨깁니다.</summary>
         public void MatchPoint() => Hide();
 
+        /// <summary>이 노드를 드러낸 뒤 초기 위치로 돌아갑니다.</summary>
         virtual public void Reset()
         {
-            Show();
-            // 초기 위치로 돌아감
             Position = InitialPosition;
+            Show();
         }
     }
 }
