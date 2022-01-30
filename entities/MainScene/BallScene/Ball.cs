@@ -11,12 +11,28 @@ namespace Game.MainScene.BallScene
     public class Ball : KinematicBody2D, IMatchPointGroup
     {
         ////////////////////
+        // 상수
+        ////////////////////
+
+        /// <summary>절반 파이, 즉 직각의 라디안 값</summary>
+        private float HALF_PI = (float)(Math.PI / 2);
+
+        ////////////////////
         // 속성
         ////////////////////
 
         /// <value>속력</value>
         [Export]
         private float Speed { get; set; } = 400;
+
+        /// <value>한계 속력</value>
+        [Export]
+        private float MaxVelocity { get; set; } = 5;
+
+        /// <value>Paddle 충돌 후의 최대 반사각. 1에 가까울 수록
+        /// 수직에 가깝게 반사될 수 있음</value>
+        [Export]
+        private float BounceRatio { get; set; } = 0.7f;
 
         /// <value>움직임 여부</value>
         private bool Moving { get; set; } = true;
@@ -81,34 +97,35 @@ namespace Game.MainScene.BallScene
                 // 수평으로 충돌했으면 반사각 조정 알고리즘 실행
                 if (Math.Abs(collision.Normal.x) == 1)
                 {
+                    // 충돌한 Paddle
                     Paddle collider = collision.Collider as Paddle;
-                    float direction = collision.Normal.x;
+                    // 반사 후의 대략적인 진행 방향. 1: 오른쪽, -1: 왼쪽
+                    int direction = (int)collision.Normal.x;
 
                     // 1. 우선 반사각 수평으로 고정
-                    Velocity = (
-                        Velocity.Rotated(Velocity.AngleTo(new Vector2(1, 0)))
-                        * direction
-                    );
-                    // 2. 상하 치우침 계산
-                    float offset = (
-                        (Position.y - collider.Position.y) / (collider.Height / 2)
-                    );
-                    if (offset >= 0)
-                    {
-                        offset *= offset;
-                        offset = Math.Min(offset, 0.9f);
-                    }
-                    else
-                    {
-                        offset *= -offset;
-                        offset = Math.Max(offset, -0.9f);
-                    }
-                    // 3. 오차에 따라 반사각 회전
                     Velocity = Velocity.Rotated(
-                        (float)(Math.PI / 2) * offset * direction
+                        Velocity.AngleTo(new Vector2(direction, 0))
                     );
+                    // 2. 각도 비율 계산
+                    // 2.1. 상하 치우침 계산, 즉 반사 지점이
+                    // Paddle의 중심으로부터 얼마나 멀리 있는지 계산
+                    // 끝으로 치우쳐졌을 수록 반사각이 깊어짐
+                    float ratio = (
+                        (Position.y - collider.Position.y)
+                        / (collider.Height / 2)
+                    );
+                    ratio = Mathf.Clamp(ratio, -1, 1);
+                    // 2.2. 각도 완화
+                    // ratio가 1 이하이므로 제곱해서 완화한 뒤
+                    // BounceRatio를 곱해서 다시 완화
+                    if (ratio >= 0) { ratio *= ratio; }
+                    else { ratio *= -ratio; }
+                    ratio *= BounceRatio;
+                    // 3. 산출한 각도 비율에 따라 반사각 회전
+                    float newRadian = HALF_PI * ratio * direction;
+                    Velocity = Velocity.Rotated(newRadian);
                 }
-                // 아닐 경우:
+                // 수평 충돌이 아니면:
                 else
                 {
                     // 일반적인 반사 처리
@@ -117,7 +134,7 @@ namespace Game.MainScene.BallScene
                 // 최종적으로 속도 급격히 증가
                 Velocity *= 1.05f;
             }
-            // 충돌 물체가 Paddle이 아닐 경우:
+            // 충돌 물체가 Paddle이 아니면:
             else
             {
                 // 일반 반사 소리 재생
@@ -127,6 +144,9 @@ namespace Game.MainScene.BallScene
                 // 속도 조금씩 증가
                 Velocity *= 1.01f;
             }
+
+            // 마지막으로 지정된 속도 제한 설정
+            Velocity = Velocity.Clamped(MaxVelocity);
         }
 
         /// <summary>이 노드를 숨깁니다.</summary>
