@@ -4,7 +4,7 @@ using Godot;
 
 namespace Game.MainScene.BallScene
 {
-    using Internal;
+    using Shared;
     using PaddleScene;
 
     /// <summary>공을 구현하는 <c>KinematicBody2D</c> 노드</summary>
@@ -75,12 +75,12 @@ namespace Game.MainScene.BallScene
 
             if (Playing)
             {
-                if (Position.x < 0)
+                if (Position.x > ScreenSize.x)
                 {
                     EmitSignal(nameof(Goal), PlayerNumber.One);
                     Playing = false;
                 }
-                else if (Position.x > ScreenSize.x)
+                else if (Position.x < 0)
                 {
                     EmitSignal(nameof(Goal), PlayerNumber.Two);
                     Playing = false;
