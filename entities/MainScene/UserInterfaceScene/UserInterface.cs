@@ -92,14 +92,14 @@ namespace Game.MainScene.UserInterfaceScene
         /// <param name="playerNumber">득점한 플레이어의 번호. 1 또는 2.</param>
         /// <exception cref="ArgumentOutOfRangeException">
         /// 플레이어 번호가 1 또는 2가 아님</exception>
-        public void Scored(int playerNumber)
+        public void Scored(PlayerNumber playerNumber)
         {
             switch (playerNumber)
             {
-                case 1:
+                case PlayerNumber.One:
                     Update(PlayerOneScore + 1, PlayerTwoScore);
                     break;
-                case 2:
+                case PlayerNumber.Two:
                     Update(PlayerOneScore, PlayerTwoScore + 1);
                     break;
                 default:

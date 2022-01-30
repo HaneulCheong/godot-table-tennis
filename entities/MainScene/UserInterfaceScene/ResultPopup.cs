@@ -24,28 +24,27 @@ namespace Game.MainScene.UserInterfaceScene
         /// <summary>주어진 점수에 따라 승리 메시지를 반환합니다.</summary>
         /// <param name="playerOneScore">플레이어 1의 점수</param>
         /// <param name="playerTwoScore">플레이어 2의 점수</param>
-        /// <exception cref="InvalidOperationException">매치 포인트에
-        /// 도달한 플레이어가 없음에도 이 메소드가 호출됨</exception>
+        /// <exception cref="InvalidOperationException">
+        /// 플레이어들의 점수가 같음</exception>
         private string ResultMessage(int playerOneScore, int playerTwoScore)
         {
             string result = null;
-            int matchPoint = GetNode<Global>("/root/Global").MatchPoint;
 
             // 플레이어 1이 승리했으면:
-            if (playerOneScore >= matchPoint)
+            if (playerOneScore > playerTwoScore)
             {
                 result = (
                     playerTwoScore > 0 ? "Player 1 Wins!" : "Player 1 Perfect!"
                 );
             }
             // 플레이어 2가 승리했으면:
-            else if (playerTwoScore >= matchPoint)
+            else if (playerOneScore < playerTwoScore)
             {
                 result = (
                     playerOneScore > 0 ? "Player 2 Wins!" : "Player 2 Perfect!"
                 );
             }
-            // 둘 다 매치 포인트에 도달하지 않았으면 InvalidOperationException
+            // 점수가 같으면 InvalidOperationException
             else
             {
                 GD.PushError(new InvalidOperationException().ToString());

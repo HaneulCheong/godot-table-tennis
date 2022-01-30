@@ -3,16 +3,9 @@ using Godot;
 
 namespace Game
 {
+    /// <summary>게임 광역 노드</summary>
     public class Global : Node
     {
-        ////////////////////
-        // 속성
-        ////////////////////
-
-        /// <value>경기를 이기기 위해 필요한 점수, 즉 매치 포인트</value>
-        [Export]
-        public int MatchPoint { get; private set; } = 11;
-
         ////////////////////
         // Godot 메서드
         ////////////////////

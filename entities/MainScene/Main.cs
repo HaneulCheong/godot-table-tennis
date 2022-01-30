@@ -15,10 +15,8 @@ namespace Game.MainScene
         ////////////////////
 
         /// <value>경기를 이기기 위해 필요한 점수, 즉 매치 포인트</value>
-        public int MatchPoint
-        {
-            get => GetNode<Global>("/root/Global").MatchPoint;
-        }
+        [Export]
+        private int MatchPoint { get; set; } = 11;
 
         /// <value>점수판 레이어 노드</value>
         private UserInterface ScoreBoardLayer
@@ -35,11 +33,11 @@ namespace Game.MainScene
             GetNode<Timer>("NextGameTimer").Connect(
                 "timeout", this, nameof(OnNextGameTimerTimeout)
             );
-            GetNode<Area2D>("GoalAreaLeft").Connect(
-                "body_entered", this, nameof(OnLeftAreaBodyEntered)
-            );
             GetNode<Area2D>("GoalAreaRight").Connect(
-                "body_entered", this, nameof(OnRightAreaBodyEntered)
+                "body_entered", this, nameof(OnPlayerOneScored)
+            );
+            GetNode<Area2D>("GoalAreaLeft").Connect(
+                "body_entered", this, nameof(OnPlayerTwoScored)
             );
         }
 
@@ -47,16 +45,16 @@ namespace Game.MainScene
         // Godot 신호 메서드
         ////////////////////
 
-        /// <summary><c>GoalAreaLeft</c> 노드에 다른 오브젝트(여기서는 공)이
-        /// 닿았을 경우의 신호 의해 호출됩니다.</summary>
-        private void OnLeftAreaBodyEntered(object body)
+        /// <summary><c>GoalAreaRight</c> 노드에 다른 오브젝트(여기서는 공)이
+        /// 닿았을 경우의 신호에 의해 호출됩니다.</summary>
+        private void OnPlayerOneScored(object body)
         {
-            // 적 득점
-            ScoreBoardLayer.Scored(2);
+            // 플레이어 득점
+            ScoreBoardLayer.Scored(PlayerNumber.One);
             GetNode<AudioStreamPlayer>("Scored").Play();
 
             // 매치 포인트가 아닐 경우:
-            if (ScoreBoardLayer.PlayerTwoScore < MatchPoint)
+            if (ScoreBoardLayer.PlayerOneScore < MatchPoint)
             {
                 GetNode<Timer>("NextGameTimer").Start();
             }
@@ -69,16 +67,16 @@ namespace Game.MainScene
             }
         }
 
-        /// <summary><c>GoalAreaRight</c> 노드에 다른 오브젝트(여기서는 공)이
-        /// 닿았을 경우의 신호에 의해 호출됩니다.</summary>
-        private void OnRightAreaBodyEntered(object body)
+        /// <summary><c>GoalAreaLeft</c> 노드에 다른 오브젝트(여기서는 공)이
+        /// 닿았을 경우의 신호 의해 호출됩니다.</summary>
+        private void OnPlayerTwoScored(object body)
         {
-            // 플레이어 득점
-            ScoreBoardLayer.Scored(1);
+            // 적 득점
+            ScoreBoardLayer.Scored(PlayerNumber.Two);
             GetNode<AudioStreamPlayer>("Scored").Play();
 
             // 매치 포인트가 아닐 경우:
-            if (ScoreBoardLayer.PlayerOneScore < MatchPoint)
+            if (ScoreBoardLayer.PlayerTwoScore < MatchPoint)
             {
                 GetNode<Timer>("NextGameTimer").Start();
             }

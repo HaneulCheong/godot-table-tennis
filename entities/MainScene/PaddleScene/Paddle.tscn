@@ -12,8 +12,6 @@ __meta__ = {
 "_edit_group_": true,
 "_edit_lock_": true
 }
-UpAction = "player_one_up"
-DownAction = "player_one_down"
 
 [node name="Sprite" type="Sprite" parent="."]
 scale = Vector2( 0.25, 0.25 )

@@ -5,7 +5,7 @@ using Godot;
 namespace Game.Internal
 {
     /// <summary>C# <c>Random</c> 클래스를 이용하는
-    /// 유용한 메서드를 모아놓은 정적 싱글턴 클래스</summary>
+    /// 유용한 메서드를 모아놓은 정적 도구상자 클래스</summary>
     public static class RandomTools
     {
         ////////////////////
@@ -15,19 +15,12 @@ namespace Game.Internal
         /// <value>싱글턴 인스턴스</value>
         private static Random Instance { get; } = new Random();
 
-        /// <value>true 또는 false 중 무작위 값</value>
-        public static bool RandBool
-        {
-            get
-            {
-                if (Instance.Next() % 2 == 0) { return true; }
-                else { return false; }
-            }
-        }
-
         ////////////////////
         // 메서드
         ////////////////////
+
+        /// <summary>true 또는 false를 무작위로 반환합니다.</summary>
+        public static bool Bool() => Instance.Next() % 2 == 0 ? true : false;
 
         /// <summary>
         /// 0.0부터 <c>maxValue</c>까지의 실수 중

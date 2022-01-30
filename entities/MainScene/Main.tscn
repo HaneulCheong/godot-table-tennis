@@ -69,6 +69,8 @@ shape = ExtResource( 4 )
 
 [node name="PlayerOne" parent="." instance=ExtResource( 7 )]
 position = Vector2( 80, 360 )
+UpAction = "player_one_up"
+DownAction = "player_one_down"
 
 [node name="PlayerTwo" parent="." instance=ExtResource( 7 )]
 position = Vector2( 1200, 360 )

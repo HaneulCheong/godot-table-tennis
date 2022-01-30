@@ -75,7 +75,7 @@ namespace Game.MainScene.BallScene
         {
             // 서브 방향 설정
             Velocity = Vector2.Right.Rotated(RandomTools.Float(-1, 1));
-            if (RandomTools.RandBool) { Velocity *= -1; }
+            if (RandomTools.Bool()) { Velocity *= -1; }
             Velocity = Velocity.Normalized();
             // 서브, 경기 재개
             Moving = true;
