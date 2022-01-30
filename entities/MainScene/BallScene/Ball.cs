@@ -34,11 +34,19 @@ namespace Game.MainScene.BallScene
         [Export]
         private float BounceRatio { get; set; } = 0.7f;
 
+        /// <value>상대 속도</value>
+        private Vector2 Velocity { get; set; } = Vector2.Zero;
+
         /// <value>움직임 여부</value>
         private bool Moving { get; set; } = true;
 
-        /// <value>상대 속도</value>
-        private Vector2 Velocity { get; set; } = Vector2.Zero;
+        private bool Playing { get; set; } = false;
+
+        /// <value>화면 크기</value>
+        private Vector2 ScreenSize
+        {
+            get => GetViewport().GetVisibleRect().Size;
+        }
 
         ////////////////////
         // Godot 메서드
@@ -64,11 +72,28 @@ namespace Game.MainScene.BallScene
                 // 충돌 시 반사각 계산 실행
                 if (collision != null) { Bounce(collision); }
             }
+
+            if (Playing)
+            {
+                if (Position.x < 0)
+                {
+                    EmitSignal(nameof(Goal), PlayerNumber.One);
+                    Playing = false;
+                }
+                else if (Position.x > ScreenSize.x)
+                {
+                    EmitSignal(nameof(Goal), PlayerNumber.Two);
+                    Playing = false;
+                }
+            }
         }
 
         ////////////////////
         // Godot 신호 메서드
         ////////////////////
+
+        [Signal]
+        public delegate void Goal(PlayerNumber playerNumber);
 
         /// ServeTimer 노드의 Timeout 신호로 호출됩니다.
         private void OnServeTimerTimeout()
@@ -78,6 +103,7 @@ namespace Game.MainScene.BallScene
             if (RandomTools.Bool()) { Velocity *= -1; }
             Velocity = Velocity.Normalized();
             // 서브, 경기 재개
+            Playing = true;
             Moving = true;
         }
 
@@ -161,10 +187,9 @@ namespace Game.MainScene.BallScene
         {
             // 멈춘 뒤 무작위 서브 위치로 이동
             Moving = false;
-            Vector2 screenSize = GetViewport().GetVisibleRect().Size;
             Position = new Vector2(
-                screenSize.x / 2,
-                RandomTools.Int(80, (int)screenSize.y - 80)
+                ScreenSize.x / 2,
+                RandomTools.Int(80, (int)ScreenSize.y - 80)
             );
             Show();
             // ServeTimer 노드의 타이머를 시작

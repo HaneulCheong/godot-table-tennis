@@ -1,4 +1,3 @@
-using System;
 using Godot;
 
 
@@ -33,11 +32,8 @@ namespace Game.MainScene
             GetNode<Timer>("NextGameTimer").Connect(
                 "timeout", this, nameof(OnNextGameTimerTimeout)
             );
-            GetNode<Area2D>("GoalAreaRight").Connect(
-                "body_entered", this, nameof(OnPlayerOneScored)
-            );
-            GetNode<Area2D>("GoalAreaLeft").Connect(
-                "body_entered", this, nameof(OnPlayerTwoScored)
+            GetNode<Ball>("Ball").Connect(
+                nameof(Ball.Goal), this, nameof(OnGoal)
             );
         }
 
@@ -45,38 +41,18 @@ namespace Game.MainScene
         // Godot 신호 메서드
         ////////////////////
 
-        /// <summary><c>GoalAreaRight</c> 노드에 다른 오브젝트(여기서는 공)이
-        /// 닿았을 경우의 신호에 의해 호출됩니다.</summary>
-        private void OnPlayerOneScored(object body)
+        /// <summary><c>공 노드의 <c>Goal</c>
+        /// 신호에 의해 의해 호출됩니다.</summary>
+        private void OnGoal(PlayerNumber playerNumber)
         {
-            // 플레이어 득점
-            ScoreBoardLayer.Scored(PlayerNumber.One);
+            ScoreBoardLayer.Scored(playerNumber);
             GetNode<AudioStreamPlayer>("Scored").Play();
 
             // 매치 포인트가 아닐 경우:
-            if (ScoreBoardLayer.PlayerOneScore < MatchPoint)
-            {
-                GetNode<Timer>("NextGameTimer").Start();
-            }
-            // 매치 포인트일 경우:
-            else
-            {
-                GetTree().CallGroup(
-                    "MatchPointGroup", nameof(IMatchPointGroup.MatchPoint)
-                );
-            }
-        }
-
-        /// <summary><c>GoalAreaLeft</c> 노드에 다른 오브젝트(여기서는 공)이
-        /// 닿았을 경우의 신호 의해 호출됩니다.</summary>
-        private void OnPlayerTwoScored(object body)
-        {
-            // 적 득점
-            ScoreBoardLayer.Scored(PlayerNumber.Two);
-            GetNode<AudioStreamPlayer>("Scored").Play();
-
-            // 매치 포인트가 아닐 경우:
-            if (ScoreBoardLayer.PlayerTwoScore < MatchPoint)
+            if (
+                ScoreBoardLayer.PlayerOneScore < MatchPoint
+                || ScoreBoardLayer.PlayerTwoScore < MatchPoint
+            )
             {
                 GetNode<Timer>("NextGameTimer").Start();
             }

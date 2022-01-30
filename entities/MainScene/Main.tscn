@@ -1,8 +1,7 @@
-[gd_scene load_steps=10 format=2]
+[gd_scene load_steps=9 format=2]
 
 [ext_resource path="res://assets/sprites/net.webp" type="Texture" id=1]
 [ext_resource path="res://assets/resources/WallShape.tres" type="Shape2D" id=4]
-[ext_resource path="res://assets/resources/GoalAreaShape.tres" type="Shape2D" id=5]
 [ext_resource path="res://entities/MainScene/BallScene/Ball.tscn" type="PackedScene" id=6]
 [ext_resource path="res://entities/MainScene/PaddleScene/Paddle.tscn" type="PackedScene" id=7]
 [ext_resource path="res://assets/audio/scored.wav" type="AudioStream" id=9]
@@ -32,24 +31,6 @@ __meta__ = {
 "_edit_lock_": true
 }
 
-[node name="GoalAreaLeft" type="Area2D" parent="."]
-position = Vector2( 640, 360 )
-collision_layer = 17
-collision_mask = 8
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="GoalAreaLeft"]
-position = Vector2( -688, 0 )
-shape = ExtResource( 5 )
-
-[node name="GoalAreaRight" type="Area2D" parent="."]
-position = Vector2( 640, 360 )
-collision_layer = 17
-collision_mask = 8
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="GoalAreaRight"]
-position = Vector2( 688, 0 )
-shape = ExtResource( 5 )
-
 [node name="Wall" type="StaticBody2D" parent="."]
 position = Vector2( 640, 360 )
 collision_layer = 3
@@ -59,11 +40,11 @@ __meta__ = {
 "_edit_lock_": true
 }
 
-[node name="WallTop" type="CollisionShape2D" parent="Wall"]
+[node name="TopCollisionShape" type="CollisionShape2D" parent="Wall"]
 position = Vector2( 0, -376 )
 shape = ExtResource( 4 )
 
-[node name="WallBot" type="CollisionShape2D" parent="Wall"]
+[node name="BottomCollisionShape" type="CollisionShape2D" parent="Wall"]
 position = Vector2( 0, 376 )
 shape = ExtResource( 4 )
 
