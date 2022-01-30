@@ -8,16 +8,17 @@
 
 ## 게임하기
 
-<img height="180" src="docs/sample.webp" alt="게임 플레이 스크린샷">
-
-[내려받기](https://github.com/HaneulCheong/godot-pong/releases/latest)
+| 사진을 클릭해 내려받기 |
+|:---:|
+| [<img height="180" src="docs/screenshot.webp" alt="게임 플레이 스크린샷">](https://github.com/HaneulCheong/godot-pong/releases/latest) |
 
 ### 조작법
-- \[&#8593;]\[&#8595;]: 라켓 움직이기
-- \[P]: 일시정지 및 해제
-- \[Space]: 점수 초기화 후 다시 시작
-- \[F11]: 전체화면 모드 켜기/끄기
-- \[ESC]: 게임 종료
+| 분류 | 키보드 | 컨트롤러 |
+|:---:|:--- |:--- |
+| 움직이기 | 플레이어 1: `[W][S]`<br>플레이어 2: `[I][K]` | 스틱, D-패드
+| 선택 | `[Enter]` | <img src="https://raw.githubusercontent.com/HaneulCheong/HaneulCheong/main/assets/docs/xbox_a.webp" height="16"> <img src="https://raw.githubusercontent.com/HaneulCheong/HaneulCheong/main/assets/docs/playstation_cross.webp" height="16"> |
+| 일시정지 | `[Esc]` | `[Select]` |
+| 전체화면 | `[F11]` | `[Start]` |
 
 ### 팁
 - 공의 속도는...
