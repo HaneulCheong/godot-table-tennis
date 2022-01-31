@@ -91,7 +91,7 @@ margin_bottom = 400.0
 [node name="Label" type="Label" parent="Info"]
 margin_right = 384.0
 margin_bottom = 102.0
-text = "Version 1.5.0-beta
+text = "Version 1.5.0
 Powered by Godot 3.4.2
 Created by Haneul Cheong"
 align = 1

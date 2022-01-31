@@ -22,13 +22,20 @@ namespace Game.MainScene.PaddleScene
         [Export]
         protected string DownAction { get; set; } = "ui_down";
 
-        /// <value>게임 내 스프라이트의 높이</value>
+        /// <value>게임 내 픽셀 높이</value>
         public float Height
         {
             get
             {
-                Sprite sprite = GetNode<Sprite>("Sprite");
-                return (sprite.Texture.GetHeight() * sprite.Scale.y);
+                ColorRect sprite = GetNode<ColorRect>("ColorRect");
+                return Scale.y * sprite.RectSize.y;
+            }
+            set
+            {
+                ColorRect sprite = GetNode<ColorRect>("ColorRect");
+                Scale = new Vector2(
+                    Scale.x, value / sprite.RectSize.y
+                );
             }
         }
 
@@ -47,6 +54,7 @@ namespace Game.MainScene.PaddleScene
 
         public override void _Ready()
         {
+            Height = Global.Settings["Paddle_Size"] * 10;
             AddToGroup("MatchPointGroup");
             // 초기 위치 저장
             InitialPosition = Position;

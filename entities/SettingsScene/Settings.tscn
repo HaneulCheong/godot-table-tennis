@@ -104,6 +104,18 @@ MaxValue = 1000
 Step = 100
 Value = 100
 
+[node name="PaddleSizeSetting" parent="SettingList" instance=ExtResource( 6 )]
+anchor_right = 0.0
+anchor_bottom = 0.0
+margin_top = 144.0
+margin_right = 600.0
+margin_bottom = 176.0
+Key = "Paddle_Size"
+MinValue = 1
+MaxValue = 20
+Step = 1
+Value = 1
+
 [node name="ButtonContainer" type="HBoxContainer" parent="."]
 margin_top = 368.0
 margin_right = 600.0

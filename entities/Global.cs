@@ -19,7 +19,8 @@ namespace Game
             { "Volume", 50 },
             { "Match_Point", 11 },
             { "Ball_Speed", 400 },
-            { "Paddle_Speed", 600 }
+            { "Paddle_Speed", 600 },
+            { "Paddle_Size", 10 },
         };
 
         ////////////////////
