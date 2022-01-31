@@ -34,7 +34,7 @@ namespace Game.SettingsScene.SpinBoxContainerScene
             set
             {
                 _key = value;
-                GetNode<Label>("Key").Text = value;
+                GetNode<Label>("Key").Text = value.Replace("_", " ");
             }
         }
 
