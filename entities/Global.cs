@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using Godot;
 
@@ -35,21 +36,27 @@ namespace Game
         /// <value>현재 게임 설정</value>
         public static SettingDict Settings
         {
-            get
-            {
-                PrintSettings();
-                return _settings;
-            }
+            get => _settings;
             set
             {
                 _settings = value;
-                PrintSettings();
+                ChangeVolume(Settings["Volume"]);
+                GD.Print(new string('-', 20));
+                foreach (KeyValuePair<string, int> kvp in _settings)
+                {
+                    GD.Print($"{kvp.Key}: {kvp.Value}");
+                }
             }
         }
 
         ////////////////////
         // Godot 메서드
         ////////////////////
+
+        public override void _Ready()
+        {
+            ChangeVolume(Settings["Volume"]);
+        }
 
         public override void _Process(float delta)
         {
@@ -70,14 +77,15 @@ namespace Game
             Settings = DEFAULT_SETTINGS;
         }
 
-        /// <summary>현재 게임 설정을 Godot 콘솔에 출력합니다. </summary>
-        public static void PrintSettings()
+        /// <summary>전달된 정수로 볼륨을 설정합니다.</summary>
+        /// <param name="volume">1부터 100까지의 정수</param>
+        private static void ChangeVolume(int volume)
         {
-            GD.Print();
-            foreach (KeyValuePair<string, int> kvp in _settings)
-            {
-                GD.Print($"{kvp.Key}: {kvp.Value}");
-            }
+            double scale = Mathf.Clamp(volume, 1, 100) / 100.0f;
+            float decibels = (float)(20 * Math.Log10(scale));
+            AudioServer.SetBusVolumeDb(
+                AudioServer.GetBusIndex("Master"), decibels
+            );
         }
     }
 }

@@ -14,8 +14,7 @@ namespace Game.MainScene
         ////////////////////
 
         /// <value>경기를 이기기 위해 필요한 점수, 즉 매치 포인트</value>
-        [Export]
-        private int MatchPoint { get; set; } = 11;
+        private int MatchPoint { get; set; } = Global.Settings["Match_Point"];
 
         /// <value>점수판 레이어 노드</value>
         private UserInterface ScoreBoardLayer

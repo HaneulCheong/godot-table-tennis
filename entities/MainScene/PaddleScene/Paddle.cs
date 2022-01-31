@@ -12,7 +12,7 @@ namespace Game.MainScene.PaddleScene
 
         /// <value>속력</value>
         [Export]
-        protected float Speed { get; set; } = 600;
+        protected float Speed { get; set; } = Global.Settings["Paddle_Speed"];
 
         /// <value>눌렀을 때 위로 올라갈 Input키</value>
         [Export]

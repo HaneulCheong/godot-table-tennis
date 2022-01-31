@@ -23,7 +23,7 @@ namespace Game.MainScene.BallScene
 
         /// <value>속력</value>
         [Export]
-        private float Speed { get; set; } = 400;
+        private float Speed { get; set; } = Global.Settings["Ball_Speed"];
 
         /// <value>한계 속력</value>
         [Export]
