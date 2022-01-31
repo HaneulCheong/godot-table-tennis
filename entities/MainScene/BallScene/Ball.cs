@@ -4,7 +4,7 @@ using Godot;
 
 namespace Game.MainScene.BallScene
 {
-    using Shared;
+    using Internal;
     using PaddleScene;
 
     /// <summary>공을 구현하는 <c>KinematicBody2D</c> 노드</summary>
@@ -118,6 +118,7 @@ namespace Game.MainScene.BallScene
             // 충돌 물체가 Paddle일 경우:
             if (collision.Collider is Paddle)
             {
+                // TODO: 물리 계산과 소리 재생은 분리해야 함
                 // Paddle 반사 소리 재생
                 GetNode<AudioStreamPlayer2D>("PaddleBounce").Play();
                 // 수평으로 충돌했으면 반사각 조정 알고리즘 실행
@@ -163,6 +164,7 @@ namespace Game.MainScene.BallScene
             // 충돌 물체가 Paddle이 아니면:
             else
             {
+                // TODO: 물리 계산과 소리 재생은 분리해야 함
                 // 일반 반사 소리 재생
                 GetNode<AudioStreamPlayer2D>("Bounce").Play();
                 // 일반적인 반사 처리

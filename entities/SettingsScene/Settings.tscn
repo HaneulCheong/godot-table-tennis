@@ -1,0 +1,132 @@
+[gd_scene load_steps=7 format=2]
+
+[ext_resource path="res://entities/Shared/TextButton.cs" type="Script" id=1]
+[ext_resource path="res://assets/resources/Theme.tres" type="Theme" id=2]
+[ext_resource path="res://entities/Shared/SceneChangeButton.cs" type="Script" id=3]
+[ext_resource path="res://assets/resources/title.tres" type="DynamicFont" id=4]
+[ext_resource path="res://entities/SettingsScene/Settings.cs" type="Script" id=5]
+[ext_resource path="res://entities/SettingsScene/SpinBoxContainer/SpinBoxContainer.tscn" type="PackedScene" id=6]
+
+[node name="Settings" type="VBoxContainer"]
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -320.0
+margin_top = -256.0
+margin_right = 320.0
+margin_bottom = 256.0
+theme = ExtResource( 2 )
+custom_constants/separation = 32
+script = ExtResource( 5 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Title" type="CenterContainer" parent="."]
+margin_right = 656.0
+margin_bottom = 64.0
+
+[node name="Label" type="Label" parent="Title"]
+margin_left = 200.0
+margin_right = 456.0
+margin_bottom = 64.0
+custom_fonts/font = ExtResource( 4 )
+text = "Settings"
+
+[node name="Alert" type="CenterContainer" parent="."]
+margin_top = 96.0
+margin_right = 656.0
+margin_bottom = 163.0
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Label" type="Label" parent="Alert"]
+margin_right = 656.0
+margin_bottom = 67.0
+text = "( Sorry, Under Construction! )
+( These settings are mere placeholders! )"
+align = 1
+
+[node name="SettingList" type="VBoxContainer" parent="."]
+margin_top = 195.0
+margin_right = 656.0
+margin_bottom = 448.0
+size_flags_vertical = 3
+
+[node name="VolumeSetting" parent="SettingList" instance=ExtResource( 6 )]
+anchor_right = 0.0
+anchor_bottom = 0.0
+margin_right = 656.0
+margin_bottom = 32.0
+Key = "Volume"
+
+[node name="MatchPointSetting" parent="SettingList" instance=ExtResource( 6 )]
+anchor_right = 0.0
+anchor_bottom = 0.0
+margin_top = 36.0
+margin_right = 656.0
+margin_bottom = 68.0
+Key = "Match Point"
+MinValue = 1
+MaxValue = 21
+Step = 1
+Value = 11
+
+[node name="BallSpeedSetting" parent="SettingList" instance=ExtResource( 6 )]
+anchor_right = 0.0
+anchor_bottom = 0.0
+margin_top = 72.0
+margin_right = 656.0
+margin_bottom = 104.0
+Key = "Ball Speed"
+MinValue = 100
+MaxValue = 1000
+Step = 100
+Value = 400
+
+[node name="PaddleSpeedSetting" parent="SettingList" instance=ExtResource( 6 )]
+anchor_right = 0.0
+anchor_bottom = 0.0
+margin_top = 108.0
+margin_right = 656.0
+margin_bottom = 140.0
+Key = "Paddle Speed"
+MinValue = 100
+MaxValue = 1000
+Step = 100
+Value = 600
+
+[node name="ButtonContainer" type="HBoxContainer" parent="."]
+margin_top = 480.0
+margin_right = 656.0
+margin_bottom = 512.0
+
+[node name="ConfirmButton" type="Button" parent="ButtonContainer"]
+margin_right = 216.0
+margin_bottom = 32.0
+size_flags_horizontal = 3
+button_mask = 0
+text = "Confirm"
+script = ExtResource( 3 )
+Scene = "res://entities/MainMenuScene/MainMenu.tscn"
+
+[node name="CancelButton" type="Button" parent="ButtonContainer"]
+margin_left = 220.0
+margin_right = 436.0
+margin_bottom = 32.0
+size_flags_horizontal = 3
+button_mask = 0
+text = "Cancel"
+script = ExtResource( 3 )
+Scene = "res://entities/MainMenuScene/MainMenu.tscn"
+
+[node name="ResetButton" type="Button" parent="ButtonContainer"]
+margin_left = 440.0
+margin_right = 656.0
+margin_bottom = 32.0
+size_flags_horizontal = 3
+button_mask = 0
+text = "Reset"
+script = ExtResource( 1 )

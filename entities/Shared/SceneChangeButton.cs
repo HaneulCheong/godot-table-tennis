@@ -24,7 +24,6 @@ namespace Game.Shared
         /// <c>Scene</c>에 지정된 씬이 없음</exception>
         public override void _Pressed()
         {
-
             if (Scene == null)
             {
                 var e = new NullReferenceException(nameof(Scene));

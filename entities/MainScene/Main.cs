@@ -6,7 +6,7 @@ namespace Game.MainScene
     using BallScene;
     using UserInterfaceScene;
 
-    /// <summary>게임 전체를 관리하는 노드</summary>
+    /// <summary>경기 전체를 관리하는 노드</summary>
     public class Main : Node
     {
         ////////////////////
