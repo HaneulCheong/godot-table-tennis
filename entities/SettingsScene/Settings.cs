@@ -37,9 +37,6 @@ namespace Game.SettingsScene
             );
 
             Load();
-            GetNode<SceneChangeButton>(
-                "ButtonContainer/CancelButton"
-            ).GrabFocus();
         }
 
         ////////////////////

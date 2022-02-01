@@ -105,7 +105,7 @@ namespace Game.SettingsScene.SpinBoxContainerScene
 
         /// <summary>Focus돼 있을 때 "ui_right" 또는 "ui_left"에
         /// 따라 <c>Value</c>를 변경합니다.</summary>
-        public override void _GuiInput(InputEvent @event)
+        public override void _Input(InputEvent @event)
         {
             if (!HasFocus()) { return; }
 

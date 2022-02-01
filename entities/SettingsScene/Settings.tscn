@@ -1,4 +1,4 @@
-[gd_scene load_steps=7 format=2]
+[gd_scene load_steps=8 format=2]
 
 [ext_resource path="res://entities/Shared/TextButton.cs" type="Script" id=1]
 [ext_resource path="res://assets/resources/Theme.tres" type="Theme" id=2]
@@ -6,6 +6,7 @@
 [ext_resource path="res://assets/resources/title.tres" type="DynamicFont" id=4]
 [ext_resource path="res://entities/SettingsScene/Settings.cs" type="Script" id=5]
 [ext_resource path="res://entities/SettingsScene/SpinBoxContainer/SpinBoxContainer.tscn" type="PackedScene" id=6]
+[ext_resource path="res://entities/Shared/ButtonContainer.cs" type="Script" id=7]
 
 [node name="Settings" type="VBoxContainer"]
 anchor_left = 0.5
@@ -120,6 +121,7 @@ Value = 1
 margin_top = 368.0
 margin_right = 600.0
 margin_bottom = 400.0
+script = ExtResource( 7 )
 
 [node name="ConfirmButton" type="Button" parent="ButtonContainer"]
 margin_right = 197.0

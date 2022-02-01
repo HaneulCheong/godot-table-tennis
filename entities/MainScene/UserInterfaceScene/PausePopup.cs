@@ -39,13 +39,19 @@ namespace Game.MainScene
         }
 
         /// <summary><c>Pauseable</c>이 참인 상태에서
-        /// "ui_pause"를 누르면 팝업합니다.</summary>
-        public override void _Process(float delta)
+        /// "ui_pause"나 "ui_cancel"에 반응합니다.</summary>
+        public override void _Input(InputEvent @event)
         {
-            if (Pausable && Input.IsActionJustPressed("ui_pause"))
+            if (!Pausable) { return; }
+
+            if (@event.IsActionPressed("ui_pause"))
             {
                 if (!GetTree().Paused) { PopupCentered(); }
                 else { Hide(); }
+            }
+            else if (@event.IsActionPressed("ui_cancel"))
+            {
+                Hide();
             }
         }
 

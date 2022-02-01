@@ -59,10 +59,10 @@ namespace Game
             ChangeVolume(Settings["Volume"]);
         }
 
-        public override void _Process(float delta)
+        public override void _Input(InputEvent @event)
         {
             // "ui_fullscreen"으로 전체화면 모드 켜기/끄기
-            if (Input.IsActionJustPressed("ui_fullscreen"))
+            if (@event.IsActionPressed("ui_fullscreen"))
             {
                 OS.WindowFullscreen = !OS.WindowFullscreen;
             }
@@ -79,10 +79,10 @@ namespace Game
         }
 
         /// <summary>전달된 정수로 볼륨을 설정합니다.</summary>
-        /// <param name="volume">1부터 100까지의 정수</param>
-        private static void ChangeVolume(int volume)
+        /// <param name="percentage">볼륨의 비율이 될 1~100의 정수</param>
+        private static void ChangeVolume(int percentage)
         {
-            double scale = Mathf.Clamp(volume, 1, 100) / 100.0f;
+            double scale = Mathf.Clamp(percentage, 1, 100) / 100.0f;
             float decibels = (float)(20 * Math.Log10(scale));
             AudioServer.SetBusVolumeDb(
                 AudioServer.GetBusIndex("Master"), decibels
