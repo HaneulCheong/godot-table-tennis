@@ -13,11 +13,11 @@
 | [<img height="180" src="docs/screenshot.webp" alt="게임 플레이 스크린샷">](https://github.com/HaneulCheong/godot-pong/releases/latest) |
 
 ### 조작법
-| 분류 | 키보드 | 컨트롤러 |
-|:---:|:--- |:--- |
-| 움직이기 | 플레이어 1: `[W][S]`<br>플레이어 2: `[I][K]` | 스틱, D-패드
+| 조작법 | 키보드 | 컨트롤러 |
+|:---:|:---:|:---:|
+| 움직이기 | 플레이어 1: `[W][S]`<br>플레이어 2: `[I][K]` | 스틱, D-패드 |
 | 선택 | `[Enter]` | <img src="https://raw.githubusercontent.com/HaneulCheong/HaneulCheong/main/assets/docs/xbox_a.webp" height="16"> <img src="https://raw.githubusercontent.com/HaneulCheong/HaneulCheong/main/assets/docs/playstation_cross.webp" height="16"> |
-| 일시정지 | `[Esc]` | `[Select]` |
+| 일시정지 | `[Esc]` | `[Back][Select]` |
 | 전체화면 | `[F11]` | `[Start]` |
 
 ### 팁
@@ -25,7 +25,7 @@
   - 벽에 부딪힐 때마다 1%씩 증가하며,
   - 라켓에 부딪힐 때마다 5%씩 증가합니다.
 - 라켓의 가장자리로 공을 치려고 노력해보세요!
-- 점수가 높을수록 상대방도 빨라짐을 주의하세요.
+- 점수가 높을수록 인공지능도 빨라집니다.
 
 ## 빌드하기
 이 git은 clone할 시 엔진 안에서 새 프로젝트로 들일 수 있습니다.<br>

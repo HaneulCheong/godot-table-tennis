@@ -6,25 +6,26 @@
 
 A game of [Pong](https://ko.wikipedia.org/wiki/%ED%90%81), powered by [Godot Engine 3.4.2 Mono](https://godotengine.org/).
 
-## How To Play
+## Play
 
-<img height="180" src="docs/sample.webp" alt="Gameplay Screenshot">
-
-[Download](https://github.com/HaneulCheong/godot-pong/releases/latest)
+| Click the screenshot to download |
+|:---:|
+| [<img height="180" src="docs/screenshot.webp" alt="게임 플레이 스크린샷">](https://github.com/HaneulCheong/godot-pong/releases/latest) |
 
 ### Controls
-- \[&#8593;]\[&#8595;]: Move your Paddle
-- \[P]: Pause/Resume
-- \[Space]: Reset Score + Restart
-- \[F11]: Enter/Exit Fullscreen Mode
-- \[ESC]: Quit Game
+| Controls | Keyboard | Controllers |
+|:---:|:---:|:---:|
+| Move | Player 1: `[W][S]`<br>Player 2: `[I][K]` | Sticks, D-Pad |
+| Select | `[Enter]` | <img src="https://raw.githubusercontent.com/HaneulCheong/HaneulCheong/main/assets/docs/xbox_a.webp" height="16"> <img src="https://raw.githubusercontent.com/HaneulCheong/HaneulCheong/main/assets/docs/playstation_cross.webp" height="16"> |
+| Pause | `[Esc]` | `[Back][Select]` |
+| Full Screen | `[F11]` | `[Start]` |
 
 ### Tips
 - The ball's speed increases by:
   - 1% each time it hits the wall, and
   - 5% when it bounces off one of the paddles.
 - Try to hit the ball with the tip of your paddle!
-- Beware that the higher your score, the faster the opponent gets.
+- The higher your score, the faster the AI opponent gets.
 
 ## Building
 When cloned, this git can be imported as a new project within the Engine.<br>
