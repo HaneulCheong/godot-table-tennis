@@ -2,7 +2,7 @@
 
 <b>[한국어](README.md)</b> | [English](README.en.md)
 
-<img height="64" src="docs/icon.webp" alt="게임 아이콘">
+<img src="docs/icon.webp" height="64" alt="게임 아이콘">
 
 [Godot Engine 3.4.2 Mono](https://godotengine.org/)로 구현한 디지털 탁구 게임입니다.
 
@@ -10,13 +10,13 @@
 
 | 사진을 클릭해 내려받기 |
 |:---:|
-| [<img height="180" src="docs/screenshot.webp" alt="게임 플레이 스크린샷">](https://github.com/HaneulCheong/godot-pong/releases/latest) |
+| [<img src="docs/screenshot.webp" height="180" alt="게임 플레이 스크린샷">](https://github.com/HaneulCheong/godot-table-tennis/releases/latest) |
 
 ### 조작법
 | 조작법 | 키보드 | 컨트롤러 |
 |:---:|:---:|:---:|
 | 움직이기 | 플레이어 1: `[W][S]`<br>플레이어 2: `[I][K]` | 스틱, D-패드 |
-| 선택 | `[Enter]` | <img src="https://raw.githubusercontent.com/HaneulCheong/HaneulCheong/main/assets/docs/xbox_a.webp" height="16"> <img src="https://raw.githubusercontent.com/HaneulCheong/HaneulCheong/main/assets/docs/playstation_cross.webp" height="16"> |
+| 선택 | `[Enter]` | <img src="https://raw.githubusercontent.com/HaneulCheong/HaneulCheong/main/assets/docs/xbox_a.webp" height="16" alt="Xbox A 버튼"> <img src="https://raw.githubusercontent.com/HaneulCheong/HaneulCheong/main/assets/docs/playstation_cross.webp" height="16" alt="플레이스테이션 십자 버튼"> |
 | 일시정지 | `[Esc]` | `[Back][Select]` |
 | 전체화면 | `[F11]` | `[Start]` |
 

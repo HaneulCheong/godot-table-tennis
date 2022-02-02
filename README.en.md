@@ -2,7 +2,7 @@
 
 [한국어](README.md) | <b>[English](README.en.md)</b>
 
-<img height="64" src="docs/icon.webp" alt="Game Icon">
+<img src="docs/icon.webp" height="64" alt="Game Icon">
 
 A digital version of table tennis, powered by [Godot Engine 3.4.2 Mono](https://godotengine.org/).
 
@@ -10,13 +10,13 @@ A digital version of table tennis, powered by [Godot Engine 3.4.2 Mono](https://
 
 | Click the screenshot to download |
 |:---:|
-| [<img height="180" src="docs/screenshot.webp" alt="게임 플레이 스크린샷">](https://github.com/HaneulCheong/godot-pong/releases/latest) |
+| [<img src="docs/screenshot.webp" height="180" alt="게임 플레이 스크린샷">](https://github.com/HaneulCheong/godot-table-tennis/releases/latest) |
 
 ### Controls
 | Controls | Keyboard | Controllers |
 |:---:|:---:|:---:|
 | Move | Player 1: `[W][S]`<br>Player 2: `[I][K]` | Sticks, D-Pad |
-| Select | `[Enter]` | <img src="https://raw.githubusercontent.com/HaneulCheong/HaneulCheong/main/assets/docs/xbox_a.webp" height="16"> <img src="https://raw.githubusercontent.com/HaneulCheong/HaneulCheong/main/assets/docs/playstation_cross.webp" height="16"> |
+| Select | `[Enter]` | <img src="https://raw.githubusercontent.com/HaneulCheong/HaneulCheong/main/assets/docs/xbox_a.webp" height="16" alt="Xbox A Button"> <img src="https://raw.githubusercontent.com/HaneulCheong/HaneulCheong/main/assets/docs/playstation_cross.webp" height="16" alt="PlayStation Cross Button"> |
 | Pause | `[Esc]` | `[Back][Select]` |
 | Full Screen | `[F11]` | `[Start]` |
 
