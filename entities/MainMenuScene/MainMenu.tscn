@@ -25,20 +25,31 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="Title" type="CenterContainer" parent="."]
+[node name="Subtitle" type="CenterContainer" parent="."]
 margin_right = 384.0
-margin_bottom = 64.0
+margin_bottom = 32.0
+
+[node name="Label" type="Label" parent="Subtitle"]
+margin_left = 136.0
+margin_right = 248.0
+margin_bottom = 32.0
+text = "Digital"
+uppercase = true
+
+[node name="Title" type="CenterContainer" parent="."]
+margin_top = 36.0
+margin_right = 384.0
+margin_bottom = 100.0
 
 [node name="Label" type="Label" parent="Title"]
-margin_left = 128.0
-margin_right = 256.0
+margin_right = 384.0
 margin_bottom = 64.0
 custom_fonts/font = ExtResource( 1 )
-text = "Pong"
+text = "Table Tennis"
 uppercase = true
 
 [node name="ButtonContainer" type="VBoxContainer" parent="."]
-margin_top = 68.0
+margin_top = 104.0
 margin_right = 384.0
 margin_bottom = 294.0
 size_flags_horizontal = 3
@@ -47,9 +58,9 @@ alignment = 1
 script = ExtResource( 3 )
 
 [node name="OnePlayerButton" type="Button" parent="ButtonContainer"]
-margin_top = 43.0
+margin_top = 25.0
 margin_right = 384.0
-margin_bottom = 75.0
+margin_bottom = 57.0
 mouse_filter = 2
 button_mask = 0
 text = "1-Player"
@@ -57,9 +68,9 @@ script = ExtResource( 5 )
 Scene = "res://entities/MainScene/Main.tscn"
 
 [node name="TwoPlayerButton" type="Button" parent="ButtonContainer"]
-margin_top = 79.0
+margin_top = 61.0
 margin_right = 384.0
-margin_bottom = 111.0
+margin_bottom = 93.0
 mouse_filter = 2
 button_mask = 0
 text = "2-Player"
@@ -67,9 +78,9 @@ script = ExtResource( 5 )
 Scene = "res://entities/MainScene/Main.tscn"
 
 [node name="SettingsButton" type="Button" parent="ButtonContainer"]
-margin_top = 115.0
+margin_top = 97.0
 margin_right = 384.0
-margin_bottom = 147.0
+margin_bottom = 129.0
 mouse_filter = 2
 button_mask = 0
 text = "Settings"
@@ -77,9 +88,9 @@ script = ExtResource( 5 )
 Scene = "res://entities/SettingsScene/Settings.tscn"
 
 [node name="QuitButton" type="Button" parent="ButtonContainer"]
-margin_top = 151.0
+margin_top = 133.0
 margin_right = 384.0
-margin_bottom = 183.0
+margin_bottom = 165.0
 mouse_filter = 2
 button_mask = 0
 text = "Quit"
