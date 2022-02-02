@@ -4,6 +4,7 @@ using Godot;
 namespace Game.MainScene
 {
     using BallScene;
+    using PaddleScene;
     using UserInterfaceScene;
 
     /// <summary>경기 전체를 관리하는 노드</summary>
@@ -13,8 +14,12 @@ namespace Game.MainScene
         // 속성
         ////////////////////
 
+        /// <summary>인공지능 라켓의 스크립트</summary>
+        [Export]
+        private Script AIPaddleScript { get; set; }
+
         /// <value>경기를 이기기 위해 필요한 점수, 즉 매치 포인트</value>
-        private int MatchPoint { get; set; } = Global.Settings["Match_Point"];
+        public int MatchPoint { get; } = Global.Settings["Match_Point"];
 
         /// <value>점수판 레이어 노드</value>
         private UserInterface ScoreBoardLayer
@@ -26,8 +31,16 @@ namespace Game.MainScene
         // Godot 메서드
         ////////////////////
 
+        /// <summary>게임을 초기화합니다.</summary>
         public override void _Ready()
         {
+            // 싱글플레이어 모드면 2번 플레이어를 AI로 설정
+            if (Global.GameState[GameStateType.GameMode] is GameMode.OnePlayer)
+            {
+                GetNode<Paddle>("PlayerTwo").SetScript(AIPaddleScript);
+                GetNode<Paddle>("PlayerTwo").Notification(NotificationReady);
+            }
+
             GetNode<Timer>("NextGameTimer").Connect(
                 "timeout", this, nameof(OnNextGameTimerTimeout)
             );

@@ -12,15 +12,15 @@ namespace Game.MainScene.PaddleScene
 
         /// <value>속력</value>
         [Export]
-        protected float Speed { get; set; } = Global.Settings["Paddle_Speed"];
+        private float Speed { get; set; } = Global.Settings["Paddle_Speed"];
 
         /// <value>눌렀을 때 위로 올라갈 Input키</value>
         [Export]
-        protected string UpAction { get; set; } = "ui_up";
+        private string UpAction { get; set; } = "ui_up";
 
         /// <value>눌렀을 때 아래로 내려갈 Input키</value>
         [Export]
-        protected string DownAction { get; set; } = "ui_down";
+        private string DownAction { get; set; } = "ui_down";
 
         /// <value>게임 내 픽셀 높이</value>
         public float Height
@@ -46,7 +46,7 @@ namespace Game.MainScene.PaddleScene
         }
 
         /// <value>초기 위치</value>
-        private Vector2 InitialPosition { get; set; }
+        private Vector2 InitialPosition { get; set; } = Vector2.Zero;
 
         ////////////////////
         // Godot 메서드
@@ -56,7 +56,6 @@ namespace Game.MainScene.PaddleScene
         {
             Height = Global.Settings["Paddle_Size"] * 10;
             AddToGroup("MatchPointGroup");
-            // 초기 위치 저장
             InitialPosition = Position;
             Reset();
         }

@@ -34,6 +34,9 @@ namespace Game
         // 속성
         ////////////////////
 
+        /// <summary>현재 게임 상태</summary>
+        public static GameStateDict GameState = new GameStateDict();
+
         /// <value>현재 게임 설정</value>
         public static SettingDict Settings
         {
@@ -89,4 +92,10 @@ namespace Game
             );
         }
     }
+
+    /// <summary>게임 상태의 종류</summary>
+    public enum GameStateType { GameMode }
+
+    /// <summary>게임 모드</summary>
+    public enum GameMode { OnePlayer, TwoPlayer }
 }

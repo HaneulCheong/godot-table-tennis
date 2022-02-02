@@ -80,7 +80,7 @@ namespace Game.MainScene.UserInterfaceScene
         /// <param name="playerOneScore">플레이어 1의 점수</param>
         /// <param name="playerTwoScore">플레이어 2의 점수</param>
         [Signal]
-        private delegate void ScoreChanged(
+        public delegate void ScoreChanged(
             int playerOneScore, int playerTwoScore
         );
 

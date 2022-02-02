@@ -35,12 +35,7 @@ namespace Game.MainScene.BallScene
         private float BounceRatio { get; set; } = 0.7f;
 
         /// <value>상대 속도</value>
-        private Vector2 Velocity { get; set; } = Vector2.Zero;
-
-        /// <value>움직임 여부</value>
-        private bool Moving { get; set; } = true;
-
-        private bool Playing { get; set; } = false;
+        public Vector2 Velocity { get; private set; } = Vector2.Zero;
 
         /// <value>화면 크기</value>
         private Vector2 ScreenSize
@@ -55,6 +50,9 @@ namespace Game.MainScene.BallScene
         public override void _Ready()
         {
             AddToGroup("MatchPointGroup");
+            GetNode<VisibilityNotifier2D>("VisibilityNotifier2D").Connect(
+                "screen_exited", this, nameof(OnScreenExited)
+            );
             GetNode<Timer>("ServeTimer").Connect(
                 "timeout", this, nameof(OnServeTimerTimeout)
             );
@@ -63,39 +61,40 @@ namespace Game.MainScene.BallScene
 
         public override void _PhysicsProcess(float delta)
         {
-            if (Moving)
-            {
-                KinematicCollision2D collision = MoveAndCollide(
-                    Velocity * Speed * delta
-                );
+            KinematicCollision2D collision = MoveAndCollide(
+                Velocity * Speed * delta
+            );
 
-                // 충돌 시 반사각 계산 실행
-                if (collision != null) { Bounce(collision); }
-            }
-
-            if (Playing)
-            {
-                if (Position.x > ScreenSize.x)
-                {
-                    EmitSignal(nameof(Goal), PlayerNumber.One);
-                    Playing = false;
-                }
-                else if (Position.x < 0)
-                {
-                    EmitSignal(nameof(Goal), PlayerNumber.Two);
-                    Playing = false;
-                }
-            }
+            // 충돌 시 반사각 계산 실행
+            if (collision != null) { Bounce(collision); }
         }
 
         ////////////////////
         // Godot 신호 메서드
         ////////////////////
 
+        /// <summary>플레이어 중 하나가
+        /// 득점했을 때 발신하는 신호입니다.</summary>
         [Signal]
         public delegate void Goal(PlayerNumber playerNumber);
 
-        /// ServeTimer 노드의 Timeout 신호로 호출됩니다.
+        /// <summary>화면을 벗어나면 득점 계산을 한 후
+        /// 물리 계산을 중단합니다.</summary>
+        private void OnScreenExited()
+        {
+            if (Position.x > ScreenSize.x / 2)
+            {
+                EmitSignal(nameof(Goal), PlayerNumber.One);
+            }
+            else
+            {
+                EmitSignal(nameof(Goal), PlayerNumber.Two);
+            }
+            SetPhysicsProcess(false);
+        }
+
+        /// <summary>ServeTimer 노드의 Timeout 신호로 호출됩니다.
+        /// 서브 방향을 설정한 뒤 물리 계산을 시작해 경기를 재개합니다.</summary>
         private void OnServeTimerTimeout()
         {
             // 서브 방향 설정
@@ -103,8 +102,7 @@ namespace Game.MainScene.BallScene
             if (RandomTools.Bool()) { Velocity *= -1; }
             Velocity = Velocity.Normalized();
             // 서브, 경기 재개
-            Playing = true;
-            Moving = true;
+            SetPhysicsProcess(true);
         }
 
         ////////////////////
@@ -181,20 +179,18 @@ namespace Game.MainScene.BallScene
         public void MatchPoint() => Hide();
 
         /// <summary>
-        /// * 멈춘 뒤 무작위 서브 위치로 이동합니다.
+        /// * 물리 계산을 중단한 뒤 무작위 서브 위치로 이동합니다.
         /// * 이 노드를 드러냅니다.
         /// * ServeTimer 노드의 타이머를 시작합니다.
         /// </summary>
         public void Reset()
         {
-            // 멈춘 뒤 무작위 서브 위치로 이동
-            Moving = false;
+            SetPhysicsProcess(false);
             Position = new Vector2(
                 ScreenSize.x / 2,
                 RandomTools.Int(80, (int)ScreenSize.y - 80)
             );
             Show();
-            // ServeTimer 노드의 타이머를 시작
             GetNode<Timer>("ServeTimer").Start();
         }
     }
