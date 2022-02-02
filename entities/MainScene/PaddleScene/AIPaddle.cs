@@ -7,6 +7,7 @@ namespace Game.MainScene.PaddleScene
     using BallScene;
     using UserInterfaceScene;
 
+
     /// <summary>AI가 조종하는 라켓</summary>
     public class AIPaddle : Paddle
     {

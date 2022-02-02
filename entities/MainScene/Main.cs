@@ -7,6 +7,7 @@ namespace Game.MainScene
     using PaddleScene;
     using UserInterfaceScene;
 
+
     /// <summary>경기 전체를 관리하는 노드</summary>
     public class Main : Node
     {

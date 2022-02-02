@@ -7,6 +7,7 @@ namespace Game
 {
     using Internal;
 
+
     /// <summary>게임 광역 노드</summary>
     sealed class Global : Node
     {
@@ -45,11 +46,11 @@ namespace Game
             {
                 _settings = value;
                 ChangeVolume(Settings["Volume"]);
-                GD.Print(new string('-', 20));
                 foreach (KeyValuePair<string, int> kvp in _settings)
                 {
                     GD.Print($"{kvp.Key}: {kvp.Value}");
                 }
+                GD.Print();
             }
         }
 
@@ -93,8 +94,10 @@ namespace Game
         }
     }
 
+
     /// <summary>게임 상태의 종류</summary>
     public enum GameStateType { GameMode }
+
 
     /// <summary>게임 모드</summary>
     public enum GameMode { OnePlayer, TwoPlayer }
