@@ -7,6 +7,7 @@ namespace Game.MainScene.BallScene
     using Internal;
     using PaddleScene;
 
+
     /// <summary>공을 구현하는 <c>KinematicBody2D</c> 노드</summary>
     public class Ball : KinematicBody2D, IMatchPointGroup
     {
@@ -98,7 +99,9 @@ namespace Game.MainScene.BallScene
         private void OnServeTimerTimeout()
         {
             // 서브 방향 설정
-            Velocity = Vector2.Right.Rotated(RandomTools.Float(-1, 1));
+            Velocity = Vector2.Right.Rotated(
+                RandomTools.Float(-HALF_PI / 2, HALF_PI / 2)
+            );
             if (RandomTools.Bool()) { Velocity *= -1; }
             Velocity = Velocity.Normalized();
             // 서브, 경기 재개

@@ -22,6 +22,7 @@ stream = ExtResource( 9 )
 volume_db = -6.0
 
 [node name="NextGameTimer" type="Timer" parent="."]
+wait_time = 2.0
 one_shot = true
 
 [node name="Net" type="Sprite" parent="."]
