@@ -1,10 +1,10 @@
-# Pong (Godot Engine)
+# Digital Table Tennis (Godot Engine)
 
 [한국어](README.md) | <b>[English](README.en.md)</b>
 
 <img height="64" src="docs/icon.webp" alt="Game Icon">
 
-A game of [Pong](https://ko.wikipedia.org/wiki/%ED%90%81), powered by [Godot Engine 3.4.2 Mono](https://godotengine.org/).
+A digital version of table tennis, powered by [Godot Engine 3.4.2 Mono](https://godotengine.org/).
 
 ## Play
 
@@ -24,7 +24,7 @@ A game of [Pong](https://ko.wikipedia.org/wiki/%ED%90%81), powered by [Godot Eng
 - The ball's speed increases by:
   - 1% each time it hits the wall, and
   - 5% when it bounces off one of the paddles.
-- Try to hit the ball with the tip of your paddle!
+- Try to hit the ball with the tip of your paddle.
 - The higher your score, the faster the AI opponent gets.
 
 ## Building

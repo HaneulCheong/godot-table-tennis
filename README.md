@@ -1,10 +1,10 @@
-# 퐁 (고도 엔진)
+# 디지털 탁구 (고도 엔진)
 
 <b>[한국어](README.md)</b> | [English](README.en.md)
 
 <img height="64" src="docs/icon.webp" alt="게임 아이콘">
 
-[Godot Engine 3.4.2 Mono](https://godotengine.org/)로 구현한 [퐁](https://ko.wikipedia.org/wiki/%ED%90%81) 게임입니다.
+[Godot Engine 3.4.2 Mono](https://godotengine.org/)로 구현한 디지털 탁구 게임입니다.
 
 ## 게임하기
 
